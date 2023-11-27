@@ -1,0 +1,153 @@
+{
+  "id": "2d9cfc45-b81e-42ef-9227-163c7da10363",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "5",
+  "dialect": "pg",
+  "tables": {
+    "deckcards": {
+      "name": "deckcards",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "front_side": {
+          "name": "front_side",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "back_side": {
+          "name": "back_side",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "understanding_level": {
+          "name": "understanding_level",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "deck_id": {
+          "name": "deck_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "card_owner_user_id": {
+          "name": "card_owner_user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "deckcards_deck_id_decks_id_fk": {
+          "name": "deckcards_deck_id_decks_id_fk",
+          "tableFrom": "deckcards",
+          "tableTo": "decks",
+          "columnsFrom": [
+            "deck_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "deckcards_card_owner_user_id_users_id_fk": {
+          "name": "deckcards_card_owner_user_id_users_id_fk",
+          "tableFrom": "deckcards",
+          "tableTo": "users",
+          "columnsFrom": [
+            "card_owner_user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "decks": {
+      "name": "decks",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "deck_name": {
+          "name": "deck_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "users": {
+      "name": "users",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_name": {
+          "name": "user_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "deck_subscription": {
+          "name": "deck_subscription",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "users_deck_subscription_decks_id_fk": {
+          "name": "users_deck_subscription_decks_id_fk",
+          "tableFrom": "users",
+          "tableTo": "decks",
+          "columnsFrom": [
+            "deck_subscription"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}
