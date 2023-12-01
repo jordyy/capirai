@@ -1,11 +1,11 @@
 {
-  "id": "2d9cfc45-b81e-42ef-9227-163c7da10363",
+  "id": "c759faf7-422f-4468-96fd-fb9d0da9d66a",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
   "tables": {
-    "deckcards": {
-      "name": "deckcards",
+    "cards": {
+      "name": "cards",
       "schema": "",
       "columns": {
         "id": {
@@ -25,13 +25,22 @@
           "type": "text",
           "primaryKey": false,
           "notNull": false
-        },
-        "understanding_level": {
-          "name": "understanding_level",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "deckCards": {
+      "name": "deckCards",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
         },
         "deck_id": {
           "name": "deck_id",
@@ -39,8 +48,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "card_owner_user_id": {
-          "name": "card_owner_user_id",
+        "card_id": {
+          "name": "card_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": false
@@ -48,9 +57,9 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "deckcards_deck_id_decks_id_fk": {
-          "name": "deckcards_deck_id_decks_id_fk",
-          "tableFrom": "deckcards",
+        "deckCards_deck_id_decks_id_fk": {
+          "name": "deckCards_deck_id_decks_id_fk",
+          "tableFrom": "deckCards",
           "tableTo": "decks",
           "columnsFrom": [
             "deck_id"
@@ -61,12 +70,12 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "deckcards_card_owner_user_id_users_id_fk": {
-          "name": "deckcards_card_owner_user_id_users_id_fk",
-          "tableFrom": "deckcards",
-          "tableTo": "users",
+        "deckCards_card_id_cards_id_fk": {
+          "name": "deckCards_card_id_cards_id_fk",
+          "tableFrom": "deckCards",
+          "tableTo": "cards",
           "columnsFrom": [
-            "card_owner_user_id"
+            "card_id"
           ],
           "columnsTo": [
             "id"
@@ -100,6 +109,137 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
+    "userCards": {
+      "name": "userCards",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_ID": {
+          "name": "user_ID",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "understanding": {
+          "name": "understanding",
+          "type": "understanding",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'I have never seen it'"
+        },
+        "card_ID": {
+          "name": "card_ID",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "userCards_user_ID_users_id_fk": {
+          "name": "userCards_user_ID_users_id_fk",
+          "tableFrom": "userCards",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_ID"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "userCards_card_ID_cards_id_fk": {
+          "name": "userCards_card_ID_cards_id_fk",
+          "tableFrom": "userCards",
+          "tableTo": "cards",
+          "columnsFrom": [
+            "card_ID"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "userDeckSubcriptions": {
+      "name": "userDeckSubcriptions",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_ID": {
+          "name": "user_ID",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "deck_ID": {
+          "name": "deck_ID",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "completion_status": {
+          "name": "completion_status",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "subscribed_status": {
+          "name": "subscribed_status",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "userDeckSubcriptions_user_ID_users_id_fk": {
+          "name": "userDeckSubcriptions_user_ID_users_id_fk",
+          "tableFrom": "userDeckSubcriptions",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_ID"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "userDeckSubcriptions_deck_ID_decks_id_fk": {
+          "name": "userDeckSubcriptions_deck_ID_decks_id_fk",
+          "tableFrom": "userDeckSubcriptions",
+          "tableTo": "decks",
+          "columnsFrom": [
+            "deck_ID"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "users": {
       "name": "users",
       "schema": "",
@@ -115,35 +255,33 @@
           "type": "text",
           "primaryKey": false,
           "notNull": false
-        },
-        "deck_subscription": {
-          "name": "deck_subscription",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
         }
       },
       "indexes": {},
-      "foreignKeys": {
-        "users_deck_subscription_decks_id_fk": {
-          "name": "users_deck_subscription_decks_id_fk",
-          "tableFrom": "users",
-          "tableTo": "decks",
-          "columnsFrom": [
-            "deck_subscription"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
+      "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {
+        "users_user_name_unique": {
+          "name": "users_user_name_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "user_name"
+          ]
+        }
+      }
     }
   },
-  "enums": {},
+  "enums": {
+    "understanding": {
+      "name": "understanding",
+      "values": {
+        "I have never seen it": "I have never seen it",
+        "I have seen it, but not sure what it means": "I have seen it, but not sure what it means",
+        "I know what it means": "I know what it means",
+        "I can use it": "I can use it"
+      }
+    }
+  },
   "schemas": {},
   "_meta": {
     "schemas": {},
