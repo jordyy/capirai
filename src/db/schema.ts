@@ -27,8 +27,8 @@ export const cards = pgTable("cards", {
 });
 
 export const cardsRelations = relations(cards, ({ many }) => ({
-  userCards: many(userCards),
-  decks: many(decks),
+  userCards: many(userCards, { relationName: "userCards" }),
+  decks: many(decks, { relationName: "decks" }),
 }));
 
 export const understandingEnum = pgEnum("understanding", [
@@ -63,8 +63,8 @@ export const decks = pgTable("decks", {
 });
 
 export const decksRelations = relations(decks, ({ many }) => ({
-  cards: many(cards),
-  users: many(users),
+  cards: many(cards, { relationName: "cards" }),
+  users: many(users, { relationName: "users" }),
 }));
 
 export const userDeckSubscriptions = pgTable("userDeckSubcriptions", {
