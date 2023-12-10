@@ -1,20 +1,23 @@
 {
+  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx", "app/root.tsx"],
   "compilerOptions": {
-    "target": "es2017",
-    "lib": ["dom", "dom.iterable", "es2022"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "es2022",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "preserve"
-  },
-  "include": ["src", "src/db/index.ts"],
-  "exclude": ["node_modules"]
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "module": "Node16",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "target": "ES2022",
+    "strict": true,
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./app/*"]
+    },
+
+    // Remix takes care of building everything in `remix build`.
+    "noEmit": true
+  }
 }
