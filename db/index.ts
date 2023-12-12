@@ -11,5 +11,5 @@ const client = new Client({
   database: process.env.DB_NAME,
 });
 
-await client.connect();
+// await client.connect();
 export const db = drizzle(client, { schema: schema });
