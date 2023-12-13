@@ -9,9 +9,11 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^0.6.0",
     "@remix-run/express": "^2.3.1",
     "@remix-run/node": "^2.3.1",
     "@remix-run/react": "^2.3.1",
+    "drizzle-orm": "^0.29.1",
     "drizzle-zod": "^0.5.1",
     "express": "^4.18.2",
     "isbot": "^3.6.13",
@@ -29,6 +31,7 @@
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.13.0",
     "@typescript-eslint/parser": "^6.13.0",
+    "drizzle-kit": "^0.20.6",
     "eslint": "^8.47.0",
     "eslint-plugin-react": "^7.33.2",
     "typescript": "^5.1.6"

@@ -1,15 +1,9 @@
-import { Client } from "pg";
-import { migrate } from "drizzle-orm/postgres-js/migrator";
-import postgres from "postgres";
-import { drizzle } from "drizzle-orm/node-postgres";
-import * as schema from "./schema";
+import { neon, neonConfig } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-http";
 
-const client = new Client({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-});
+neonConfig.fetchConnectionCache = true;
 
-// await client.connect();
-export const db = drizzle(client, { schema: schema });
+const sql = neon(process.env.DRIZZLE_DATABASE_URL!);
+const db = drizzle(sql);
+
+// const result = await db.select().from(users);
