@@ -27,6 +27,25 @@ const userSchema = z.object({
   userName: z.string(),
 });
 
+export const action = async ({ params }: ActionFunctionArgs) => {
+  const parsedInput = userSchema.safeParse({
+    email: params.email,
+    id: params.id,
+    userName: params.userName,
+  });
+
+  if (!parsedInput.success) {
+    return json({ error: parsedInput.error }, { status: 400 });
+  }
+  try {
+    await db.delete(users).where(eq(users.id, Number(params.userId)));
+    return redirect(`/users`);
+  } catch (error) {
+    console.log({ user_delete_error: error });
+    return json({ status: "error" });
+  }
+};
+
 export default function DeleteUser() {
   const { user } = useLoaderData<typeof loader>();
 
@@ -49,21 +68,3 @@ export default function DeleteUser() {
     </div>
   );
 }
-
-export const action = async ({ request }: ActionFunctionArgs) => {
-  const formData = await request.formData();
-
-  const parsedId = z.number().safeParse(formData.get("id"));
-  if (!parsedId.success) {
-    return json({ status: "error" });
-  }
-
-  try {
-    const userRecord = await db
-      .delete(users)
-      .where(eq(users.id, parsedId.data));
-    return redirect("/");
-  } catch (error) {
-    return json({ status: "error" });
-  }
-};

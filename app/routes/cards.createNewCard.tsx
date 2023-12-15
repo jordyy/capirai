@@ -3,23 +3,23 @@ import type { ActionFunctionArgs } from "@remix-run/node";
 import { Form, useActionData, useNavigation } from "@remix-run/react";
 import { db } from "db/index";
 import { z } from "zod";
-import { users, userPasswords } from "db/schema";
+import { cards } from "db/schema";
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
-  const userName = formData.get("userName");
-  const email = formData.get("email");
-  const parsedInput = userSchema.safeParse({
-    userName: userName,
-    email: email,
+  const cardFront = formData.get("front");
+  const cardBack = formData.get("back");
+  const parsedInput = cardSchema.safeParse({
+    front: cardFront,
+    back: cardBack,
   });
 
   if (parsedInput.success) {
     const user = await db
-      .insert(users)
+      .insert(cards)
       .values({
-        userName: parsedInput.data.userName,
-        email: parsedInput.data.email,
+        front: parsedInput.data.front,
+        back: parsedInput.data.back,
       })
       .returning();
     return redirect(`/users/${user[0].id}/edit`);
@@ -35,7 +35,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 export default function CreateUserAccount() {
   const data = useActionData<typeof action>();
   const navigation = useNavigation();
-  const isSubmitting = navigation.formAction === "/users/createUserAccount";
+  const isSubmitting = navigation.formAction === "/cards/createNewCard";
 
   const errorMessage = data?.status === "error" ? data.message : null;
 
@@ -43,19 +43,19 @@ export default function CreateUserAccount() {
     <Form method="post">
       {errorMessage ? errorMessage : null}
       <label>
-        username: <input name="userName" />
+        front: <input name="front" />
       </label>
       <label>
-        email: <input name="email" />
+        back: <input name="back" />
       </label>
       <button type="submit">
-        {isSubmitting ? "Creating new account..." : "Create Account"}
+        {isSubmitting ? "Saving new card..." : "Add card"}
       </button>
     </Form>
   );
 }
 
-const userSchema = z.object({
-  userName: z.string(),
-  email: z.string(),
+const cardSchema = z.object({
+  front: z.string(),
+  back: z.string(),
 });
