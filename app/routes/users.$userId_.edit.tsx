@@ -20,13 +20,6 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   const userName = user[0]?.userName;
   const email = user[0]?.email;
 
-  console.log({
-    userName: userName,
-    email: email,
-    user: user,
-    userId: params.userId,
-  });
-
   if (!user) {
     throw new Response("Not Found", { status: 404 });
   }
@@ -60,11 +53,9 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
         email: parsedInput.data.email,
       })
       .where(eq(users.id, Number(params.userId)));
-    return;
-    // redirect(`/users/${users.id}`);
-    // ADD THIS ONCE users.$userId.tsx is built
+    return redirect(`/users/${params.userId}`);
   } catch (error) {
-    console.log(error);
+    console.log({ user_edit_error: error });
     return json({ status: "error" });
   }
 };

@@ -15,17 +15,13 @@ export default function Users() {
   const usersArray = Object.entries(users[0]).map(([key, value]) => {
     return { key, value };
   });
-  {
-    console.log(usersArray[0].value.email);
-    console.log(usersArray.map((user) => user.value));
-  }
 
   return (
     <>
       <h1>this is in the users route</h1>
       <Outlet />
       {usersArray.map((user) => (
-        <div>
+        <div key={user.value.id}>
           {user.value.userName} | {user.value.email}
         </div>
       ))}

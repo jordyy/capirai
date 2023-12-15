@@ -30,10 +30,9 @@ export const action = async ({ request }: ActionFunctionArgs) => {
         email: parsedInput.data.email,
       })
       .returning();
-    console.log(user[0].id);
     return redirect(`/users/${user[0].id}/edit`);
   } else {
-    console.log(parsedInput.error);
+    console.log({ parsed_input_error: parsedInput.error });
     return json({
       status: "error",
       message: parsedInput.error.message,
