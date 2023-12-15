@@ -22,7 +22,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
         back: parsedInput.data.back,
       })
       .returning();
-    return redirect(`/users/${user[0].id}/edit`);
+    return redirect(`/cards`);
   } else {
     console.log({ parsedInputerror: parsedInput.error });
     return json({
