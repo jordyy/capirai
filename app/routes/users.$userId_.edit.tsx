@@ -42,15 +42,16 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
   const formData = await request.formData();
   const userName = formData.get("userName");
   const email = formData.get("email");
+
   const parsedInput = userSchema.safeParse({
     userName: userName,
     email: email,
   });
-  const parsedId = z.number().safeParse(params.id);
 
-  if (!parsedId.success) {
-    return json({ status: "error" });
+  if (!parsedInput.success) {
+    return json({ error: parsedInput.error }, { status: 400 });
   }
+
   try {
     await db
       .update(users)
@@ -59,7 +60,9 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
         email: parsedInput.data.email,
       })
       .where(eq(users.id, Number(params.userId)));
-    return redirect("/");
+    return;
+    // redirect(`/users/${users.id}`);
+    // ADD THIS ONCE users.$userId.tsx is built
   } catch (error) {
     console.log(error);
     return json({ status: "error" });
