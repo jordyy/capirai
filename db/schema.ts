@@ -7,8 +7,10 @@ import {
   integer,
   boolean,
   PgColumn,
+  PgVarchar,
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
+import { varchar } from "drizzle-orm/mysql-core";
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
@@ -16,9 +18,25 @@ export const users = pgTable("users", {
   email: text("email").unique(),
 });
 
-export const usersRelations = relations(users, ({ many }) => ({
+export const userPasswords = pgTable("userPasswords", {
+  userID: integer("user_ID").references(() => users.id),
+  hashedPass: text("password"),
+});
+
+export const userPasswordsRelations = relations(userPasswords, ({ one }) => ({
+  user: one(users, {
+    fields: [userPasswords.userID],
+    references: [users.id],
+  }),
+}));
+
+export const usersRelations = relations(users, ({ many, one }) => ({
   userCards: many(userCards),
   userDeckSubscriptions: many(userDeckSubscriptions),
+  userPassword: one(userPasswords, {
+    fields: [users.id],
+    references: [userPasswords.userID],
+  }),
 }));
 
 export const cards = pgTable("cards", {
@@ -79,9 +97,13 @@ export const userDeckSubscriptions = pgTable("userDeckSubcriptions", {
 export const userDeckSubcriptionsRelations = relations(
   userDeckSubscriptions,
   ({ one }) => ({
-    users: one(users, {
-      fields: [userDeckSubscriptions.id],
+    user: one(users, {
+      fields: [userDeckSubscriptions.userID],
       references: [users.id],
+    }),
+    deck: one(decks, {
+      fields: [userDeckSubscriptions.deckID],
+      references: [decks.id],
     }),
   })
 );

@@ -15,6 +15,13 @@
       "when": 1701459857632,
       "tag": "0001_wooden_fat_cobra",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1702575936789,
+      "tag": "0002_good_famine",
+      "breakpoints": true
     }
   ]
 }

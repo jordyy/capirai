@@ -1,16 +1,34 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, Outlet } from "@remix-run/react";
 import { users } from "db/schema";
 // import { db } from "db";
 import { drizzle } from "~/utils/db.server";
+import CreateUserAccount from "./users.createUserAccount";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const allUsers = await drizzle.select().from(users);
-  return json({ allUsers });
+  return json([allUsers]);
 }
 
 export default function Users() {
-  const data = useLoaderData<typeof loader>();
-  console.log(data);
-  return <div>asdf</div>;
+  const users = useLoaderData<typeof loader>();
+  const usersArray = Object.entries(users[0]).map(([key, value]) => {
+    return { key, value };
+  });
+  {
+    console.log(usersArray[0].value.email);
+    console.log(usersArray.map((user) => user.value));
+  }
+
+  return (
+    <>
+      <h1>this is in the users route</h1>
+      <Outlet />
+      {usersArray.map((user) => (
+        <div>
+          {user.value.userName} | {user.value.email}
+        </div>
+      ))}
+    </>
+  );
 }

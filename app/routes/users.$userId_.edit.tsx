@@ -1,51 +1,100 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import { Form, useLoaderData, useNavigate } from "@remix-run/react";
-import invariant from "tiny-invariant";
-
-export const action = async ({ params, request }: ActionFunctionArgs) => {
-  invariant(params.contactId, "Missing contactId param");
-  const formData = await request.formData();
-  const updates = Object.fromEntries(formData);
-  await updateContact(params.contactId, updates);
-  return redirect(`/contacts/${params.contactId}`);
-};
+import {
+  Form,
+  useLoaderData,
+  useNavigate,
+  useNavigation,
+} from "@remix-run/react";
+import { eq } from "drizzle-orm";
+import { users } from "db/schema";
+import { z } from "zod";
+import { db } from "db/index";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
-  invariant(params.contactId, "Missing contactId param");
-  const contact = await getContact(params.contactId);
-  if (!contact) {
+  const user = await db
+    .select()
+    .from(users)
+    .where(eq(users.id, Number(params.userId)));
+
+  const userName = user[0]?.userName;
+  const email = user[0]?.email;
+
+  console.log({
+    userName: userName,
+    email: email,
+    user: user,
+    userId: params.userId,
+  });
+
+  if (!user) {
     throw new Response("Not Found", { status: 404 });
   }
-  return json({ contact });
-  const navigate = useNavigate();
+  return json({ user, userName, email });
 };
 
-export default function EditContact() {
-  const { contact } = useLoaderData<typeof loader>();
+const userSchema = z.object({
+  userName: z.string(),
+  email: z.string(),
+});
+
+export const action = async ({ params, request }: ActionFunctionArgs) => {
+  const formData = await request.formData();
+  const userName = formData.get("userName");
+  const email = formData.get("email");
+  const parsedInput = userSchema.safeParse({
+    userName: userName,
+    email: email,
+  });
+  const parsedId = z.number().safeParse(params.id);
+
+  if (!parsedId.success) {
+    return json({ status: "error" });
+  }
+  try {
+    await db
+      .update(users)
+      .set({
+        userName: parsedInput.data.userName,
+        email: parsedInput.data.email,
+      })
+      .where(eq(users.id, Number(params.userId)));
+    return redirect("/");
+  } catch (error) {
+    console.log(error);
+    return json({ status: "error" });
+  }
+};
+
+export default function EditUser() {
+  const { userName, email } = useLoaderData<typeof loader>();
+  const navigation = useNavigation();
   const navigate = useNavigate();
+  const isSaving = navigation.formAction === `/users/${users.id}/edit`;
 
   return (
     <Form id="contact-form" method="post">
       <p>
-        <span>Name</span>
+        <span>username</span>
         <input
-          defaultValue={contact.first}
-          aria-label="First name"
-          name="first"
+          defaultValue={`${userName}`}
+          aria-label="userName"
+          name="userName"
           type="text"
-          placeholder="First"
+          placeholder="username"
         />
         <input
-          aria-label="Last name"
-          defaultValue={contact.last}
-          name="last"
-          placeholder="Last"
+          aria-label="email"
+          defaultValue={`${email}`}
+          name="email"
+          placeholder="email"
           type="text"
         />
       </p>
       <p>
-        <button type="submit">Save</button>
+        <button type="submit">
+          {isSaving ? "Saving changes..." : "Save changes"}
+        </button>
         <button onClick={() => navigate(-1)} type="button">
           Cancel
         </button>
