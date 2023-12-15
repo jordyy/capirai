@@ -20,7 +20,6 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     userName: userName,
     email: email,
   });
-  //   const errors = parsedInput.success ? parsedInput.;
 
   if (parsedInput.success) {
     const user = await db
@@ -32,7 +31,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       .returning();
     return redirect(`/users/${user[0].id}/edit`);
   } else {
-    console.log({ parsed_input_error: parsedInput.error });
+    console.log({ parsedInputerror: parsedInput.error });
     return json({
       status: "error",
       message: parsedInput.error.message,

@@ -60,7 +60,7 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
   }
 };
 
-export default function EditUser() {
+export default function EditUser({}) {
   const { userName, email } = useLoaderData<typeof loader>();
   const navigation = useNavigation();
   const navigate = useNavigate();

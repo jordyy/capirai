@@ -6,7 +6,25 @@ import { useLoaderData, Form } from "@remix-run/react";
 import { db } from "db/index";
 import { z } from "zod";
 
-export async function loader({ request }: LoaderFunctionArgs) {}
+export const loader = async ({ params }: LoaderFunctionArgs) => {
+  const user = await db
+    .select()
+    .from(users)
+    .where(eq(users.id, Number(params.userId)));
+
+  const userName = user[0]?.userName;
+  const email = user[0]?.email;
+
+  if (!user) {
+    throw new Response("Not Found", { status: 404 });
+  }
+  return json({ user, userName, email });
+};
+
+const userSchema = z.object({
+  userName: z.string(),
+  email: z.string(),
+});
 
 export default function DeleteUser() {
   // const { users } = useLoaderData<typeof loader>();

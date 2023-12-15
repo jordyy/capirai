@@ -1,62 +1,49 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { eq } from "drizzle-orm";
-import { Form, useFetcher, useLoaderData } from "@remix-run/react";
+import { Form, useLoaderData } from "@remix-run/react";
+import EditUser from "./users.$userId_.edit";
+import DeleteUser from "./users.$userId.destroy";
+import { Link } from "@remix-run/react";
 
 import { db } from "db/index";
 import { users } from "db/schema";
 import { z } from "zod";
 
-export const loader = async ({ params }: ActionFunctionArgs) => {
-  console.log({ user_edit_params: params });
-  return params;
-  // const user = await db
-  //   .select()
-  //   .from(users)
-  //   .where(eq(users.id, (params.userId)));
+export const loader = async ({ params }: LoaderFunctionArgs) => {
+  const user = await db
+    .select()
+    .from(users)
+    .where(eq(users.id, Number(params.userId)));
 
-  //   const userName = user[0]?.userName;
-  //   const email = user[0]?.email;
+  const userName = user[0]?.userName;
+  const email = user[0]?.email;
 
-  //   if (!user) {
-  //     throw new Response("Not Found", { status: 404 });
-  //   }
-  //   return json({ user, userName, email });
-  // };
-
-  // const userSchema = z.object({
-  //   userName: z.string(),
-  //   email: z.string(),
-  // });
+  if (!user) {
+    throw new Response("Not Found", { status: 404 });
+  }
+  return json({ user, userName, email });
 };
 
-export default function Users() {
-  const { thisUser } = useLoaderData<typeof loader>();
-  {
-    console.log({ user_edit_thisUser: thisUser });
-  }
+const userSchema = z.object({
+  email: z.string(),
+  id: z.number(),
+  userName: z.string(),
+});
 
-  // return (
-  //   <div id="user">
-  //     <div>
-  //       {user ? (
-  //         <img
-  //           alt={contact ? `${contact.first} ${contact.last} avatar` : ``}
-  //           key={contact.avatar}
-  //           src={contact.avatar}
-  //         />
-  //       ) : (
-  //         `this contact does not exist`
-  //       )}
-  //     </div>
+export default function Users({}) {
+  const { user } = useLoaderData<typeof loader>();
+  const userData = user[0];
 
-  //          <Form action="edit">
-  //           <button type="submit">Edit</button>
-  //         </Form>
+  console.log({ userData });
 
-  //         <DeleteUser />
-  //       </div>
-  //     </div>
-  //   </div>
-  // )
+  return (
+    <div id="Contact">
+      <h1>Hi, {userData.userName}</h1>
+      <h1>Email: {userData.email}</h1>
+      <Link to={`/users/${userData.id}/edit`}>Edit</Link>
+
+      {/* <Link to=`/users/${userData.id}.destroy`> DeleteUser /> */}
+    </div>
+  );
 }
