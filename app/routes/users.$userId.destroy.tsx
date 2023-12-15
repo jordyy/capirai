@@ -22,12 +22,13 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 };
 
 const userSchema = z.object({
-  userName: z.string(),
   email: z.string(),
+  id: z.number(),
+  userName: z.string(),
 });
 
 export default function DeleteUser() {
-  // const { users } = useLoaderData<typeof loader>();
+  const { user } = useLoaderData<typeof loader>();
 
   return (
     <div>
@@ -52,7 +53,7 @@ export default function DeleteUser() {
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
 
-  const parsedId = z.coerce.number().safeParse(formData.get("id"));
+  const parsedId = z.number().safeParse(formData.get("id"));
   if (!parsedId.success) {
     return json({ status: "error" });
   }
@@ -61,9 +62,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     const userRecord = await db
       .delete(users)
       .where(eq(users.id, parsedId.data));
-    return json({ status: "success" });
+    return redirect("/");
   } catch (error) {
     return json({ status: "error" });
   }
-  return redirect("/");
 };

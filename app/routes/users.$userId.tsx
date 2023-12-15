@@ -35,15 +35,12 @@ export default function Users({}) {
   const { user } = useLoaderData<typeof loader>();
   const userData = user[0];
 
-  console.log({ userData });
-
   return (
     <div id="Contact">
       <h1>Hi, {userData.userName}</h1>
       <h1>Email: {userData.email}</h1>
       <Link to={`/users/${userData.id}/edit`}>Edit</Link>
-
-      {/* <Link to=`/users/${userData.id}.destroy`> DeleteUser /> */}
+      <Link to={`/users/${userData.id}/destroy`}>Delete</Link>
     </div>
   );
 }
