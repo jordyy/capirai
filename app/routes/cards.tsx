@@ -16,7 +16,7 @@ export default function Cards() {
 
   return (
     <>
-      <h1>this is in the cards route</h1>
+      <h1>Cards</h1>
       <Outlet />
       {cardsArray.map((card) => (
         <div key={card.value.id}>

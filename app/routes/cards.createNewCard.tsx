@@ -22,7 +22,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
         back: parsedInput.data.back,
       })
       .returning();
-    return redirect(`/cards`);
+    return redirect(`/cards/createNewCard`);
   } else {
     console.log({ parsedInputerror: parsedInput.error });
     return json({

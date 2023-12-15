@@ -1,5 +1,5 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { eq } from "drizzle-orm";
 import { Form, useLoaderData } from "@remix-run/react";
 import EditUser from "./users.$userId_.edit";
@@ -25,11 +25,22 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   return json({ user, userName, email });
 };
 
-const userSchema = z.object({
-  email: z.string(),
-  id: z.number(),
-  userName: z.string(),
-});
+const userIdSchema = z.string();
+
+export const action = async ({ params }: ActionFunctionArgs) => {
+  const parsedParams = userIdSchema.safeParse(params.userId);
+
+  if (!parsedParams.success) {
+    return json({ error: parsedParams.error }, { status: 400 });
+  }
+  try {
+    await db.delete(users).where(eq(users.id, Number(parsedParams.data)));
+    return redirect(`/users`);
+  } catch (error) {
+    console.log({ user_delete_error: error });
+    return json({ status: "error" });
+  }
+};
 
 export default function Users({}) {
   const { user } = useLoaderData<typeof loader>();
@@ -40,7 +51,19 @@ export default function Users({}) {
       <h1>Hi, {userData.userName}</h1>
       <h1>Email: {userData.email}</h1>
       <Link to={`/users/${userData.id}/edit`}>Edit</Link>
-      <Link to={`/users/${userData.id}/destroy`}>Delete</Link>
+      <Form
+        method="post"
+        onSubmit={(event) => {
+          const response = confirm(
+            "Please confirm you want to delete this record."
+          );
+          if (!response) {
+            event.preventDefault();
+          }
+        }}
+      >
+        <button type="submit">Delete</button>
+      </Form>
     </div>
   );
 }
