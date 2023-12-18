@@ -23,7 +23,11 @@ export default function Cards() {
         <div className="card-container" key={card.value.id}>
           {card.value.front} ||| {card.value.back}
           <div className="button-container">
-            <Link className="button" to={`/cards/${card.value.id}/edit`}>
+            <Link
+              className="button"
+              to={`/cards/${card.value.id}/edit`}
+              reloadDocument
+            >
               Edit
             </Link>
             <Form
