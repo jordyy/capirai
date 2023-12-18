@@ -27,31 +27,57 @@ body {
   line-height: 1.5;
   color: #121212;
 }
+
+.card-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 1%;
+  margin-left: 25%;
+  margin-right: 25%;
+  align-content: baseline;
+  padding: 0.15%;
+  column-gap: 50px;
+}
+.button-container {
+  display: flex;
+  flex-direction: row;
+  align-content: baseline;
+  padding: 0.15%;
+  column-gap: 10%;
+}
+
 textarea,
 input,
-button {
+button,
+.button {
   font-size: 1rem;
   font-family: inherit;
   border: none;
+  text-decoration: none;
   border-radius: 8px;
-  padding: 0.5rem 0.75rem;
+  padding: 0.25rem 0.5rem;
   box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.2), 0 1px 2px hsla(0, 0%, 0%, 0.2);
   background-color: white;
   line-height: 1.5;
   margin: 0;
 }
-button {
+button,
+.button {
   color: #3992ff;
   font-weight: 500;
 }
 
 textarea:hover,
 input:hover,
-button:hover {
+button:hover,
+.button:hover {
+  text-decoration: none;
   box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.6), 0 1px 2px hsla(0, 0%, 0%, 0.2);
 }
 
-button:active {
+button:active,
+.button:hover {
   box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.4);
   transform: translateY(1px);
 }
