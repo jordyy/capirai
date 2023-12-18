@@ -2,8 +2,6 @@ import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { eq } from "drizzle-orm";
 import { Form, useLoaderData } from "@remix-run/react";
-import EditUser from "./users.$userId_.edit";
-import DeleteUser from "./users.$userId.destroy";
 import { Link } from "@remix-run/react";
 
 import { db } from "db/index";
