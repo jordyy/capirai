@@ -1,21 +1,19 @@
-import { json, redirect } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { Form, useActionData, useNavigation } from "@remix-run/react";
 import { db } from "db/index";
+import { eq, sql } from "drizzle-orm";
 import { z } from "zod";
 import { users, userPasswords } from "db/schema";
-import { authCookie } from "~/auth";
 
 type ErrorRecord = {
   email?: string;
   password?: string;
-  userName?: string;
 };
 
 export async function action({ request }: ActionFunctionArgs) {
   // get all the formData and assign their values to variables
   const formData = await request.formData();
-  const userName = formData.get("userName") as string;
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
@@ -32,56 +30,72 @@ export async function action({ request }: ActionFunctionArgs) {
   } else if (password.length < 8) {
     errors.password = "Password must be at least 8 characters";
   }
-  if (typeof userName !== "string" || !userName) {
-    errors.userName = "You must create a username";
-  }
+
   if (Object.keys(errors).length) {
     return json({ status: "error", errors });
   }
 
-  if (typeof userName !== "string" || typeof email !== "string") {
-    return json({ status: "error", message: "Invalid input types" });
-  }
-
-  // parse userName formData to ensure type safety
-  const parsedInput = userSchema.safeParse({ userName, email });
+  // parse login formData to ensure type safety
+  const userInputSchema = z.object({
+    email: z.string(),
+});
+  const parsedInput = userInputSchema.safeParse({ email });
   if (!parsedInput.success) {
     return json({
       status: "error",
       error: parsedInput.error,
       message: parsedInput.error.message,
     });
-  }
-  const newUser = await db
-    .insert(users)
-    .values({
-      userName: parsedInput.data.userName,
-      email: parsedInput.data.email,
-    })
-    .returning({ id: users.id });
+  } 
 
-  if (newUser && newUser[0].id) {
-    const bcrypt = require("bcrypt");
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+//get user data from db
+  const user = await db
+  .select()
+  .from(users)
+  .where(
+    sql`${users.email} = ${parsedInput.data.email}`
+  )
+  .execute();
 
-    // add hashedPass to db
-    const newUserPass = await db
-      .insert(userPasswords)
-      .values({ userID: newUser[0].id, hashedPass: hashedPassword });
-    return redirect("/", {
-      headers: {
-        "Set-Cookie": await authCookie.serialize(newUser[0].id),
-      },
+  if(!user || user.length === 0) {
+    return json({
+        status: "error",
+        message: "User not found",
     });
-  }
 }
 
-export default function SignupForm() {
+const userData = user[0];
+
+//get hashed password from db where password table userId = user.id
+  const userHashedPassRecord = await db 
+    .select().from(userPasswords).where(sql`${userPasswords.userID} = ${userData.id}`).execute();
+    
+      if (!userHashedPassRecord || userHashedPassRecord.length === 0) {
+        return json({
+          status: "error",
+          message: "User not found",
+        });
+    }
+
+    const userHashedPass = userHashedPassRecord.hashedPass;
+    const bcrypt = require("bcrypt");
+    const isPasswordCorrect = await bcrypt.compare(password, userHashedPass)
+
+    if (!isPasswordCorrect) {
+      return json({
+        status: "error",
+        message: "Incorrect password",
+      });
+    }
+
+    return json({
+        status: "success",
+        userID: userData.id,
+    })
+
+export default function LoginForm() {
   const actionData = useActionData<typeof action>();
   const navigation = useNavigation();
-  const isSubmitting = navigation.formAction === "/users/createUserAccount";
-  const userNameError = actionData?.errors?.userName;
   const emailError = actionData?.errors?.email;
   const passwordError = actionData?.errors?.password;
 
@@ -92,14 +106,6 @@ export default function SignupForm() {
     <>
       <Form method="post">
         {errorMessage ? errorMessage : null}
-        <label>
-          username: <input name="userName" type="text" id="userName" required />
-          {userNameError && (
-            <span role="alert" className="error">
-              {userNameError}
-            </span>
-          )}
-        </label>
         <label>
           email:{" "}
           <input
@@ -124,15 +130,8 @@ export default function SignupForm() {
             </span>
           )}
         </label>
-        <button type="submit">
-          {isSubmitting ? "Creating new account..." : "Create Account"}
-        </button>
+        <button type="submit">{"login"}</button>
       </Form>
     </>
   );
 }
-
-const userSchema = z.object({
-  userName: z.string(),
-  email: z.string(),
-});
