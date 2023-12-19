@@ -15,7 +15,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   });
 
   if (parsedInput.success) {
-    const user = await db
+    const card = await db
       .insert(cards)
       .values({
         front: parsedInput.data.front,
@@ -32,7 +32,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   }
 };
 
-export default function CreateUserAccount() {
+export default function CreateNewCard() {
   const data = useActionData<typeof action>();
   const navigation = useNavigation();
   const isSubmitting = navigation.formAction === "/cards/createNewCard";

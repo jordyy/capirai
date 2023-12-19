@@ -17,7 +17,7 @@ export default function Cards() {
 
   return (
     <>
-      <h1>Cards</h1>
+      <h1>All Cards</h1>
       <Outlet />
       {cardsArray.map((card) => (
         <div className="card-container" key={card.value.id}>

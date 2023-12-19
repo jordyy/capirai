@@ -69,7 +69,7 @@ export default function EditUser({}) {
   return (
     <Form id="contact-form" method="post">
       <p>
-        <span>Card</span>
+        <div className="edit-card-input-label">Front:</div>
         <input
           defaultValue={`${front}`}
           aria-label="front"
@@ -77,6 +77,7 @@ export default function EditUser({}) {
           type="text"
           placeholder="front"
         />
+        <div className="edit-card-input-label">Back:</div>
         <input
           aria-label="back"
           defaultValue={`${back}`}

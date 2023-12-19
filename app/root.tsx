@@ -24,13 +24,18 @@ import { z } from "zod";
 import { users } from "db/schema";
 
 import appStylesHref from "./app.css";
+import SignupForm from "./routes/signup/route";
 
 function newUser() {
   return (
-    <Form action="/users" method="post">
-      <input name="userName" type="text" />
-      <input name="email" type="email" />
-    </Form>
+    <>
+      <Form action="/users" method="post">
+        <input name="userName" type="text" />
+        <input name="email" type="email" />
+      </Form>
+
+      <SignupForm />
+    </>
   );
 }
 

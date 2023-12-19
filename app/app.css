@@ -47,6 +47,10 @@ body {
   column-gap: 10%;
 }
 
+.edit-card-input-label {
+  margin-right: 2%;
+}
+
 textarea,
 input,
 button,

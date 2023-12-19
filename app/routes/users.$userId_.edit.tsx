@@ -33,6 +33,7 @@ const userSchema = z.object({
 
 export const action = async ({ params, request }: ActionFunctionArgs) => {
   const formData = await request.formData();
+
   const userName = formData.get("userName");
   const email = formData.get("email");
 
