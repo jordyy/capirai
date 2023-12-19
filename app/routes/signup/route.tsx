@@ -4,6 +4,7 @@ import { Form, useActionData, useNavigation } from "@remix-run/react";
 import { db } from "db/index";
 import { z } from "zod";
 import { users, userPasswords } from "db/schema";
+import { authCookie, createAccount } from "~/auth";
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   // get all the formData and assign their values to variables
@@ -53,13 +54,18 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     const bcrypt = require("bcrypt");
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const newUserCookie = await createAccount(userName, email, hashedPassword);
 
     // add hashedPass to db
     const newUserPass = await db
       .insert(userPasswords)
       .values({ userID: newUser[0].id, hashedPass: hashedPassword });
+    return redirect("/", {
+      headers: {
+        "Set-Cookie": await authCookie.serialize(newUserCookie.id),
+      },
+    });
   }
-  return redirect(`/users/${newUser[0].id}/edit`);
 };
 
 export default function SignupForm() {

@@ -26,24 +26,6 @@ import { users } from "db/schema";
 import appStylesHref from "./app.css";
 import SignupForm from "./routes/signup/route";
 
-function newUser() {
-  return (
-    <>
-      <Form action="/users" method="post">
-        <input name="userName" type="text" />
-        <input name="email" type="email" />
-      </Form>
-
-      <SignupForm />
-    </>
-  );
-}
-
-const userSchema = z.object({
-  userName: z.string(),
-  email: z.string(),
-});
-
 // export const loader = async ({ request }: LoaderFunctionArgs) => {
 //   const url = new URL(request.url);
 //   const q = url.searchParams.get("q");
