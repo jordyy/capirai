@@ -6,31 +6,41 @@ import { z } from "zod";
 import { users, userPasswords } from "db/schema";
 import { authCookie, createAccount } from "~/auth";
 
-export const action = async ({ request }: ActionFunctionArgs) => {
+type ErrorRecord = {
+  email?: string;
+  password?: string;
+  userName?: string;
+};
+
+export const action: LoaderFunction = async ({ request }) => {
   // get all the formData and assign their values to variables
   const formData = await request.formData();
   const userName = formData.get("userName") as string;
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
-  const errors: { [key: string]: string } = {};
+  const errors: ErrorRecord = {};
 
   // form validation
-  if (!email) {
+  if (typeof email !== "string" || !email) {
     errors.email = "Email is required";
   } else if (!email.includes("@")) {
     errors.email = "Please enter a valid email address";
   }
-  if (!password) {
+  if (typeof password !== "string" || !password) {
     errors.password = "Password is required";
   } else if (password.length < 8) {
     errors.password = "Password must be at least 8 characters";
   }
-  if (!userName) {
+  if (typeof userName !== "string" || !userName) {
     errors.userName = "You must create a username";
   }
   if (Object.keys(errors).length) {
     return json({ status: "error", errors });
+  }
+
+  if (typeof userName !== "string" || typeof email !== "string") {
+    return json({ status: "error", message: "Invalid input types" });
   }
 
   // parse userName formData to ensure type safety
@@ -54,7 +64,6 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     const bcrypt = require("bcrypt");
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
-    const newUserCookie = await createAccount(userName, email, hashedPassword);
 
     // add hashedPass to db
     const newUserPass = await db
@@ -62,7 +71,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       .values({ userID: newUser[0].id, hashedPass: hashedPassword });
     return redirect("/", {
       headers: {
-        "Set-Cookie": await authCookie.serialize(newUserCookie.id),
+        "Set-Cookie": await authCookie.serialize(newUser[0].id),
       },
     });
   }
