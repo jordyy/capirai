@@ -16,8 +16,8 @@ type ErrorRecord = {
 export async function action({ request }: ActionFunctionArgs) {
   // get all the formData and assign their values to variables
   const formData = await request.formData();
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
+  const email = String(formData.get("email"));
+  const password = String(formData.get("password"));
 
   const errors: ErrorRecord = {};
 
@@ -90,16 +90,15 @@ export async function action({ request }: ActionFunctionArgs) {
   const isCorrectPassword = await bcrypt.compare(password, userHashedPass);
 
   if (!isCorrectPassword) {
-    return redirect("/", {
-      headers: {
-        "Set-Cookie": await authCookie.serialize(userData.id),
-      },
+    return json({
+      status: "error",
+      message: "Incorrect password",
     });
   }
-
-  return json({
-    status: "success",
-    userID: userData.id,
+  return redirect("/", {
+    headers: {
+      "Set-Cookie": await authCookie.serialize(userData.id),
+    },
   });
 }
 

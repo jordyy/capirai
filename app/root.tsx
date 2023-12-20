@@ -89,3 +89,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     return json({ status: "error" });
   }
 };
+
+const userSchema = z.object({
+  userName: z.string(),
+  email: z.string(),
+});
