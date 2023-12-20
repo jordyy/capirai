@@ -50,17 +50,18 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      {userID ? (
-        <form method="post" action="/logout">
-          <div>
-            {" "}
-            you are logged in, <button>Logout</button>{" "}
-          </div>{" "}
-        </form>
-      ) : (
-        <Link to="/signup"></Link>
-      )}
       <body>
+        {userID ? (
+          <form method="post" action="/logout">
+            <div>
+              {" "}
+              you are logged in, <button>Logout</button>{" "}
+            </div>{" "}
+          </form>
+        ) : (
+          <Link to="/signup"></Link>
+        )}
+
         <div id="detail">
           <Outlet />
         </div>

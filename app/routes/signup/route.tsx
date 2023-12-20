@@ -39,10 +39,6 @@ export async function action({ request }: ActionFunctionArgs) {
     return json({ status: "error", errors });
   }
 
-  if (typeof userName !== "string" || typeof email !== "string") {
-    return json({ status: "error", message: "Invalid input types" });
-  }
-
   // parse userName formData to ensure type safety
   const parsedInput = userSchema.safeParse({ userName, email });
   if (!parsedInput.success) {
@@ -84,6 +80,10 @@ export default function SignupForm() {
   const userNameError = actionData?.errors?.userName;
   const emailError = actionData?.errors?.email;
   const passwordError = actionData?.errors?.password;
+
+  {
+    console.log({ "action data": actionData });
+  }
 
   const errorMessage =
     actionData?.status === "error" ? actionData.message : null;
