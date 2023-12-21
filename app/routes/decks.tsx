@@ -19,9 +19,8 @@ export default function Decks() {
     <>
       <h1>All Decks</h1>
       <Outlet />
-      {/* {console.log(decksArray)} */}
       {decksArray.map((deck) => (
-        <div className="deck-container" key={deck.value.id}>
+        <div className="card-container" key={deck.value.id}>
           {deck.value.name}
           <div className="button-container">
             <Link

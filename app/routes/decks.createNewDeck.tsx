@@ -17,11 +17,6 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     name: deckName,
   });
 
-  {
-    console.log({ parsedInput: parsedInput.data.name });
-    console.log("big test stuff");
-  }
-
   if (!parsedInput.success) {
     return json({ error: parsedInput.error }, { status: 400 });
   }

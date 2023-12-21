@@ -67,7 +67,7 @@ export default function EditUser({}) {
   const isSaving = navigation.formAction === `/cards/${cards.id}/edit`;
 
   return (
-    <Form id="contact-form" method="post">
+    <Form method="post">
       <p>
         <div className="edit-card-input-label">Front:</div>
         <input
@@ -77,7 +77,7 @@ export default function EditUser({}) {
           type="text"
           placeholder="front"
         />
-        <div className="edit-card-input-label">Back:</div>
+        <div>Back:</div>
         <input
           aria-label="back"
           defaultValue={`${back}`}
