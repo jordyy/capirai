@@ -1,16 +1,38 @@
-import { LoaderFunctionArgs, json } from "@remix-run/node";
+import {
+  LoaderFunctionArgs,
+  ActionFunctionArgs,
+  redirect,
+  json,
+} from "@remix-run/node";
 import { useLoaderData, Outlet, Form } from "@remix-run/react";
 import { cards } from "db/schema";
 import { drizzle } from "~/utils/db.server";
 import { Link } from "@remix-run/react";
+import { z } from "zod";
+import { db } from "db/index";
+import { useFetcher } from "@remix-run/react";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const allCards = await drizzle.select().from(cards);
   return json([allCards]);
 }
 
+export const action = async ({ params }: ActionFunctionArgs) => {
+  const cardId = z.coerce.number().parse(params.cardId);
+  console.log({ cardz_delete_error: params.error });
+
+  try {
+    await db.delete(cards).where(eq(cards.id, cardId));
+    return redirect(`/cards`);
+  } catch (error) {
+    return json({ status: "error" });
+  }
+};
+
 export default function Cards() {
   const cards = useLoaderData<typeof loader>();
+  const fetcher = useFetcher();
+
   const cardsArray = Object.entries(cards[0]).map(([key, value]) => {
     return { key, value };
   });
@@ -30,8 +52,9 @@ export default function Cards() {
             >
               Edit
             </Link>
-            <Form
+            <fetcher.Form
               method="post"
+              action={`/cards/${card.value.id}/delete`}
               onSubmit={(event) => {
                 const response = confirm(
                   "Please confirm you want to delete this record."
@@ -42,7 +65,7 @@ export default function Cards() {
               }}
             >
               <button type="submit">Delete</button>
-            </Form>
+            </fetcher.Form>
           </div>
         </div>
       ))}
