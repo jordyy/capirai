@@ -5,11 +5,12 @@ import {
   json,
 } from "@remix-run/node";
 import { useLoaderData, Outlet, Form } from "@remix-run/react";
-import { cards } from "db/schema";
-import { drizzle } from "~/utils/db.server";
+import { cards } from "../../db/schema";
+import { drizzle } from "../utils/db.server";
 import { Link } from "@remix-run/react";
 import { z } from "zod";
-import { db } from "db/index";
+import React from "react";
+import { db } from "../../db/index";
 import { useFetcher } from "@remix-run/react";
 
 export async function loader({ request }: LoaderFunctionArgs) {

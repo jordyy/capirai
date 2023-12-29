@@ -1,9 +1,10 @@
 import { json, redirect } from "@remix-run/node";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { Form, useActionData, useNavigation } from "@remix-run/react";
-import { db } from "db/index";
+import { db } from "../../db/index";
+import React from "react";
 import { z } from "zod";
-import { decks } from "db/schema";
+import { decks } from "../../db/schema";
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();

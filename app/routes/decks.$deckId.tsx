@@ -3,9 +3,10 @@ import { json, redirect } from "@remix-run/node";
 import { eq } from "drizzle-orm";
 import { Form, useLoaderData } from "@remix-run/react";
 import { Link } from "@remix-run/react";
+import React from "react";
 
-import { db } from "db/index";
-import { decks } from "db/schema";
+import { db } from "../../db/index";
+import { decks } from "../../db/schema";
 import { z } from "zod";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {

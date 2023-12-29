@@ -1,7 +1,8 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
 import { useLoaderData, Outlet } from "@remix-run/react";
-import { users } from "db/schema";
-import { drizzle } from "~/utils/db.server";
+import React from "react";
+import { users } from "../../db/schema";
+import { drizzle } from "../utils/db.server";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const allUsers = await drizzle.select().from(users);

@@ -22,6 +22,20 @@
       "when": 1702575936789,
       "tag": "0002_good_famine",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1703861350014,
+      "tag": "0003_chubby_cloak",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1703869872380,
+      "tag": "0004_robust_black_tarantula",
+      "breakpoints": true
     }
   ]
 }

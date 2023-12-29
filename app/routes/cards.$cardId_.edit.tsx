@@ -7,9 +7,10 @@ import {
   useNavigation,
 } from "@remix-run/react";
 import { eq } from "drizzle-orm";
-import { cards } from "db/schema";
+import { cards } from "../../db/schema";
 import { z } from "zod";
-import { db } from "db/index";
+import React from "react";
+import { db } from "../../db/index";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const card = await db

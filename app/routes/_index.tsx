@@ -5,7 +5,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   let cookieString = request.headers.get("Cookie");
   let userId = await authCookie.parse(cookieString);
   if (userId) {
-    throw redirect("/decks");
+    throw redirect("/home");
   }
   return null;
 }

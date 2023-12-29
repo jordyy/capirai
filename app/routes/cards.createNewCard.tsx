@@ -1,28 +1,49 @@
 import { json, redirect } from "@remix-run/node";
-import type { ActionFunctionArgs } from "@remix-run/node";
-import { Form, useActionData, useNavigation } from "@remix-run/react";
-import { db } from "db/index";
+import type { LoaderFunctionArgs, ActionFunctionArgs } from "@remix-run/node";
+import React from "react";
+import {
+  Form,
+  useActionData,
+  useNavigation,
+  useLoaderData,
+} from "@remix-run/react";
+import { eq } from "drizzle-orm";
+import { db } from "../../db/index";
+import { drizzle } from "../utils/db.server";
 import { z } from "zod";
-import { cards } from "db/schema";
+import { deckCards, decks } from "../../db/schema";
+import { cards } from "../../db/schema";
+
+export async function loader({ request }: LoaderFunctionArgs) {
+  const allDecks = await drizzle.select().from(decks);
+  return json(allDecks);
+}
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
+  const cardDeck = formData.get("deck");
   const cardFront = formData.get("front");
   const cardBack = formData.get("back");
   const parsedInput = cardSchema.safeParse({
+    deckId: Number(cardDeck),
     front: cardFront,
     back: cardBack,
   });
 
   if (parsedInput.success) {
-    const card = await db
+    const [card] = await db
       .insert(cards)
       .values({
         front: parsedInput.data.front,
         back: parsedInput.data.back,
       })
       .returning();
-    return redirect(`/cards/createNewCard`);
+
+    await db
+      .insert(deckCards)
+      .values({ deckID: parsedInput.data.deckId, cardID: card.id });
+
+    return null;
   } else {
     console.log({ parsedInputerror: parsedInput.error });
     return json({
@@ -34,9 +55,9 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
 export default function CreateNewCard() {
   const data = useActionData<typeof action>();
+  const decks = useLoaderData<typeof loader>();
   const navigation = useNavigation();
   const isSubmitting = navigation.formAction === "/cards/createNewCard";
-
   const errorMessage = data?.status === "error" ? data.message : null;
 
   return (
@@ -48,6 +69,17 @@ export default function CreateNewCard() {
       <label>
         back: <input name="back" />
       </label>
+      <label>deck:</label>
+
+      <select name="deck">
+        <option value="">--Assign a deck--</option>
+        {decks.map((deck) => (
+          <option value={deck.id} key={deck.id}>
+            {deck.name}
+          </option>
+        ))}
+      </select>
+
       <button type="submit">
         {isSubmitting ? "Saving new card..." : "Add card"}
       </button>
@@ -56,6 +88,7 @@ export default function CreateNewCard() {
 }
 
 const cardSchema = z.object({
+  deckId: z.number(),
   front: z.string(),
   back: z.string(),
 });

@@ -6,10 +6,11 @@ import {
   useNavigate,
   useNavigation,
 } from "@remix-run/react";
+import React from "react";
 import { eq } from "drizzle-orm";
-import { decks } from "db/schema";
+import { decks } from "../../db/schema";
 import { z } from "zod";
-import { db } from "db/index";
+import { db } from "../../db/index";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const deck = await db

@@ -110,8 +110,12 @@ export const userDeckSubcriptionsRelations = relations(
 
 export const deckCards = pgTable("deckCards", {
   id: serial("id").primaryKey(),
-  deckID: integer("deck_id").references(() => decks.id),
-  cardID: integer("card_id").references(() => cards.id),
+  deckID: integer("deck_id")
+    .references(() => decks.id)
+    .notNull(),
+  cardID: integer("card_id")
+    .references(() => cards.id)
+    .notNull(),
 });
 
 export const deckCardsRelations = relations(deckCards, ({ many }) => ({

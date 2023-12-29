@@ -5,11 +5,12 @@ import {
   redirect,
 } from "@remix-run/node";
 import { useLoaderData, Outlet, Form } from "@remix-run/react";
-import { decks } from "db/schema";
-import { db } from "db/index";
+import { decks } from "../../db/schema";
+import { db } from "../../db/index";
 import { z } from "zod";
+import React from "react";
 import { eq } from "drizzle-orm";
-import { drizzle } from "~/utils/db.server";
+import { drizzle } from "../utils/db.server";
 import { Link } from "@remix-run/react";
 import { useFetcher } from "@remix-run/react";
 
