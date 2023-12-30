@@ -1,16 +1,12 @@
 import {
-  bigint,
   pgTable,
   pgEnum,
   serial,
   text,
   integer,
   boolean,
-  PgColumn,
-  PgVarchar,
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
-import { varchar } from "drizzle-orm/mysql-core";
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),

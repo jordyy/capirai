@@ -1,6 +1,8 @@
 import { createCookie } from "@remix-run/node";
 import { randomBytes } from "crypto";
+import { get } from "http";
 import { redirect } from "react-router";
+import { z } from "zod";
 
 let secret = process.env.COOKIE_SECRET || "default";
 if (secret === "default") {
@@ -17,8 +19,13 @@ export const authCookie = createCookie("auth", {
   maxAge: 60 * 60 * 24 * 30, //30 days
 });
 
-export async function requireAuthCookie(request: Request) {
+export async function getAuthCookie(request: Request) {
   const userId = await authCookie.parse(request.headers.get("Cookie"));
+  return z.number().optional().parse(userId);
+}
+
+export async function requireAuthCookie(request: Request) {
+  const userId = await getAuthCookie(request);
 
   if (!userId) {
     throw redirect("/login", {
