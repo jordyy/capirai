@@ -18,17 +18,23 @@ import { getAuthCookie, requireAuthCookie } from "../auth";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const userId = await getAuthCookie(request);
-  const allDecks = await drizzle.select().from(decks);
+  const myDecks = await drizzle
+    .select()
+    .from(decks)
+    .innerJoin(
+      userDeckSubscriptions,
+      eq(decks.id, userDeckSubscriptions.deckID)
+    );
 
   if (!userId) {
-    return json({ allDecks, userSubscriptions: null, isAuth: false } as const);
+    return json({ myDecks, userSubscriptions: null, isAuth: false } as const);
   }
 
   const userSubscriptions = await drizzle
     .select()
     .from(userDeckSubscriptions)
     .where(eq(userDeckSubscriptions.userID, userId));
-  return json({ allDecks, isAuth: true, userSubscriptions } as const);
+  return json({ myDecks, isAuth: true, userSubscriptions } as const);
 }
 
 export const action = async ({ request, params }: ActionFunctionArgs) => {
@@ -77,20 +83,14 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
 };
 
 export default function Decks() {
-  const { allDecks, userSubscriptions, isAuth } =
-    useLoaderData<typeof loader>();
+  const { myDecks, userSubscriptions, isAuth } = useLoaderData<typeof loader>();
   const subscribe = useActionData<typeof loader>();
   const fetcher = useFetcher();
 
   return (
     <div id="all-decks">
-      {isAuth ? (
-        <fetcher.Form method="post" action={`/users/$userId/myDecks`}>
-          <button type="submit">My Decks</button>
-        </fetcher.Form>
-      ) : null}
       <Outlet />
-      {allDecks.map((deck) => {
+      {myDecks.map((deck) => {
         const isSubscribed =
           Number(fetcher.formData?.get("deckId")) === deck.id
             ? Boolean(fetcher.formData?.get("subscribe"))
