@@ -19,10 +19,10 @@ import {
   useNavigation,
   useSubmit,
 } from "@remix-run/react";
-import { useEffect } from "react";
-import { db } from "db/index";
+import React from "react";
+import { db } from "../db/index";
 import { z } from "zod";
-import { users } from "db/schema";
+import { users } from "../db/schema";
 
 import appStylesHref from "./app.css";
 import SignupForm from "./routes/signup/route";
@@ -55,7 +55,7 @@ export default function App() {
           <form method="post" action="/logout">
             <div>
               {" "}
-              you are logged in, <button>Logout</button>{" "}
+              <button>Logout</button>{" "}
             </div>{" "}
           </form>
         ) : (

@@ -4,88 +4,99 @@ import {
   redirect,
   json,
 } from "@remix-run/node";
-import { useActionData, useLoaderData } from "@remix-run/react";
-import { decks } from "db/schema";
-import { db } from "db/index";
+import { useLoaderData } from "@remix-run/react";
+import { decks } from "../../../db/schema";
+import { db } from "../../../db/index";
+import React from "react";
 import { z } from "zod";
-import { eq } from "drizzle-orm";
-import { userDeckSubcriptions } from "drizzle/schema";
-import { requireAuthCookie } from "~/auth";
-import CreateNewDeck from "../decks.createNewDeck";
+import { eq, and } from "drizzle-orm";
+import { drizzle } from "../../utils/db.server";
+import { userDeckSubscriptions } from "../../../db/schema";
+import { getAuthCookie, requireAuthCookie } from "../../auth";
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const userId = await requireAuthCookie(request);
-
-  const userDecks = await db
+  const userId = await getAuthCookie(request);
+  const myDecks = await drizzle
     .select()
-    .from(userDeckSubcriptions)
-    .where(eq(userDeckSubcriptions.userId, userId));
-  return [userDecks];
+    .from(decks)
+    .innerJoin(
+      userDeckSubscriptions,
+      eq(decks.id, userDeckSubscriptions.deckID)
+    );
+
+  if (!userId) {
+    return json({ myDecks, userSubscriptions: null, isAuth: false } as const);
+  }
+
+  const userSubscriptions = await drizzle
+    .select()
+    .from(userDeckSubscriptions)
+    .where(eq(userDeckSubscriptions.userID, userId));
+  return json({ myDecks, isAuth: true, userSubscriptions } as const);
 }
 
-// export async function action({ request }: ActionFunctionArgs) {
-//   const userId = await requireAuthCookie(request);
-//   const formData = await request.formData();
-//   const deckName = formData.get("deckName");
-
-//   return formData;
-// }
-
-export const action = async ({ request }: ActionFunctionArgs) => {
+export const action = async ({ request, params }: ActionFunctionArgs) => {
+  const userId = await requireAuthCookie(request);
   const formData = await request.formData();
-  const deckName = formData.get("deckName");
-
-  if (typeof deckName !== "string" || !deckName) {
-    return json({ status: "error", message: "Deck name is required" });
-  }
-
-  const parsedInput = deckSchema.safeParse({
-    name: deckName,
-  });
-
-  if (!parsedInput.success) {
-    return json({ error: parsedInput.error }, { status: 400 });
-  }
+  const deckId = z.coerce.number().parse(formData.get("deckId"));
+  const isSubscribeAction = formData.has("subscribe");
 
   try {
-    const deck = await db
-      .insert(decks)
-      .values({
-        name: parsedInput.data.name,
-      })
-      .returning();
-    return redirect(`/decks/${deck[0].id}`);
+    if (isSubscribeAction) {
+      const subscribe = Boolean(
+        z.coerce.number().parse(formData.get("subscribe"))
+      );
+      console.log({ subscribe });
+      const [existingSubscription] = await db
+        .select()
+        .from(userDeckSubscriptions)
+        .where(
+          and(
+            eq(userDeckSubscriptions.deckID, deckId),
+            eq(userDeckSubscriptions.userID, userId)
+          )
+        )
+        .limit(1);
+
+      if (existingSubscription) {
+        await db
+          .update(userDeckSubscriptions)
+          .set({ subscribed: subscribe })
+          .where(eq(userDeckSubscriptions.id, existingSubscription.id));
+      } else {
+        await db
+          .insert(userDeckSubscriptions)
+          .values({ userID: userId, deckID: deckId, subscribed: subscribe });
+      }
+      return null;
+    } else if (!isSubscribeAction) {
+      await db.delete(decks).where(eq(decks.id, deckId));
+      return redirect(`/decks`);
+    }
   } catch (error) {
-    console.error(error);
-    return json({ status: "error", message: "Failed to create deck" });
+    console.log({ deck_delete_error: params.error });
+    return null;
   }
 };
 
 export default function Home() {
-  const userDecks = useLoaderData<typeof loader>();
+  const data = useLoaderData<typeof loader>();
 
-  const userDecksArray = Object.entries(userDecks[0]).map(([key, value]) => {
-    return { key, value };
+  const dataArray = data.myDecks;
+  console.log({
+    dataArray: dataArray.map((deck) => deck.userDeckSubcriptions.subscribed),
   });
-
-  if (!userDecksArray) {
-    return <div>You've not subscribed to any decks.</div>;
-  }
 
   return (
     <>
       <h1>Your Decks</h1>
-      <CreateNewDeck />
-      <div>//TODO: map over User's subscribed decks</div>
+      {dataArray.map((deck) => {
+        <div>
+          {deck.decks.name}
+          {deck.userDeckSubcriptions.completion}
+          {deck.userDeckSubcriptions.subscribed}
+        </div>;
+      })}
     </>
   );
 }
-
-function userDecks() {
-  //all the decks that this user is subscribed to
-  return <div></div>;
-}
-
-const deckSchema = z.object({
-  name: z.string(),
-});

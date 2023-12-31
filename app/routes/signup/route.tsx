@@ -1,10 +1,11 @@
 import { json, redirect } from "@remix-run/node";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { Form, useActionData, useNavigation } from "@remix-run/react";
-import { db } from "db/index";
+import { db } from "../../../db/index";
+import React from "react";
 import { z } from "zod";
-import { users, userPasswords } from "db/schema";
-import { authCookie } from "~/auth";
+import { users, userPasswords } from "../../../db/schema";
+import { authCookie } from "../../auth";
 
 type ErrorRecord = {
   email?: string;
@@ -80,10 +81,6 @@ export default function SignupForm() {
   const userNameError = actionData?.errors?.userName;
   const emailError = actionData?.errors?.email;
   const passwordError = actionData?.errors?.password;
-
-  {
-    console.log({ "action data": actionData });
-  }
 
   const errorMessage =
     actionData?.status === "error" ? actionData.message : null;

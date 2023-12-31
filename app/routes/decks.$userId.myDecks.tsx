@@ -82,36 +82,35 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
   }
 };
 
-export default function Decks() {
+export default function myDecks() {
   const { myDecks, userSubscriptions, isAuth } = useLoaderData<typeof loader>();
   const subscribe = useActionData<typeof loader>();
   const fetcher = useFetcher();
 
   return (
-    <div id="all-decks">
-      <Outlet />
+    <div id="my-decks">
       {myDecks.map((deck) => {
         const isSubscribed =
-          Number(fetcher.formData?.get("deckId")) === deck.id
+          Number(fetcher.formData?.get("deckId")) === deck.decks.id
             ? Boolean(fetcher.formData?.get("subscribe"))
             : userSubscriptions?.find(
-                (subscription) => subscription.deckID === deck.id
+                (subscription) => subscription.deckID === deck.decks.id
               )?.subscribed;
         return (
-          <div className="card-container" key={deck.id}>
-            {deck.name}
+          <div className="card-container" key={deck.decks.id}>
+            {deck.decks.name}
             {isAuth ? (
               <div className="button-container">
                 <Link
                   className="button"
-                  to={`/decks/${deck.id}/edit`}
+                  to={`/decks/${deck.decks.id}/edit`}
                   reloadDocument
                 >
                   Edit
                 </Link>
                 <fetcher.Form
                   method="post"
-                  action={`/decks/${deck.id}/delete`}
+                  action={`/decks/${deck.decks.id}/delete`}
                   onSubmit={(event) => {
                     const response = confirm(
                       "Please confirm you want to delete this deck."
@@ -124,7 +123,7 @@ export default function Decks() {
                   <button type="submit">Delete</button>
                 </fetcher.Form>
                 <fetcher.Form method="POST">
-                  <input type="hidden" name="deckId" value={deck.id} />
+                  <input type="hidden" name="deckId" value={deck.decks.id} />
                   <button
                     aria-label="Toggle Subscription"
                     name="subscribe"
@@ -134,7 +133,9 @@ export default function Decks() {
                   </button>
                 </fetcher.Form>
               </div>
-            ) : null}
+            ) : (
+              <div> You must be logged in to view your subscribed decks.</div>
+            )}
           </div>
         );
       })}

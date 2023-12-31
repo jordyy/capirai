@@ -42,7 +42,6 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
       const subscribe = Boolean(
         z.coerce.number().parse(formData.get("subscribe"))
       );
-      console.log({ subscribe });
       const [existingSubscription] = await db
         .select()
         .from(userDeckSubscriptions)
@@ -74,21 +73,23 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
     console.log({ deck_delete_error: params.error });
     return null;
   }
+  return userId;
 };
 
 export default function Decks() {
   const { allDecks, userSubscriptions, isAuth } =
     useLoaderData<typeof loader>();
-  const subscribe = useActionData<typeof loader>();
+  const userId = useActionData<typeof loader>();
+
   const fetcher = useFetcher();
 
   return (
     <div id="all-decks">
-      {isAuth ? (
-        <fetcher.Form method="post" action={`/users/$userId/myDecks`}>
+      {/* {isAuth ? (
+        <Link to={`/decks/${userId}/myDecks`}>
           <button type="submit">My Decks</button>
-        </fetcher.Form>
-      ) : null}
+        </Link>
+      ) : null} */}
       <Outlet />
       {allDecks.map((deck) => {
         const isSubscribed =

@@ -1,12 +1,13 @@
 import { json, redirect } from "@remix-run/node";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { Form, useActionData, useNavigation } from "@remix-run/react";
-import { db } from "db/index";
-import { eq, sql } from "drizzle-orm";
+import React from "react";
+import { db } from "../../../db/index";
+import { sql } from "drizzle-orm";
 import { z } from "zod";
-import { users, userPasswords } from "db/schema";
-import { bcrypt } from "~/utils/auth.server";
-import { authCookie } from "~/auth";
+import { users, userPasswords } from "../../../db/schema";
+import { bcrypt } from "../../utils/auth.server";
+import { authCookie } from "../../auth";
 
 type ErrorRecord = {
   email?: string;
@@ -95,9 +96,13 @@ export async function action({ request }: ActionFunctionArgs) {
       message: "Incorrect password",
     });
   }
-  return redirect("/", {
+
+  const cookieHeader = await authCookie.serialize(userData.id);
+  return new Response("", {
+    status: 302,
     headers: {
-      "Set-Cookie": await authCookie.serialize(userData.id),
+      "Set-Cookie": cookieHeader,
+      Location: "/",
     },
   });
 }
