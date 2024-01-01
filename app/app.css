@@ -86,28 +86,24 @@ button:active,
   transform: translateY(1px);
 }
 
-#contact h1 {
+.deck-container {
   display: flex;
-  align-items: flex-start;
-  gap: 1rem;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 1%;
 }
-#contact h1 form {
-  display: flex;
-  align-items: center;
-  margin-top: 0.25rem;
+
+.deck-box {
+  /* border: #121212; */
+  padding: 2%;
+  box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.4);
+  border-radius: 8px;
+  text-align: center;
+  border-style: solid;
 }
-#contact h1 form button {
-  box-shadow: none;
-  font-size: 1.5rem;
-  font-weight: 400;
-  padding: 0;
-}
-#contact h1 form button[value="true"] {
-  color: #a4a4a4;
-}
-#contact h1 form button[value="true"]:hover,
-#contact h1 form button[value="false"] {
-  color: #eeb004;
+
+.subscribed {
+  color: blue;
 }
 
 form[action$="destroy"] button {

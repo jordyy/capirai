@@ -90,13 +90,17 @@ export default function Home() {
   return (
     <>
       <h1>Your Decks</h1>
-      {dataArray.map((deck) => {
-        <div>
-          {deck.decks.name}
-          {deck.userDeckSubcriptions.completion}
-          {deck.userDeckSubcriptions.subscribed}
-        </div>;
-      })}
+      <div className="deck-container">
+        {dataArray.map((deck) => (
+          <div className="deck-box">
+            <h2>{deck.decks.name}</h2> <br />
+            completion - {deck.userDeckSubcriptions.completion} <br />
+            <p className="subscribed">
+              {deck.userDeckSubcriptions.subscribed ? "SUBSCRIBED" : null}
+            </p>
+          </div>
+        ))}
+      </div>
     </>
   );
 }
