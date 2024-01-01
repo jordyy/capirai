@@ -36,6 +36,27 @@
       "when": 1703869872380,
       "tag": "0004_robust_black_tarantula",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1704122542883,
+      "tag": "0005_vengeful_reptil",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1704123702844,
+      "tag": "0006_chemical_ezekiel_stane",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1704124107446,
+      "tag": "0007_powerful_ma_gnuci",
+      "breakpoints": true
     }
   ]
 }

@@ -13,6 +13,8 @@ import React from "react";
 import { db } from "../../db/index";
 import { useFetcher } from "@remix-run/react";
 
+// if a card has a language that is italian, CEFR_level that is A1, and is a vocabulary type, it belongs in the A1 Italian word deck
+
 export async function loader({ request }: LoaderFunctionArgs) {
   const allCards = await drizzle.select().from(cards);
   return json([allCards]);

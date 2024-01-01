@@ -1,0 +1,1 @@
+ALTER TABLE "cards" ALTER COLUMN "frequency" SET DATA TYPE real;

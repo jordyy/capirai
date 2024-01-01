@@ -4,6 +4,7 @@ import {
   serial,
   text,
   integer,
+  real,
   boolean,
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
@@ -35,10 +36,29 @@ export const usersRelations = relations(users, ({ many, one }) => ({
   }),
 }));
 
+export const CEFRlevelEnum = pgEnum("CEFR_level", [
+  "A1",
+  "A2",
+  "B1",
+  "B2",
+  "C1",
+  "C2",
+]);
+
+export const cardTypeEnum = pgEnum("type", [
+  "vocabulary",
+  "sentence",
+  "verb conjugation",
+]);
+
 export const cards = pgTable("cards", {
   id: serial("id").primaryKey(),
   front: text("front_side"),
   back: text("back_side"),
+  frequency: real("frequency").default(0),
+  language: text("language"),
+  CEFR_level: text("CEFR_level"),
+  type: text("type"),
 });
 
 export const cardsRelations = relations(cards, ({ many }) => ({
