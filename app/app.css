@@ -102,6 +102,19 @@ button:active,
   border-style: solid;
 }
 
+.single-card-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.card-box {
+  padding: 3%;
+  box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.4);
+  border-radius: 8px;
+  text-align: center;
+  border-style: solid;
+}
+
 .subscribed {
   color: blue;
 }

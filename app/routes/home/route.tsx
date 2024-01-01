@@ -85,10 +85,6 @@ export default function Home() {
   const fetcher = useFetcher();
 
   const dataArray = allDecks;
-  console.log({ dataArray });
-  console.log({
-    dataArray: dataArray.map((deck) => deck.userDeckSubcriptions.subscribed),
-  });
 
   return (
     <>
