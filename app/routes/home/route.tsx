@@ -4,7 +4,7 @@ import {
   redirect,
   json,
 } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useFetcher } from "@remix-run/react";
 import { decks } from "../../../db/schema";
 import { db } from "../../../db/index";
 import React from "react";
@@ -16,7 +16,7 @@ import { getAuthCookie, requireAuthCookie } from "../../auth";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const userId = await getAuthCookie(request);
-  const myDecks = await drizzle
+  const allDecks = await drizzle
     .select()
     .from(decks)
     .innerJoin(
@@ -25,14 +25,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
     );
 
   if (!userId) {
-    return json({ myDecks, userSubscriptions: null, isAuth: false } as const);
+    return json({ allDecks, userSubscriptions: null, isAuth: false } as const);
   }
 
   const userSubscriptions = await drizzle
     .select()
     .from(userDeckSubscriptions)
     .where(eq(userDeckSubscriptions.userID, userId));
-  return json({ myDecks, isAuth: true, userSubscriptions } as const);
+  return json({ allDecks, isAuth: true, userSubscriptions } as const);
 }
 
 export const action = async ({ request, params }: ActionFunctionArgs) => {
@@ -80,9 +80,12 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
 };
 
 export default function Home() {
-  const data = useLoaderData<typeof loader>();
+  const { allDecks, userSubscriptions, isAuth } =
+    useLoaderData<typeof loader>();
+  const fetcher = useFetcher();
 
-  const dataArray = data.myDecks;
+  const dataArray = allDecks;
+  console.log({ dataArray });
   console.log({
     dataArray: dataArray.map((deck) => deck.userDeckSubcriptions.subscribed),
   });
@@ -91,15 +94,35 @@ export default function Home() {
     <>
       <h1>Your Decks</h1>
       <div className="deck-container">
-        {dataArray.map((deck) => (
-          <div className="deck-box">
-            <h2>{deck.decks.name}</h2> <br />
-            completion - {deck.userDeckSubcriptions.completion} <br />
-            <p className="subscribed">
-              {deck.userDeckSubcriptions.subscribed ? "SUBSCRIBED" : null}
-            </p>
-          </div>
-        ))}
+        {isAuth
+          ? dataArray.map((deck) => {
+              const isSubscribed =
+                Number(fetcher.formData?.get("deckId")) === deck.decks.id
+                  ? Boolean(fetcher.formData?.get("subscribe"))
+                  : userSubscriptions?.find(
+                      (subscription) => subscription.deckID === deck.decks.id
+                    )?.subscribed;
+              return isSubscribed ? (
+                <div className="deck-box">
+                  <h2>{deck.decks.name}</h2> <br />
+                  completion - {deck.userDeckSubcriptions.completion} <br />
+                  <fetcher.Form method="POST">
+                    <input type="hidden" name="deckId" value={deck.decks.id} />
+                    <button
+                      aria-label="Toggle Subscription"
+                      className="subscribed"
+                      name="unsubscribe"
+                      value={isSubscribed ? 0 : 1}
+                    >
+                      {deck.userDeckSubcriptions.subscribed
+                        ? "UNSUBSCRIBE"
+                        : null}
+                    </button>
+                  </fetcher.Form>
+                </div>
+              ) : null;
+            })
+          : null}
       </div>
     </>
   );
