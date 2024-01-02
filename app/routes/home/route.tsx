@@ -4,7 +4,12 @@ import {
   redirect,
   json,
 } from "@remix-run/node";
-import { useLoaderData, useFetcher } from "@remix-run/react";
+import {
+  useLoaderData,
+  useFetcher,
+  Link,
+  useNavigation,
+} from "@remix-run/react";
 import { decks } from "../../../db/schema";
 import { db } from "../../../db/index";
 import React from "react";
@@ -101,8 +106,8 @@ export default function Home() {
   const { allUserDecks, userSubscriptions, isAuth } =
     useLoaderData<typeof loader>();
 
+  const navigation = useNavigation();
   const fetcher = useFetcher();
-
   const dataArray = allUserDecks;
 
   return (
@@ -119,7 +124,14 @@ export default function Home() {
                     )?.subscribed;
               return isSubscribed ? (
                 <div key={deck.decks.id} className="deck-box">
-                  <h2>{deck.decks.name}</h2> <br />
+                  <Link to={`/decks/${deck.decks.id}`}>
+                    <button type="submit" className="deck-name">
+                      {navigation.location
+                        ? "Loading..."
+                        : `${deck.decks.name}`}
+                    </button>
+                  </Link>{" "}
+                  <br />
                   completion - {deck.userDeckSubcriptions.completion} <br />
                   <fetcher.Form method="POST">
                     <input type="hidden" name="deckId" value={deck.decks.id} />
