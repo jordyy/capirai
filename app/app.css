@@ -103,16 +103,27 @@ button:active,
 }
 
 .single-card-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  /* align-items: center; */
 }
 
 .card-box {
-  padding: 3%;
+  padding: 2%;
+  flex-grow: 1;
+  margin: 3%;
   box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.4);
   border-radius: 8px;
   text-align: center;
   border-style: solid;
+}
+
+.single-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .subscribed {

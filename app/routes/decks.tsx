@@ -73,13 +73,11 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
     console.log({ deck_delete_error: params.error });
     return null;
   }
-  return userId;
 };
 
 export default function Decks() {
   const { allDecks, userSubscriptions, isAuth } =
     useLoaderData<typeof loader>();
-  const userId = useActionData<typeof loader>();
 
   const fetcher = useFetcher();
 

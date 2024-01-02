@@ -65,33 +65,34 @@ export default function Deck({}) {
   return (
     <div id="deck">
       <h1>{deckData.name}</h1>
-      {thisDeckCards.map((card) => {
-        return (
-          <div key={card.cards.id} className="single-card-container">
-            <div className="card-box">
-              <h2>{card.cards.front}</h2>
-              <h2>{card.cards.back}</h2>
-              <h2>{card.cards.CEFR_level}</h2>
-              <h2>{card.cards.frequency}</h2>
+      <div className="single-card-container">
+        {thisDeckCards.map((card) => {
+          return (
+            <div key={card.cards.id} className="card-box">
+              <div className="single-card">
+                <h2>{card.cards.front}</h2>
+                <h2>{card.cards.back}</h2>
+                <h2>{card.cards.CEFR_level}</h2>
+                <h2>{card.cards.frequency}</h2>
+                <Link to={`/decks/${deckData.id}/edit`}>Edit</Link>
+                <Form
+                  method="post"
+                  onSubmit={(event) => {
+                    const response = confirm(
+                      "Please confirm you want to delete this record."
+                    );
+                    if (!response) {
+                      event.preventDefault();
+                    }
+                  }}
+                >
+                  <button type="submit">Delete</button>
+                </Form>
+              </div>
             </div>
-          </div>
-        );
-      })}
-
-      <Link to={`/decks/${deckData.id}/edit`}>Edit</Link>
-      <Form
-        method="post"
-        onSubmit={(event) => {
-          const response = confirm(
-            "Please confirm you want to delete this record."
           );
-          if (!response) {
-            event.preventDefault();
-          }
-        }}
-      >
-        <button type="submit">Delete</button>
-      </Form>
+        })}
+      </div>
     </div>
   );
 }

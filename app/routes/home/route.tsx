@@ -16,7 +16,7 @@ import { getAuthCookie, requireAuthCookie } from "../../auth";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const userId = await getAuthCookie(request);
-  const allDecks = await drizzle
+  const allUserDecks = await drizzle
     .select()
     .from(decks)
     .innerJoin(
@@ -24,15 +24,26 @@ export async function loader({ request }: LoaderFunctionArgs) {
       eq(decks.id, userDeckSubscriptions.deckID)
     );
 
+  const allDecks = await drizzle.select().from(decks);
+
   if (!userId) {
-    return json({ allDecks, userSubscriptions: null, isAuth: false } as const);
+    return json({
+      allUserDecks,
+      userSubscriptions: null,
+      isAuth: false,
+    } as const);
   }
 
   const userSubscriptions = await drizzle
     .select()
     .from(userDeckSubscriptions)
-    .where(eq(userDeckSubscriptions.userID, userId));
-  return json({ allDecks, isAuth: true, userSubscriptions } as const);
+    .where(
+      and(
+        eq(userDeckSubscriptions.userID, userId),
+        eq(userDeckSubscriptions.subscribed, true)
+      )
+    );
+  return json({ allUserDecks, isAuth: true, userSubscriptions } as const);
 }
 
 export const action = async ({ request, params }: ActionFunctionArgs) => {
@@ -70,8 +81,15 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
       }
       return null;
     } else if (!isSubscribeAction) {
-      await db.delete(decks).where(eq(decks.id, deckId));
-      return redirect(`/decks`);
+      await db
+        .delete(userDeckSubscriptions)
+        .where(
+          and(
+            eq(userDeckSubscriptions.deckID, deckId),
+            eq(userDeckSubscriptions.userID, userId)
+          )
+        );
+      return null;
     }
   } catch (error) {
     console.log({ deck_delete_error: params.error });
@@ -80,11 +98,12 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
 };
 
 export default function Home() {
-  const { allDecks, userSubscriptions, isAuth } =
+  const { allUserDecks, userSubscriptions, isAuth } =
     useLoaderData<typeof loader>();
+
   const fetcher = useFetcher();
 
-  const dataArray = allDecks;
+  const dataArray = allUserDecks;
 
   return (
     <>
@@ -99,7 +118,7 @@ export default function Home() {
                       (subscription) => subscription.deckID === deck.decks.id
                     )?.subscribed;
               return isSubscribed ? (
-                <div className="deck-box">
+                <div key={deck.decks.id} className="deck-box">
                   <h2>{deck.decks.name}</h2> <br />
                   completion - {deck.userDeckSubcriptions.completion} <br />
                   <fetcher.Form method="POST">
