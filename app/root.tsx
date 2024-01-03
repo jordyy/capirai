@@ -56,16 +56,15 @@ export default function App() {
             <Link to={`/home`}>
               <button type="submit">My Decks</button>
             </Link>
-            <form method="post" action="/logout">
-              <div>
-                {" "}
-                <button>Logout</button>{" "}
-              </div>{" "}
-            </form>
             <Link className="link-as-button button" to={`/users/${userID}`}>
               Profile
             </Link>
             {/* add feedback for loading state */}
+            <div>
+              <Form method="post" action="/logout">
+                <button>Logout</button>
+              </Form>
+            </div>{" "}
           </>
         ) : (
           <Link to="/signup"></Link>
