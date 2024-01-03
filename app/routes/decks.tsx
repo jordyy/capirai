@@ -34,7 +34,20 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export const action = async ({ request, params }: ActionFunctionArgs) => {
   const userId = await requireAuthCookie(request);
   const formData = await request.formData();
-  const deckId = z.coerce.number().parse(formData.get("deckId"));
+  const deckIdRaw = formData.get("deckId");
+  const subscribeRaw = formData.get("subscribe");
+
+  if (deckIdRaw === null || subscribeRaw === null) {
+    return json({ error: "Missing Required Fields" }, { status: 400 });
+  }
+
+  const deckIdResule = z.number().safeParse(deckIdRaw);
+
+  if (!deckIdResule.success) {
+    return json({ error: "Invalid Deck ID" }, { status: 400 });
+  }
+
+  const deckId = deckIdResule.data;
   const isSubscribeAction = formData.has("subscribe");
 
   try {

@@ -1,5 +1,5 @@
 import { LoaderFunctionArgs, redirect } from "@remix-run/node";
-import { authCookie } from "~/auth";
+import { authCookie } from "../auth";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   let cookieString = request.headers.get("Cookie");
@@ -7,17 +7,11 @@ export async function loader({ request }: LoaderFunctionArgs) {
   if (userId) {
     throw redirect("/home");
   }
-  return null;
+  return redirect("/decks");
 }
 
-export default function Index() {
-  return (
-    <p id="index-page">
-      This is a demo for Remix.
-      <br />
-      Check out <a href="https://remix.run">the docs at remix.run</a>.
-    </p>
-  );
-}
+// export default function Index() {
+//   return (
 
-// it is common to put dashboards, stats, feeds, etc. at the index route
+//   );
+// }
