@@ -58,6 +58,7 @@ export default function App() {
               <button>Logout</button>{" "}
             </div>{" "}
           </form>
+          <Link to={`/users/${userID}`}>Profile</Link>
         ) : (
           <Link to="/signup"></Link>
         )}
