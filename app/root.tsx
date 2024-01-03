@@ -52,13 +52,16 @@ export default function App() {
       </head>
       <body>
         {userID ? (
-          <form method="post" action="/logout">
-            <div>
-              {" "}
-              <button>Logout</button>{" "}
-            </div>{" "}
-          </form>
-          <Link to={`/users/${userID}`}>Profile</Link>
+          <>
+            <form method="post" action="/logout">
+              <div>
+                {" "}
+                <button>Logout</button>{" "}
+              </div>{" "}
+            </form>
+            <Link to={`/users/${userID}`}>Profile</Link>
+            {/* add feedback for loading state */}
+          </>
         ) : (
           <Link to="/signup"></Link>
         )}
