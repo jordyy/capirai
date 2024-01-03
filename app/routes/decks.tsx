@@ -83,11 +83,6 @@ export default function Decks() {
 
   return (
     <div id="all-decks">
-      {isAuth ? (
-        <Link to={`/home`}>
-          <button type="submit">My Decks</button>
-        </Link>
-      ) : null}
       <Outlet />
       {allDecks.map((deck) => {
         const isSubscribed =

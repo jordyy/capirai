@@ -49,7 +49,7 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
         name: parsedInput.data.name,
       })
       .where(eq(decks.id, Number(params.deckId)));
-    return redirect(`/decks/${params.deckId}`);
+    return redirect(`/decks`);
   } catch (error) {
     console.log({ deck_edit_error: error });
     return json({ status: "error" });
@@ -64,24 +64,21 @@ export default function EditDeck({}) {
 
   return (
     <Form method="post">
-      <p>
-        <div className="edit-deck-input-label">Deck name:</div>
-        <input
-          defaultValue={`${name}`}
-          aria-label="Deck Name"
-          name="name"
-          type="text"
-          placeholder="Enter deck name"
-        />
-      </p>
-      <p>
-        <button type="submit">
-          {isSaving ? "Saving changes..." : "Save changes"}
-        </button>
-        <button onClick={() => navigate(-1)} type="button">
-          Cancel
-        </button>
-      </p>
+      <div className="edit-deck-input-label">Deck name:</div>
+      <input
+        defaultValue={`${name}`}
+        aria-label="Deck Name"
+        name="name"
+        type="text"
+        placeholder="Enter deck name"
+      />
+
+      <button type="submit">
+        {isSaving ? "Saving changes..." : "Save changes"}
+      </button>
+      <button onClick={() => navigate(-1)} type="button">
+        Cancel
+      </button>
     </Form>
   );
 }

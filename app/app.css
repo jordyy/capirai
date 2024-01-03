@@ -51,6 +51,10 @@ body {
   margin-right: 2%;
 }
 
+.link-as-button {
+  height: 31.95px;
+}
+
 textarea,
 input,
 button,
