@@ -10,6 +10,7 @@ import { drizzle } from "../utils/db.server";
 import { Link } from "@remix-run/react";
 import { z } from "zod";
 import React from "react";
+import { eq } from "drizzle-orm";
 import { db } from "../../db/index";
 import { useFetcher } from "@remix-run/react";
 

@@ -16,8 +16,6 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
-  useNavigation,
-  useSubmit,
 } from "@remix-run/react";
 import React from "react";
 import { db } from "../db/index";
@@ -25,7 +23,6 @@ import { z } from "zod";
 import { users } from "../db/schema";
 
 import appStylesHref from "./app.css";
-import SignupForm from "./routes/signup/route";
 import { authCookie } from "./auth";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {

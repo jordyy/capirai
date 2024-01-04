@@ -5,47 +5,51 @@ import {
   json,
 } from "@remix-run/node";
 import { useLoaderData, Outlet, Form } from "@remix-run/react";
-import { cards } from "../../db/schema";
-import { drizzle } from "../utils/db.server";
+import { deckCards } from "../db/schema";
+import { eq } from "drizzle-orm";
+
+import { drizzle } from "./utils/db.server";
 import { Link } from "@remix-run/react";
 import { z } from "zod";
 import React from "react";
-import { db } from "../../db/index";
+import { db } from "../db/index";
 import { useFetcher } from "@remix-run/react";
 
-// if a card has a language that is italian, CEFR_level that is A1, and is a vocabulary type, it belongs in the A1 Italian word deck
-
 export async function loader({ request }: LoaderFunctionArgs) {
-  const allCards = await drizzle.select().from(cards);
-  return json([allCards]);
+  const allDeckCards = await drizzle.select().from(deckCards);
+  return json([allDeckCards]);
 }
 
 export const action = async ({ params }: ActionFunctionArgs) => {
-  const cardId = z.coerce.number().parse(params.cardId);
+  const deckCardId = z.coerce.number().parse(params.deckCardId);
   console.log({ cardz_delete_error: params.error });
 
   try {
-    await db.delete(cards).where(eq(cards.id, cardId));
-    return redirect(`/cards`);
+    await db.delete(deckCards).where(eq(deckCards.cardID, deckCardId));
+    return redirect(`/allDeckCards`);
   } catch (error) {
     return json({ status: "error" });
   }
 };
 
-export default function Cards() {
-  const cards = useLoaderData<typeof loader>();
+export default function AllDeckCards() {
+  const allDeckCards = useLoaderData<typeof loader>();
   const fetcher = useFetcher();
 
-  const cardsArray = Object.entries(cards[0]).map(([key, value]) => {
+  const cardsArray = Object.entries(allDeckCards[0]).map(([key, value]) => {
     return { key, value };
   });
 
+  if (!cardsArray) {
+    return <div>Decks not found.</div>;
+  }
+
   return (
-    <>
-      <h1>All Cards</h1>
+    <div id="all-decks">
+      <h1>All Deck Cards</h1>
       <Outlet />
-      {cardsArray.map((card) => (
-        <div className="card-container" key={card.value.id}>
+      {/* {cardsArray.map((card) => (
+        <div className="card-container" key={deckCard.value.id}>
           {card.value.front} ||| {card.value.back}
           <div className="button-container">
             <Link
@@ -71,7 +75,7 @@ export default function Cards() {
             </fetcher.Form>
           </div>
         </div>
-      ))}
-    </>
+      ))} */}
+    </div>
   );
 }
