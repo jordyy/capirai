@@ -19,13 +19,8 @@ import { drizzle } from "../../utils/db.server";
 import { userDeckSubscriptions } from "../../../db/schema";
 import { getAuthCookie, requireAuthCookie } from "../../auth";
 
-const userIdSchema = z.number().nullable();
-
 export async function loader({ request }: LoaderFunctionArgs) {
   const userId = await getAuthCookie(request);
-
-  const parsedId = userIdSchema.safeParse(userId);
-
   const allUserDecks = await drizzle
     .select()
     .from(decks)
@@ -36,7 +31,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   const allDecks = await drizzle.select().from(decks);
 
-  if (!parsedId.success) {
+  if (!userId) {
     return json({
       allUserDecks,
       userSubscriptions: null,
@@ -49,7 +44,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     .from(userDeckSubscriptions)
     .where(
       and(
-        eq(userDeckSubscriptions.userID, parsedId.data),
+        eq(userDeckSubscriptions.userID, userId),
         eq(userDeckSubscriptions.subscribed, true)
       )
     );
