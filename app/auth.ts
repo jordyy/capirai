@@ -19,7 +19,11 @@ export const authCookie = createCookie("auth", {
 
 export async function getAuthCookie(request: Request) {
   const userId = await authCookie.parse(request.headers.get("Cookie"));
-  return z.number().optional().parse(userId);
+  if (!userId) {
+    return null;
+  } else {
+    return z.number().optional().parse(userId);
+  }
 }
 
 export async function requireAuthCookie(request: Request) {
