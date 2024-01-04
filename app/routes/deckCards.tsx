@@ -53,8 +53,6 @@ export default function DeckCards() {
     return <div>Decks not found.</div>;
   }
 
-  console.log({ allDeckCards });
-
   return (
     <div id="all-decks">
       <h1>All Deck Cards</h1>
