@@ -4,147 +4,78 @@ import {
   json,
   redirect,
 } from "@remix-run/node";
-import { useLoaderData, useActionData, Outlet } from "@remix-run/react";
+import { useLoaderData, Outlet, Form } from "@remix-run/react";
 import { decks } from "../../db/schema";
 import { db } from "../../db/index";
-import { z } from "zod";
 import React from "react";
-import { eq, and } from "drizzle-orm";
+import { z } from "zod";
+import { eq } from "drizzle-orm";
 import { drizzle } from "../utils/db.server";
 import { Link } from "@remix-run/react";
 import { useFetcher } from "@remix-run/react";
-import { userDeckSubscriptions } from "../../db/schema";
-import { getAuthCookie, requireAuthCookie } from "../auth";
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const userId = await getAuthCookie(request);
   const allDecks = await drizzle.select().from(decks);
-
-  if (!userId) {
-    return json({ allDecks, userSubscriptions: null, isAuth: false } as const);
-  }
-
-  const userSubscriptions = await drizzle
-    .select()
-    .from(userDeckSubscriptions)
-    .where(eq(userDeckSubscriptions.userID, userId));
-  return json({ allDecks, isAuth: true, userSubscriptions } as const);
+  return json([allDecks]);
 }
 
-export const action = async ({ request, params }: ActionFunctionArgs) => {
-  const userId = await requireAuthCookie(request);
-  const formData = await request.formData();
-  const deckIdRaw = formData.get("deckId");
-  const subscribeRaw = formData.get("subscribe");
-
-  if (deckIdRaw === null || subscribeRaw === null) {
-    return json({ error: "Missing Required Fields" }, { status: 400 });
-  }
-
-  const deckIdResule = z.number().safeParse(deckIdRaw);
-
-  if (!deckIdResule.success) {
-    return json({ error: "Invalid Deck ID" }, { status: 400 });
-  }
-
-  const deckId = deckIdResule.data;
-  const isSubscribeAction = formData.has("subscribe");
+export const action = async ({ params }: ActionFunctionArgs) => {
+  const deckId = z.coerce.number().parse(params.deckId);
+  console.log({ deck_delete_error: params.error });
 
   try {
-    if (isSubscribeAction) {
-      const subscribe = Boolean(
-        z.coerce.number().parse(formData.get("subscribe"))
-      );
-      const [existingSubscription] = await db
-        .select()
-        .from(userDeckSubscriptions)
-        .where(
-          and(
-            eq(userDeckSubscriptions.deckID, deckId),
-            eq(userDeckSubscriptions.userID, userId)
-          )
-        )
-        .limit(1);
-
-      if (existingSubscription) {
-        await db
-          .update(userDeckSubscriptions)
-          .set({ subscribed: subscribe })
-          .where(eq(userDeckSubscriptions.id, existingSubscription.id));
-      } else {
-        await db
-          .insert(userDeckSubscriptions)
-          .values({ userID: userId, deckID: deckId, subscribed: subscribe });
-        // .onConflictDoUpdate({set: {subscribed: subscribe}, target: {userID: userId, deckID: deckId});
-      }
-      return null;
-    } else if (!isSubscribeAction) {
-      await db.delete(decks).where(eq(decks.id, deckId));
-      return redirect(`/decks`);
-    }
+    await db.delete(decks).where(eq(decks.id, deckId));
+    return redirect(`/decks`);
   } catch (error) {
-    console.log({ deck_delete_error: params.error });
-    return null;
+    return json({ status: "error" });
   }
 };
 
 export default function Decks() {
-  const { allDecks, userSubscriptions, isAuth } =
-    useLoaderData<typeof loader>();
-
+  const decks = useLoaderData<typeof loader>();
   const fetcher = useFetcher();
+
+  const decksArray = Object.entries(decks[0]).map(([key, value]) => {
+    return { key, value };
+  });
+
+  if (!decksArray) {
+    return <div>Decks not found.</div>;
+  }
 
   return (
     <div id="all-decks">
+      <h1>All Decks</h1>
       <Outlet />
-      {allDecks.map((deck) => {
-        const isSubscribed =
-          Number(fetcher.formData?.get("deckId")) === deck.id
-            ? Boolean(fetcher.formData?.get("subscribe"))
-            : userSubscriptions?.find(
-                (subscription) => subscription.deckID === deck.id
-              )?.subscribed;
-        return (
-          <div className="card-container" key={deck.id}>
-            {deck.name}
-            {isAuth ? (
-              <div className="button-container">
-                <Link
-                  className="button"
-                  to={`/decks/${deck.id}/edit`}
-                  reloadDocument
-                >
-                  Edit
-                </Link>
-                <fetcher.Form
-                  method="post"
-                  action={`/decks/${deck.id}/delete`}
-                  onSubmit={(event) => {
-                    const response = confirm(
-                      "Please confirm you want to delete this deck."
-                    );
-                    if (!response) {
-                      event.preventDefault();
-                    }
-                  }}
-                >
-                  <button type="submit">Delete</button>
-                </fetcher.Form>
-                <fetcher.Form method="POST">
-                  <input type="hidden" name="deckId" value={deck.id} />
-                  <button
-                    aria-label="Toggle Subscription"
-                    name="subscribe"
-                    value={isSubscribed ? 0 : 1}
-                  >
-                    {isSubscribed ? "Unsubscribe" : "Subscribe"}
-                  </button>
-                </fetcher.Form>
-              </div>
-            ) : null}
+
+      {decksArray.map((deck) => (
+        <div className="card-container" key={deck.value.id}>
+          {deck.value.name}
+          <div className="button-container">
+            <Link
+              className="button"
+              to={`/decks/${deck.value.id}/edit`}
+              reloadDocument
+            >
+              Edit
+            </Link>
+            <fetcher.Form
+              method="post"
+              action={`/decks/${deck.value.id}/delete`}
+              onSubmit={(event) => {
+                const response = confirm(
+                  "Please confirm you want to delete this deck."
+                );
+                if (!response) {
+                  event.preventDefault();
+                }
+              }}
+            >
+              <button type="submit">Delete</button>
+            </fetcher.Form>
           </div>
-        );
-      })}
+        </div>
+      ))}
     </div>
   );
 }
