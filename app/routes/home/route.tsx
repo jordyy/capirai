@@ -30,7 +30,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
     );
 
   const allDecks = await drizzle.select().from(decks);
-
   if (!userId) {
     return json({
       allUserDecks,

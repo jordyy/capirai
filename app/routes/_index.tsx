@@ -9,9 +9,3 @@ export async function loader({ request }: LoaderFunctionArgs) {
   }
   return redirect("/decks");
 }
-
-// export default function Index() {
-//   return (
-
-//   );
-// }
