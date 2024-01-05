@@ -60,7 +60,7 @@ export default function DeckCards() {
     return <div>Decks not found.</div>;
   }
 
-  console.log({ singleDeckCard });
+  const deckCardId = singleDeckCard[0].deckCards.id;
   return (
     <div id="deck">
       <h1>Single Card View</h1>
@@ -74,7 +74,7 @@ export default function DeckCards() {
                 <h2>{card.cards.CEFR_level}</h2>
                 <h2>{card.cards.frequency}</h2>
               </div>
-              {/* <Link to={`/decks/${singleDeckCard.id}/edit`}>Edit</Link> */}
+              <Link to={`/decks/${deckCardId}/edit`}>Edit</Link>
               <Form
                 method="post"
                 onSubmit={(event) => {
