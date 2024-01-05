@@ -57,10 +57,10 @@ export default function DeckCards() {
   const fetcher = useFetcher();
 
   if (!singleDeckCard || singleDeckCard.length === 0) {
-    return <div>Decks not found.</div>;
+    return <div>You are not subscribed to any decks that contain cards.</div>;
   }
 
-  const deckCardId = singleDeckCard[0].deckCards.id;
+  console.log({ singleDeckCard });
   return (
     <div id="deck">
       <h1>Single Card View</h1>
@@ -74,7 +74,7 @@ export default function DeckCards() {
                 <h2>{card.cards.CEFR_level}</h2>
                 <h2>{card.cards.frequency}</h2>
               </div>
-              <Link to={`/decks/${deckCardId}/edit`}>Edit</Link>
+              <Link to={`/decks/${singleDeckCard[0].cards.id}/edit`}>Edit</Link>
               <Form
                 method="post"
                 onSubmit={(event) => {

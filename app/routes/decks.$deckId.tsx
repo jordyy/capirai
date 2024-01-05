@@ -19,7 +19,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     .from(deckCards)
     .innerJoin(decks, eq(deckCards.deckID, decks.id));
 
-  const thisDeckCards = await drizzle
+  const thisDeckCard = await drizzle
     .select()
     .from(cards)
     .innerJoin(deckCards, eq(cards.id, deckCards.cardID))
@@ -34,7 +34,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 
   const name = deck[0]?.name;
 
-  return json({ deck, allDeckCards, name, thisDeckCards });
+  return json({ deck, allDeckCards, name, thisDeckCard });
 };
 
 export const action = async ({ params }: ActionFunctionArgs) => {
@@ -50,13 +50,13 @@ export const action = async ({ params }: ActionFunctionArgs) => {
 };
 
 export default function Deck({}) {
-  const { deck, thisDeckCards } = useLoaderData<typeof loader>();
+  const { deck, thisDeckCard } = useLoaderData<typeof loader>();
   const deckData = deck[0];
 
   if (!deckData) {
     return <div>Deck not found.</div>;
   }
-  if (!thisDeckCards) {
+  if (!thisDeckCard) {
     return <div>No cards in this deck.</div>;
   }
 
@@ -64,7 +64,7 @@ export default function Deck({}) {
     <div id="deck">
       <h1>{deckData.name}</h1>
       <div className="single-card-container">
-        {thisDeckCards.map((card) => {
+        {thisDeckCard.map((card) => {
           return (
             <div key={card.cards.id} className="card-box">
               <div className="single-card">
