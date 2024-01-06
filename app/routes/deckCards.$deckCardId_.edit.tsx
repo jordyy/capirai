@@ -2,6 +2,7 @@ import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import {
   Form,
+  Link,
   useLoaderData,
   useNavigate,
   useNavigation,
@@ -25,26 +26,26 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     .where(eq(decks.id, Number(params.deckId)));
 
   if (!deckCardContents || deckCardContents.length === 0) {
-    return json({ deckCardContens: [], deck });
+    return json({ deckCardContents: [], deck });
   }
 
-  const firstCard = deckCardContents[0];
-
-  return json({ deckCardContents, firstCard, deck });
+  return json({ deckCardContents, deck });
 };
 
 const deckCardSchema = z.object({
+  cardId: z.string(),
   front: z.string(),
   back: z.string(),
 });
 
 export const action = async ({ params, request }: ActionFunctionArgs) => {
   const formData = await request.formData();
+  const cardId = formData.get("cardId");
   const front = formData.get("front");
   const back = formData.get("back");
-  const cardId = z.coerce.number().parse(formData.get("cardId"));
 
   const parsedInput = deckCardSchema.safeParse({
+    cardId: cardId,
     front: front,
     back: back,
   });
@@ -63,7 +64,7 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
         front: parsedInput.data?.front,
         back: parsedInput.data?.back,
       })
-      .where(eq(cards.id, cardId));
+      .where(eq(cards.id, Number(cardId)));
     return json({ status: "success" });
   } catch (error) {
     console.log({ deck_edit_error: error });
@@ -72,33 +73,22 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
 };
 
 export default function EditDeckCards({}) {
-  const { deckCardContents, firstCard, deck } = useLoaderData<typeof loader>();
+  const { deckCardContents, deck } = useLoaderData<typeof loader>();
   const navigation = useNavigation();
   const navigate = useNavigate();
-  const isSaving = navigation.formAction === `/cards/${deckCards.cardID}/edit`;
+  const isSaving = navigation.state === "submitting";
+
+  if (!deckCardContents || deckCardContents.length === 0) {
+    return <div>Deck not found.</div>;
+  }
+
+  const firstCard = deckCardContents[0];
 
   console.log({ deckCardContents, deck });
 
   return (
-    <Form method="post" action={`cards/${deckCards.cardID}/edit`}>
-      <input type="hidden" name="cardId" value={`${deckCards.cardID}`} />
-      <div className="edit-deckCard">Front</div>
-      <input
-        defaultValue={`${firstCard.front}`}
-        aria-label="front of card"
-        name="front"
-        type="text"
-        placeholder="Front of Card"
-      />
-      <div className="edit-deckCard">Back</div>
-      <input
-        defaultValue={`${deckCardContents.back}`}
-        aria-label="back of card"
-        name="back"
-        type="text"
-        placeholder="Back of Card"
-      />
-
+    <Form method="post">
+      <Link to={`/cards/${deckCardContents[0].cards.id}/edit`}>Edit</Link>
       <button type="submit">
         {isSaving ? "Saving changes..." : "Save changes"}
       </button>

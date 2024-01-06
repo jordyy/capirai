@@ -65,7 +65,7 @@ export default function DeckCards() {
           <div className="button-container">
             <Link
               className="button"
-              to={`/deckcards/${card.cards.id}/edit`}
+              to={`/cards/${card.cards.id}/edit`}
               reloadDocument
             >
               Edit
