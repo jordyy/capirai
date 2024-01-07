@@ -5,7 +5,6 @@ import { cards } from "../../db/schema";
 import { z } from "zod";
 import { db } from "../../db/index";
 import { drizzle } from "../utils/db.server";
-import { Link } from "@remix-run/react";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const allCards = await drizzle.select().from(cards);
