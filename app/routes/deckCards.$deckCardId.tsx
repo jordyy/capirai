@@ -5,7 +5,7 @@ import { Form, useLoaderData, Link, useFetcher } from "@remix-run/react";
 import React from "react";
 
 import { drizzle } from "../utils/db.server";
-import { deckCards, decks, cards } from "../../db/schema";
+import { deckCards, decks, cards, userCards } from "../../db/schema";
 import { z } from "zod";
 
 export async function loader({ params }: LoaderFunctionArgs) {
@@ -17,6 +17,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
       .from(deckCards)
       .innerJoin(decks, eq(deckCards.deckID, decks.id))
       .innerJoin(cards, eq(deckCards.cardID, cards.id))
+      .innerJoin(userCards, eq(cards.id, userCards.cardID))
       .where(eq(deckCards.id, parsedDeckCardId));
     return json(singleDeckCard);
   } catch (error) {

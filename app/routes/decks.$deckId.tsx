@@ -73,7 +73,7 @@ export default function Deck({}) {
                 <h2>{card.cards.CEFR_level}</h2>
                 <h2>{card.cards.frequency}</h2>
               </div>
-              <Link to={`/decks/${deckData.id}/edit`}>Edit</Link>
+              <Link to={`/cards/${card.cards.id}/edit`}>Edit</Link>
               <Form
                 method="post"
                 onSubmit={(event) => {
