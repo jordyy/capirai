@@ -36,13 +36,6 @@ export const action = async ({ params }: ActionFunctionArgs) => {
   if (!deckCardId) {
     return json({ error: "No deck card id provided" }, { status: 400 });
   }
-
-  try {
-    await db.delete(deckCards).where(eq(deckCards.cardID, deckCardId));
-    return redirect(`/deckCards`);
-  } catch (error) {
-    return json({ status: "error" });
-  }
 };
 
 export default function DeckCards() {
@@ -72,17 +65,9 @@ export default function DeckCards() {
             </Link>
             <fetcher.Form
               method="post"
-              action={`/cards/${card.cards.id}/delete`}
-              onSubmit={(event) => {
-                const response = confirm(
-                  "Please confirm you want to delete this record."
-                );
-                if (!response) {
-                  event.preventDefault();
-                }
-              }}
+              action={`/deckCards/${deckCards.cardID}/remove`}
             >
-              <button type="submit">Delete</button>
+              <button type="submit">Remove</button>
             </fetcher.Form>
           </div>
         </div>

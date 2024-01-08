@@ -3,7 +3,6 @@ import { json, redirect } from "@remix-run/node";
 import { eq } from "drizzle-orm";
 import { cards } from "../../db/schema";
 import { z } from "zod";
-import { db } from "../../db/index";
 import { drizzle } from "../utils/db.server";
 
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -16,7 +15,7 @@ export const action = async ({ params }: ActionFunctionArgs) => {
   console.log({ card_delete_error: params.error });
 
   try {
-    await db.delete(cards).where(eq(cards.id, cardId));
+    await drizzle.delete(cards).where(eq(cards.id, cardId));
     return redirect(`/cards`);
   } catch (error) {
     return json({ status: "error" });
