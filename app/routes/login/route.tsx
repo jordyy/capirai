@@ -109,7 +109,6 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export default function LoginForm() {
   const actionData = useActionData<typeof action>();
-  const navigation = useNavigation();
   const emailError = actionData?.errors?.email;
   const passwordError = actionData?.errors?.password;
 

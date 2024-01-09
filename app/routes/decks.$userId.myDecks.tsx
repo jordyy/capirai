@@ -48,7 +48,6 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
       const subscribe = Boolean(
         z.coerce.number().parse(formData.get("subscribe"))
       );
-      console.log({ subscribe });
       const [existingSubscription] = await db
         .select()
         .from(userDeckSubscriptions)

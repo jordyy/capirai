@@ -56,6 +56,9 @@ export default function App() {
             <Link className="link-as-button button" to={`/users/${userID}`}>
               Profile
             </Link>
+            <Link className="link-as-button button" to={`/decks`}>
+              Deck Library
+            </Link>
             {/* add feedback for loading state */}
             <div>
               <Form method="post" action="/logout">

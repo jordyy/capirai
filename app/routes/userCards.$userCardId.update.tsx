@@ -40,7 +40,6 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
   if (!params.userCardId || isNaN(Number(params.userCardId))) {
     throw new Response("No user card id provided", { status: 400 });
   }
-  const userCardId = Number(params.userCardId);
   const formData = await request.formData();
   const understanding = formData.get("understanding");
   const deckCardId = formData.get("deckCardId");
