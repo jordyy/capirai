@@ -1,9 +1,4 @@
-import {
-  LoaderFunctionArgs,
-  ActionFunctionArgs,
-  redirect,
-  json,
-} from "@remix-run/node";
+import { LoaderFunctionArgs, ActionFunctionArgs, json } from "@remix-run/node";
 import { useLoaderData, Outlet } from "@remix-run/react";
 import { deckCards, decks, cards } from "../../db/schema";
 import { eq } from "drizzle-orm";
@@ -12,7 +7,6 @@ import { drizzle } from "../utils/db.server";
 import { Link } from "@remix-run/react";
 import { z } from "zod";
 import React from "react";
-import { db } from "../../db/index";
 import { useFetcher } from "@remix-run/react";
 
 export async function loader({ request }: LoaderFunctionArgs) {

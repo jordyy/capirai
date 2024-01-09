@@ -1,27 +1,24 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { eq } from "drizzle-orm";
-import {
-  Form,
-  useLoaderData,
-  Link,
-  useFetcher,
-  Outlet,
-} from "@remix-run/react";
+import { Form, useLoaderData, Link, useFetcher } from "@remix-run/react";
 import React from "react";
 
 import { drizzle } from "../utils/db.server";
-import { deckCards, decks, cards } from "../../db/schema";
+import { deckCards, decks, cards, userCards } from "../../db/schema";
 import { z } from "zod";
 
-export async function loader({ request, params }: LoaderFunctionArgs) {
+export async function loader({ params }: LoaderFunctionArgs) {
+  const parsedDeckCardId = z.coerce.number().parse(params.deckCardId);
+
   try {
     const singleDeckCard = await drizzle
       .select()
       .from(deckCards)
       .innerJoin(decks, eq(deckCards.deckID, decks.id))
       .innerJoin(cards, eq(deckCards.cardID, cards.id))
-      .where(eq(deckCards.id, Number(params.deckCardId)));
+      .innerJoin(userCards, eq(cards.id, userCards.cardID))
+      .where(eq(deckCards.id, parsedDeckCardId));
     return json(singleDeckCard);
   } catch (error) {
     console.error("Loader error:", error);
@@ -52,15 +49,16 @@ export const action = async ({ params }: ActionFunctionArgs) => {
   }
 };
 
-export default function DeckCards() {
+export default function SingleDeckCard() {
   const singleDeckCard = useLoaderData<typeof loader>();
   const fetcher = useFetcher();
 
   if (!singleDeckCard || singleDeckCard.length === 0) {
-    return <div>Decks not found.</div>;
+    return <div>Card does not exist.</div>;
   }
 
   console.log({ singleDeckCard });
+
   return (
     <div id="deck">
       <h1>Single Card View</h1>
@@ -74,9 +72,19 @@ export default function DeckCards() {
                 <h2>{card.cards.CEFR_level}</h2>
                 <h2>{card.cards.frequency}</h2>
               </div>
-              {/* <Link to={`/decks/${singleDeckCard.id}/edit`}>Edit</Link> */}
-              <Form method="post">
-                <button type="submit">Remove</button>
+              <Link to={`/cards/${singleDeckCard[0].cards.id}/edit`}>Edit</Link>
+              <Form
+                method="post"
+                onSubmit={(event) => {
+                  const response = confirm(
+                    "Please confirm you want to delete this record."
+                  );
+                  if (!response) {
+                    event.preventDefault();
+                  }
+                }}
+              >
+                <button type="submit">Delete</button>
               </Form>
             </div>
           );
