@@ -95,14 +95,15 @@ export default function SingleDeckCard() {
                       <li key={value}>
                         <Form
                           method="post"
-                          // action={`/userCards/${card.userCards.cardID}/update`}
+                          action={`/userCards/${card?.userCards?.id}/update`}
                         >
-                          <input
-                            type="hidden"
+                          <button
                             name="understanding"
                             value={value}
-                          />
-                          <button type="submit">{value}</button>
+                            type="submit"
+                          >
+                            {value}
+                          </button>
                         </Form>
                       </li>
                     );

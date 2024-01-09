@@ -7,24 +7,29 @@ import {
   useNavigation,
 } from "@remix-run/react";
 import { eq } from "drizzle-orm";
-import { userCards } from "../../../db/schema";
+import { userCards } from "../../db/schema";
 import { z } from "zod";
 import React from "react";
-import { db } from "../../../db/index";
+import { db } from "../../db/index";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
-  const parsedUserCardId = z.coerce.number().parse(params.userCardId);
+  if (!params.userCardId || isNaN(Number(params.userCardId))) {
+    throw new Response("No user card id provided", { status: 400 });
+  }
+
+  const userCardId = Number(params.userCardId);
+
   const userCard = await db
     .select()
     .from(userCards)
-    .where(eq(userCards.id, parsedUserCardId));
-
-  const understanding = userCard[0]?.understanding;
+    .where(eq(userCards.id, userCardId));
 
   if (!userCard) {
-    throw new Response("Not Found", { status: 404 });
+    throw new Response("No card found", { status: 404 });
   }
-  return json({ understanding });
+  const understanding = userCard[0]?.understanding;
+
+  return json({ understanding, userCardId });
 };
 
 const cardSchema = z.object({
@@ -32,6 +37,10 @@ const cardSchema = z.object({
 });
 
 export const action = async ({ params, request }: ActionFunctionArgs) => {
+  if (!params.userCardId || isNaN(Number(params.userCardId))) {
+    throw new Response("No user card id provided", { status: 400 });
+  }
+  const userCardId = Number(params.userCardId);
   const formData = await request.formData();
   const understanding = formData.get("understanding");
 
@@ -47,7 +56,13 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
     await db
       .update(userCards)
       .set({
-        understanding: parsedInput.data.understanding,
+        understanding: parsedInput.data.understanding as
+          | "I have never seen it"
+          | "I have seen it, but not sure what it means"
+          | "I know what it means"
+          | "I can use it"
+          | null
+          | undefined,
       })
       .where(eq(userCards.id, Number(params.userCardId)));
     return null;
@@ -57,8 +72,8 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
   }
 };
 
-export default function EditUser({}) {
-  const { understanding } = useLoaderData<typeof loader>();
+export default function UpdateUserCard({}) {
+  const { understanding, userCardId } = useLoaderData<typeof loader>();
   const navigation = useNavigation();
   const navigate = useNavigate();
   const isSaving = navigation.formAction === `/userCards/${userCards.id}/edit`;
@@ -73,6 +88,7 @@ export default function EditUser({}) {
           name="understanding"
           type="text"
           placeholder="understanding"
+          id="understanding"
         />
       </p>
       <p>
