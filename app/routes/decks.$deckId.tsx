@@ -5,7 +5,7 @@ import { Form, useLoaderData, Link } from "@remix-run/react";
 import React from "react";
 
 import { drizzle } from "../utils/db.server";
-import { decks, deckCards, cards } from "../../db/schema";
+import { decks, deckCards, cards, userCards } from "../../db/schema";
 import { z } from "zod";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
@@ -23,6 +23,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     .select()
     .from(cards)
     .innerJoin(deckCards, eq(cards.id, deckCards.cardID))
+    .leftJoin(userCards, eq(cards.id, userCards.cardID))
     .where(eq(deckCards.deckID, Number(params.deckId)));
 
   if (!deck || deck.length === 0) {
@@ -53,6 +54,8 @@ export default function Deck({}) {
   const { deck, thisDeckCard } = useLoaderData<typeof loader>();
   const deckData = deck[0];
 
+  console.log({ deck, thisDeckCard });
+
   if (!deckData) {
     return <div>Deck not found.</div>;
   }
@@ -72,6 +75,12 @@ export default function Deck({}) {
                 <h2>{card.cards.back}</h2>
                 <h2>{card.cards.CEFR_level}</h2>
                 <h2>{card.cards.frequency}</h2>
+                <div className="data-container">
+                  <div>deckCardID: {card.deckCards.id}</div>
+                  <div>deckID:{card.deckCards.deckID}</div>
+                  <div>userCardID: {card?.userCards?.id}</div>
+                  <div>cardID: {card?.cards?.id}</div>
+                </div>
               </div>
               <Link to={`/cards/${card.cards.id}/edit`}>Edit</Link>
               <Form

@@ -95,7 +95,7 @@ export default function SingleDeckCard() {
                       <li key={value}>
                         <Form
                           method="post"
-                          action={`/userCards/${card.deckCards.id}/update`}
+                          // action={`/userCards/${card.userCards.cardID}/update`}
                         >
                           <input
                             type="hidden"
