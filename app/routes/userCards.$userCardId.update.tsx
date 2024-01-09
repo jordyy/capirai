@@ -43,6 +43,7 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
   const userCardId = Number(params.userCardId);
   const formData = await request.formData();
   const understanding = formData.get("understanding");
+  const deckCardId = formData.get("deckCardId");
 
   const parsedInput = cardSchema.safeParse({
     understanding: understanding,
@@ -65,7 +66,7 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
           | undefined,
       })
       .where(eq(userCards.id, Number(params.userCardId)));
-    return null;
+    return redirect(`/deckCards/${deckCardId}`);
   } catch (error) {
     console.log({ card_edit_error: error });
     return json({ status: "error" });

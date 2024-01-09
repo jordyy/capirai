@@ -54,9 +54,6 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
     return json({ error: parsedInput.error }, { status: 400 });
   }
 
-  // compare the ID from the cards table to the cardID from the deckCards table
-  // the id in params is the deckCard.id, but what I NEED is the deckCard.cardID
-
   try {
     await drizzle
       .update(cards)
@@ -72,7 +69,7 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
   }
 };
 
-export default function EditDeckCards({}) {
+export default function EditDeckCard({}) {
   const { deckCardContents, deck } = useLoaderData<typeof loader>();
   const navigation = useNavigation();
   const navigate = useNavigate();

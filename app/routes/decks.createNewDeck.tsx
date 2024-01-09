@@ -37,15 +37,11 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 };
 
 export default function CreateNewDeck() {
-  const data = useActionData<typeof action>();
   const navigation = useNavigation();
   const isSubmitting = navigation.formAction === "/decks/createNewdeck";
 
-  const errorMessage = data?.status === "error" ? data.message : null;
-
   return (
     <Form method="post">
-      {errorMessage ? errorMessage : null}
       <label>
         deckName: <input name="deckName" />
       </label>

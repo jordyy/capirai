@@ -4,6 +4,7 @@ import { eq } from "drizzle-orm";
 import { cards } from "../../db/schema";
 import { z } from "zod";
 import { drizzle } from "../utils/db.server";
+import { db } from "../../db/index";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const allCards = await drizzle.select().from(cards);
@@ -15,7 +16,7 @@ export const action = async ({ params }: ActionFunctionArgs) => {
   console.log({ card_delete_error: params.error });
 
   try {
-    await drizzle.delete(cards).where(eq(cards.id, cardId));
+    await db.delete(cards).where(eq(cards.id, cardId));
     return redirect(`/cards`);
   } catch (error) {
     return json({ status: "error" });

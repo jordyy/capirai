@@ -5,12 +5,12 @@ import { Form, useLoaderData } from "@remix-run/react";
 import { Link } from "@remix-run/react";
 import React from "react";
 
-import { db } from "../../db/index";
+import { drizzle } from "../utils/db.server";
 import { cards } from "../../db/schema";
 import { z } from "zod";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
-  const card = await db
+  const card = await drizzle
     .select()
     .from(cards)
     .where(eq(cards.id, Number(params.cardId)));
@@ -33,7 +33,7 @@ export const action = async ({ params }: ActionFunctionArgs) => {
     return json({ error: parsedParams.error }, { status: 400 });
   }
   try {
-    await db.delete(cards).where(eq(cards.id, Number(parsedParams.data)));
+    await drizzle.delete(cards).where(eq(cards.id, Number(parsedParams.data)));
     return redirect(`/cards`);
   } catch (error) {
     console.log({ card_delete_error: error });

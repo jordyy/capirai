@@ -94,6 +94,11 @@ export default function SingleDeckCard() {
                           method="post"
                           action={`/userCards/${card?.userCards?.id}/update`}
                         >
+                          <input
+                            type="hidden"
+                            name="deckCardId"
+                            value={card.deckCards.id}
+                          />
                           <button
                             name="understanding"
                             value={value}
