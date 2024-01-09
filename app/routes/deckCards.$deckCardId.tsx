@@ -7,6 +7,7 @@ import React from "react";
 import { drizzle } from "../utils/db.server";
 import { deckCards, decks, cards, userCards } from "../../db/schema";
 import { z } from "zod";
+import getEnumValues from "../getEnum";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const parsedDeckCardId = z.coerce.number().parse(params.deckCardId);
@@ -19,7 +20,11 @@ export async function loader({ params }: LoaderFunctionArgs) {
       .innerJoin(cards, eq(deckCards.cardID, cards.id))
       .leftJoin(userCards, eq(userCards.cardID, deckCards.cardID))
       .where(eq(deckCards.id, parsedDeckCardId));
-    return json(singleDeckCard);
+
+    const understandingLevel = getEnumValues().then((values) => {
+      return values;
+    });
+    return json({ singleDeckCard, understandingLevel });
   } catch (error) {
     console.error("Loader error:", error);
     throw new Response("Error loading deck cards", { status: 500 });
@@ -50,13 +55,13 @@ export const action = async ({ params }: ActionFunctionArgs) => {
 };
 
 export default function SingleDeckCard() {
-  const singleDeckCard = useLoaderData<typeof loader>();
+  const { singleDeckCard, understandingLevel } = useLoaderData<typeof loader>();
 
   if (!singleDeckCard || singleDeckCard.length === 0) {
     return <div>Card does not exist.</div>;
   }
 
-  console.log(singleDeckCard);
+  console.log({ singleDeckCard, understandingLevel });
 
   return (
     <div id="deck">
@@ -70,6 +75,7 @@ export default function SingleDeckCard() {
                 <h2>{card.cards.back}</h2>
                 <h2>{card.cards.CEFR_level}</h2>
                 <h2>{card.cards.frequency}</h2>
+                <h4>{card?.userCards?.understanding}</h4>
               </div>
               <Link to={`/cards/${singleDeckCard[0].cards.id}/edit`}>Edit</Link>
               <Form

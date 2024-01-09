@@ -12,7 +12,8 @@ import { db } from "../../db/index";
 import { drizzle } from "../utils/db.server";
 import { z } from "zod";
 import { deckCards, decks } from "../../db/schema";
-import { cards } from "../../db/schema";
+import { cards, userCards } from "../../db/schema";
+import { authCookie } from "../auth";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const allDecks = await drizzle.select().from(decks);
@@ -24,6 +25,9 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const cardDeck = formData.get("deck");
   const cardFront = formData.get("front");
   const cardBack = formData.get("back");
+  const cookieString = request.headers.get("Cookie");
+  const userID = await authCookie.parse(cookieString);
+
   const parsedInput = cardSchema.safeParse({
     deckId: Number(cardDeck),
     front: cardFront,
@@ -42,6 +46,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     await db
       .insert(deckCards)
       .values({ deckID: parsedInput.data.deckId, cardID: card.id });
+
+    await db.insert(userCards).values({ userID: userID, cardID: card.id });
 
     return null;
   } else {
