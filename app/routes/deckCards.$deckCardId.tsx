@@ -49,7 +49,6 @@ const deckCardIdSchema = z.object({
 
 export const action = async ({ params }: ActionFunctionArgs) => {
   const parsedDeckCardId = deckCardIdSchema.safeParse(params.deckCardId);
-
   console.log({ cardz_delete_error: params.error });
 
   if (!parsedDeckCardId.success) {
@@ -73,8 +72,6 @@ export default function SingleDeckCard() {
   if (!singleDeckCard || singleDeckCard.length === 0) {
     return <div>Card does not exist.</div>;
   }
-
-  console.log({ singleDeckCard, understandingValues });
 
   return (
     <div id="deck">

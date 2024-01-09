@@ -7,7 +7,7 @@ import {
   useNavigation,
 } from "@remix-run/react";
 import { eq } from "drizzle-orm";
-import { userCards } from "../../db/schema";
+import { userCards, deckCards } from "../../db/schema";
 import { z } from "zod";
 import React from "react";
 import { db } from "../../db/index";
@@ -29,7 +29,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   }
   const understanding = userCard[0]?.understanding;
 
-  return json({ understanding, userCardId });
+  return json({ understanding, userCardId, userCard });
 };
 
 const cardSchema = z.object({
@@ -73,11 +73,13 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
 };
 
 export default function UpdateUserCard({}) {
-  const { understanding, userCardId } = useLoaderData<typeof loader>();
+  const { understanding, userCardId, userCard } =
+    useLoaderData<typeof loader>();
   const navigation = useNavigation();
   const navigate = useNavigate();
   const isSaving = navigation.formAction === `/userCards/${userCards.id}/edit`;
 
+  console.log({ understanding, userCardId, userCard });
   return (
     <Form method="post">
       <p>

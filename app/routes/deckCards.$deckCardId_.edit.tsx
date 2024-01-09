@@ -84,8 +84,6 @@ export default function EditDeckCards({}) {
 
   const firstCard = deckCardContents[0];
 
-  console.log({ deckCardContents, deck });
-
   return (
     <Form method="post">
       <Link to={`/cards/${deckCardContents[0].cards.id}/edit`}>Edit</Link>

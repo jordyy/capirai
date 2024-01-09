@@ -54,8 +54,6 @@ export default function Deck({}) {
   const { deck, thisDeckCard } = useLoaderData<typeof loader>();
   const deckData = deck[0];
 
-  console.log({ deck, thisDeckCard });
-
   if (!deckData) {
     return <div>Deck not found.</div>;
   }
