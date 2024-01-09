@@ -17,7 +17,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
       .from(deckCards)
       .innerJoin(decks, eq(deckCards.deckID, decks.id))
       .innerJoin(cards, eq(deckCards.cardID, cards.id))
-      .innerJoin(userCards, eq(cards.id, userCards.cardID))
+      .leftJoin(userCards, eq(userCards.cardID, deckCards.cardID))
       .where(eq(deckCards.id, parsedDeckCardId));
     return json(singleDeckCard);
   } catch (error) {
@@ -51,13 +51,12 @@ export const action = async ({ params }: ActionFunctionArgs) => {
 
 export default function SingleDeckCard() {
   const singleDeckCard = useLoaderData<typeof loader>();
-  const fetcher = useFetcher();
 
   if (!singleDeckCard || singleDeckCard.length === 0) {
     return <div>Card does not exist.</div>;
   }
 
-  console.log({ singleDeckCard });
+  console.log(singleDeckCard);
 
   return (
     <div id="deck">
