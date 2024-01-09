@@ -1,13 +1,13 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { Form, useLoaderData, Link, useFetcher } from "@remix-run/react";
 import React from "react";
 
 import { drizzle } from "../utils/db.server";
+import { db } from "../../db/index";
 import { deckCards, decks, cards, userCards } from "../../db/schema";
 import { z } from "zod";
-import getEnumValues from "../getEnum";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const parsedDeckCardId = z.coerce.number().parse(params.deckCardId);
@@ -21,10 +21,22 @@ export async function loader({ params }: LoaderFunctionArgs) {
       .leftJoin(userCards, eq(userCards.cardID, deckCards.cardID))
       .where(eq(deckCards.id, parsedDeckCardId));
 
-    const understandingLevel = getEnumValues().then((values) => {
-      return values;
-    });
-    return json({ singleDeckCard, understandingLevel });
+    const understandingEnumValues = await db.execute(
+      sql.raw(`
+        SELECT enumlabel
+        FROM pg_enum
+        WHERE enumtypid = (
+          SELECT oid
+          FROM pg_type
+          WHERE typname = 'understanding'
+        )
+      `)
+    );
+    const understandingValues = understandingEnumValues.rows.map(
+      (row: any) => row.enumlabel
+    );
+
+    return json({ singleDeckCard, understandingValues });
   } catch (error) {
     console.error("Loader error:", error);
     throw new Response("Error loading deck cards", { status: 500 });
@@ -55,13 +67,14 @@ export const action = async ({ params }: ActionFunctionArgs) => {
 };
 
 export default function SingleDeckCard() {
-  const { singleDeckCard, understandingLevel } = useLoaderData<typeof loader>();
+  const { singleDeckCard, understandingValues } =
+    useLoaderData<typeof loader>();
 
   if (!singleDeckCard || singleDeckCard.length === 0) {
     return <div>Card does not exist.</div>;
   }
 
-  console.log({ singleDeckCard, understandingLevel });
+  console.log({ singleDeckCard, understandingValues });
 
   return (
     <div id="deck">
@@ -76,6 +89,25 @@ export default function SingleDeckCard() {
                 <h2>{card.cards.CEFR_level}</h2>
                 <h2>{card.cards.frequency}</h2>
                 <h4>{card?.userCards?.understanding}</h4>
+                <ul>
+                  {understandingValues.map((value) => {
+                    return (
+                      <li key={value}>
+                        <Form
+                          method="post"
+                          action={`/userCards/${card.deckCards.id}/update`}
+                        >
+                          <input
+                            type="hidden"
+                            name="understanding"
+                            value={value}
+                          />
+                          <button type="submit">{value}</button>
+                        </Form>
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
               <Link to={`/cards/${singleDeckCard[0].cards.id}/edit`}>Edit</Link>
               <Form

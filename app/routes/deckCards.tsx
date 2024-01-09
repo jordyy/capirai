@@ -1,6 +1,12 @@
 import { LoaderFunctionArgs, ActionFunctionArgs, json } from "@remix-run/node";
 import { useLoaderData, Outlet } from "@remix-run/react";
-import { deckCards, decks, cards, userCards } from "../../db/schema";
+import {
+  deckCards,
+  decks,
+  cards,
+  userCards,
+  understandingEnum,
+} from "../../db/schema";
 import { eq } from "drizzle-orm";
 
 import { drizzle } from "../utils/db.server";
@@ -17,7 +23,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
       .innerJoin(decks, eq(deckCards.deckID, decks.id))
       .innerJoin(cards, eq(deckCards.cardID, cards.id))
       .leftJoin(userCards, eq(userCards.cardID, deckCards.cardID));
-    return json(allDeckCards);
+
+    return json({ allDeckCards });
   } catch (error) {
     console.error("Loader error:", error);
     throw new Response("Error loading deck cards", { status: 500 });
@@ -34,14 +41,12 @@ export const action = async ({ params }: ActionFunctionArgs) => {
 };
 
 export default function DeckCards() {
-  const allDeckCards = useLoaderData<typeof loader>();
+  const { allDeckCards } = useLoaderData<typeof loader>();
   const fetcher = useFetcher();
 
   if (!allDeckCards || allDeckCards.length === 0) {
     return <div>Decks not found.</div>;
   }
-
-  console.log({ allDeckCards: allDeckCards });
 
   return (
     <div id="all-decks">
@@ -64,7 +69,6 @@ export default function DeckCards() {
               method="post"
               action={`/deckCards/${deckCards.cardID}/remove`}
             >
-              {/* <input type="hidden" name="userCardID" value={userCards.cardID} /> */}
               <button type="submit">Remove</button>
             </fetcher.Form>
           </div>
