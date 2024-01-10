@@ -49,19 +49,9 @@ const deckCardIdSchema = z.object({
 
 export const action = async ({ params }: ActionFunctionArgs) => {
   const parsedDeckCardId = deckCardIdSchema.safeParse(params.deckCardId);
-  console.log({ cardz_delete_error: params.error });
 
   if (!parsedDeckCardId.success) {
     return json({ error: "No deck card id provided" }, { status: 400 });
-  }
-
-  try {
-    await drizzle
-      .delete(deckCards)
-      .where(eq(deckCards.cardID, Number(parsedDeckCardId)));
-    return redirect(`/deckCards`);
-  } catch (error) {
-    return json({ status: "error" });
   }
 };
 
@@ -101,26 +91,11 @@ export default function SingleDeckCard(params) {
           <div onClick={handleCardFlip}>
             <div key={card.cards.id} className="card-box">
               <div className="single-card">
-                <h2>{isViewingBack ? card.cards.back : card.cards.front}</h2>
+                <h2 className="single-card-text">
+                  {isViewingBack ? card.cards.back : card.cards.front}
+                </h2>
                 <h2>{card.cards.CEFR_level}</h2>
                 <h2>{card.cards.frequency}</h2>
-                <h4>{card?.userCards?.understanding}</h4>
-                <Link to={`/cards/${singleDeckCard[0].cards.id}/edit`}>
-                  Edit
-                </Link>
-                <Form
-                  method="post"
-                  onSubmit={(event) => {
-                    const response = confirm(
-                      "Please confirm you want to delete this record."
-                    );
-                    if (!response) {
-                      event.preventDefault();
-                    }
-                  }}
-                >
-                  <button type="submit">Delete</button>
-                </Form>
               </div>
 
               <ul className="understanding-container">

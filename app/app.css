@@ -75,6 +75,10 @@ body {
   font-weight: 650;
 }
 
+.single-card-text {
+  align-self: center;
+}
+
 .card-container {
   display: flex;
   flex-direction: row;
@@ -156,6 +160,8 @@ button:active,
 .single-card-container {
   display: flex;
   flex-direction: column;
+  align-content: center;
+  justify-content: center;
   flex-wrap: wrap;
   /* align-items: center; */
 }
@@ -173,7 +179,7 @@ button:active,
 
 .single-card {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
 }
