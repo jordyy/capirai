@@ -46,6 +46,8 @@ body {
   line-height: 1.5;
   color: #121212;
   width: 100%;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .understanding-container {
@@ -64,11 +66,13 @@ body {
   min-width: 150px;
 }
 
-current-understanding-button {
-  font-size: small;
-  min-width: 150px;
-  box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.4);
-  transform: translateY(1px);
+.current-understanding-button {
+  font-size: 1rem;
+  color: #000000;
+  box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.2), 0 1px 2px hsla(0, 0%, 0%, 0.2);
+  line-height: 1.5;
+  margin: 0;
+  font-weight: 650;
 }
 
 .card-container {

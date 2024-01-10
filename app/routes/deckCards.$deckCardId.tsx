@@ -82,6 +82,17 @@ export default function SingleDeckCard(params) {
     setIsViewingBack((prevState) => !prevState);
   };
 
+  const handleUnderstandingUpdate = (value, card) => {
+    const formData = new FormData();
+    formData.append("understanding", value);
+    formData.append("deckCardId", card.deckCards.id);
+
+    fetcher.submit(formData, {
+      method: "post",
+      action: `/userCards/${card?.userCards?.id}/update`,
+    });
+  };
+
   return (
     <div id="deck">
       <h1 className="single-card-container">Single Card View</h1>
@@ -113,36 +124,34 @@ export default function SingleDeckCard(params) {
               </div>
 
               <ul className="understanding-container">
-                {isViewingBack
-                  ? understandingValues.map((value) => {
-                      return (
-                        <li key={value}>
-                          <Form
-                            method="post"
-                            action={`/userCards/${card?.userCards?.id}/update`}
-                          >
-                            <input
-                              type="hidden"
-                              name="deckCardId"
-                              value={card.deckCards.id}
-                            />
-                            <button
-                              name="understanding"
-                              className={
-                                value === card?.userCards?.understanding
-                                  ? "current-understanding-button"
-                                  : "understanding-buttons"
-                              }
-                              value={value}
-                              type="submit"
-                            >
-                              {value}
-                            </button>
-                          </Form>
-                        </li>
-                      );
-                    })
-                  : null}
+                {isViewingBack &&
+                  understandingValues.map((value) => (
+                    <li key={value}>
+                      <Form
+                        method="post"
+                        action={`/userCards/${card?.userCards?.id}/update`}
+                      >
+                        <input
+                          type="hidden"
+                          name="deckCardId"
+                          value={card.deckCards.id}
+                        />
+                        <button
+                          onClick={() => handleUnderstandingUpdate(value, card)}
+                          name="understanding"
+                          className={
+                            value === card?.userCards?.understanding
+                              ? "current-understanding-button"
+                              : "understanding-buttons"
+                          }
+                          value={value}
+                          type="submit"
+                        >
+                          {value}
+                        </button>
+                      </Form>
+                    </li>
+                  ))}
               </ul>
             </div>
           </div>
