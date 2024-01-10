@@ -66,10 +66,6 @@ export const action = async ({ params }: ActionFunctionArgs) => {
 };
 
 export default function SingleDeckCard(params) {
-  // const initialDeckCardId = deckCardIdSchema.safeParse(params.deckCardId);
-  // const [currentDeckCardId, setCurrentDeckCardId] = useState(initialDeckCardId);
-  // const [cardData, setCardData] = useState(null);
-
   const [isViewingBack, setIsViewingBack] = useState(false);
 
   const { singleDeckCard, understandingValues } =
@@ -79,81 +75,71 @@ export default function SingleDeckCard(params) {
     return <div>Card does not exist.</div>;
   }
 
-  // useEffect(() => {
-  //   const fetchCardData = async () => {
-  //     const response = await fetch(`/api/cards/${currentDeckCardId}`);
-  //     const data = await response.json();
-  //     setCardData(data);
-  //   };
-  //   fetchCardData();
-  // }, [currentDeckCardId]);
-
   const handleCardFlip = () => {
     setIsViewingBack(!isViewingBack);
   };
 
   return (
     <div id="deck">
-      <h1>Single Card View</h1>
-      <div className="single-card-container">
-        {singleDeckCard.map((card) => {
-          return (
-            <div
-              key={card.cards.id}
-              className="card-box"
-              onClick={handleCardFlip}
-            >
+      <h1 className="single-card-container">Single Card View</h1>
+      {singleDeckCard.map((card) => {
+        return (
+          <div onClick={handleCardFlip}>
+            <div key={card.cards.id} className="card-box">
               <div className="single-card">
                 <h2>{isViewingBack ? card.cards.back : card.cards.front}</h2>
                 <h2>{card.cards.CEFR_level}</h2>
                 <h2>{card.cards.frequency}</h2>
                 <h4>{card?.userCards?.understanding}</h4>
-                <ul>
-                  {isViewingBack
-                    ? understandingValues.map((value) => {
-                        return (
-                          <li key={value}>
-                            <Form
-                              method="post"
-                              action={`/userCards/${card?.userCards?.id}/update`}
-                            >
-                              <input
-                                type="hidden"
-                                name="deckCardId"
-                                value={card.deckCards.id}
-                              />
-                              <button
-                                name="understanding"
-                                value={value}
-                                type="submit"
-                              >
-                                {value}
-                              </button>
-                            </Form>
-                          </li>
-                        );
-                      })
-                    : null}
-                </ul>
+                <Link to={`/cards/${singleDeckCard[0].cards.id}/edit`}>
+                  Edit
+                </Link>
+                <Form
+                  method="post"
+                  onSubmit={(event) => {
+                    const response = confirm(
+                      "Please confirm you want to delete this record."
+                    );
+                    if (!response) {
+                      event.preventDefault();
+                    }
+                  }}
+                >
+                  <button type="submit">Delete</button>
+                </Form>
               </div>
-              <Link to={`/cards/${singleDeckCard[0].cards.id}/edit`}>Edit</Link>
-              <Form
-                method="post"
-                onSubmit={(event) => {
-                  const response = confirm(
-                    "Please confirm you want to delete this record."
-                  );
-                  if (!response) {
-                    event.preventDefault();
-                  }
-                }}
-              >
-                <button type="submit">Delete</button>
-              </Form>
             </div>
-          );
-        })}
-      </div>
+            <ul className="understanding-container">
+              {isViewingBack
+                ? understandingValues.map((value) => {
+                    return (
+                      <li key={value}>
+                        <Form
+                          method="post"
+                          action={`/userCards/${card?.userCards?.id}/update`}
+                        >
+                          <input
+                            type="hidden"
+                            name="deckCardId"
+                            value={card.deckCards.id}
+                          />
+                          <button
+                            name="understanding"
+                            className="understanding-buttons"
+                            value={value}
+                            type="submit"
+                          >
+                            {value}
+                          </button>
+                        </Form>
+                      </li>
+                    );
+                  })
+                : null}
+            </ul>
+          </div>
+        );
+      })}
     </div>
   );
 }

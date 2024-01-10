@@ -49,7 +49,7 @@ export default function App() {
       </head>
       <body>
         {userID ? (
-          <>
+          <div className="nav-container">
             <Link to={`/home`}>
               <button type="submit">My Decks</button>
             </Link>
@@ -65,12 +65,11 @@ export default function App() {
                 <button>Logout</button>
               </Form>
             </div>{" "}
-          </>
+          </div>
         ) : (
           <Link to="/signup"></Link>
         )}
-
-        <div id="detail">
+        <div className="outlet-container">
           <Outlet />
         </div>
 
