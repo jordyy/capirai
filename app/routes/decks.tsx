@@ -17,7 +17,6 @@ import { getAuthCookie, requireAuthCookie } from "../auth";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const userId = await getAuthCookie(request);
-
   const allDecks = await drizzle
     .select()
     .from(decks)
@@ -40,7 +39,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export const action = async ({ request, params }: ActionFunctionArgs) => {
   const userId = await requireAuthCookie(request);
   const formData = await request.formData();
-  const deckIdString = params.deckId;
+  // const deckIdString = params.deckId;
+  const deckIdString = z.coerce.number().parse(formData.get("deckId"));
   const subscribeString = formData.get("subscribe");
 
   if (!deckIdString || isNaN(Number(deckIdString))) {
@@ -52,7 +52,7 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
 
   try {
     if (isSubscribeAction) {
-      const subscribe = subscribeString === "1";
+      const subscribe = Boolean(z.coerce.number().parse(subscribeString));
       const [existingSubscription] = await db
         .select()
         .from(userDeckSubscriptions)
