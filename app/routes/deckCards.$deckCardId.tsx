@@ -108,35 +108,36 @@ export default function SingleDeckCard(params) {
                   <button type="submit">Delete</button>
                 </Form>
               </div>
-            </div>
-            <ul className="understanding-container">
-              {isViewingBack
-                ? understandingValues.map((value) => {
-                    return (
-                      <li key={value}>
-                        <Form
-                          method="post"
-                          action={`/userCards/${card?.userCards?.id}/update`}
-                        >
-                          <input
-                            type="hidden"
-                            name="deckCardId"
-                            value={card.deckCards.id}
-                          />
-                          <button
-                            name="understanding"
-                            className="understanding-buttons"
-                            value={value}
-                            type="submit"
+
+              <ul className="understanding-container">
+                {isViewingBack
+                  ? understandingValues.map((value) => {
+                      return (
+                        <li key={value}>
+                          <Form
+                            method="post"
+                            action={`/userCards/${card?.userCards?.id}/update`}
                           >
-                            {value}
-                          </button>
-                        </Form>
-                      </li>
-                    );
-                  })
-                : null}
-            </ul>
+                            <input
+                              type="hidden"
+                              name="deckCardId"
+                              value={card.deckCards.id}
+                            />
+                            <button
+                              name="understanding"
+                              className="understanding-buttons"
+                              value={value}
+                              type="submit"
+                            >
+                              {value}
+                            </button>
+                          </Form>
+                        </li>
+                      );
+                    })
+                  : null}
+              </ul>
+            </div>
           </div>
         );
       })}
