@@ -2,7 +2,7 @@ import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { eq, is, sql } from "drizzle-orm";
 import { Form, useLoaderData, Link, useFetcher } from "@remix-run/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { drizzle } from "../utils/db.server";
 import { db } from "../../db/index";
@@ -66,8 +66,8 @@ export const action = async ({ params }: ActionFunctionArgs) => {
 };
 
 export default function SingleDeckCard(params) {
+  const fetcher = useFetcher();
   const [isViewingBack, setIsViewingBack] = useState(false);
-
   const { singleDeckCard, understandingValues } =
     useLoaderData<typeof loader>();
 
@@ -75,8 +75,11 @@ export default function SingleDeckCard(params) {
     return <div>Card does not exist.</div>;
   }
 
-  const handleCardFlip = () => {
-    setIsViewingBack(!isViewingBack);
+  const handleCardFlip = (event) => {
+    if (event.target.form) {
+      return;
+    }
+    setIsViewingBack((prevState) => !prevState);
   };
 
   return (
@@ -125,7 +128,11 @@ export default function SingleDeckCard(params) {
                             />
                             <button
                               name="understanding"
-                              className="understanding-buttons"
+                              className={
+                                value === card?.userCards?.understanding
+                                  ? "current-understanding-button"
+                                  : "understanding-buttons"
+                              }
                               value={value}
                               type="submit"
                             >

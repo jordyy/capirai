@@ -31,10 +31,12 @@ code {
 .nav-container {
   display: flex;
   flex-direction: row;
-  min-width: 100%;
+  justify-content: space-around;
   max-height: 35px;
-  margin-bottom: 10%;
-  margin: 5% 25% 10% 25%;
+  max-width: 100%;
+  margin-top: 10%;
+  margin-right: 30%;
+  margin-left: 30%;
 }
 
 html,
@@ -43,6 +45,7 @@ body {
   margin: 0;
   line-height: 1.5;
   color: #121212;
+  width: 100%;
 }
 
 .understanding-container {
@@ -59,6 +62,13 @@ body {
 .understanding-buttons {
   font-size: small;
   min-width: 150px;
+}
+
+current-understanding-button {
+  font-size: small;
+  min-width: 150px;
+  box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.4);
+  transform: translateY(1px);
 }
 
 .card-container {
