@@ -1,8 +1,8 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import { eq, sql } from "drizzle-orm";
+import { eq, is, sql } from "drizzle-orm";
 import { Form, useLoaderData, Link, useFetcher } from "@remix-run/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { drizzle } from "../utils/db.server";
 import { db } from "../../db/index";
@@ -65,7 +65,13 @@ export const action = async ({ params }: ActionFunctionArgs) => {
   }
 };
 
-export default function SingleDeckCard() {
+export default function SingleDeckCard(params) {
+  // const initialDeckCardId = deckCardIdSchema.safeParse(params.deckCardId);
+  // const [currentDeckCardId, setCurrentDeckCardId] = useState(initialDeckCardId);
+  // const [cardData, setCardData] = useState(null);
+
+  const [isViewingBack, setIsViewingBack] = useState(false);
+
   const { singleDeckCard, understandingValues } =
     useLoaderData<typeof loader>();
 
@@ -73,43 +79,61 @@ export default function SingleDeckCard() {
     return <div>Card does not exist.</div>;
   }
 
+  // useEffect(() => {
+  //   const fetchCardData = async () => {
+  //     const response = await fetch(`/api/cards/${currentDeckCardId}`);
+  //     const data = await response.json();
+  //     setCardData(data);
+  //   };
+  //   fetchCardData();
+  // }, [currentDeckCardId]);
+
+  const handleCardFlip = () => {
+    setIsViewingBack(!isViewingBack);
+  };
+
   return (
     <div id="deck">
       <h1>Single Card View</h1>
       <div className="single-card-container">
         {singleDeckCard.map((card) => {
           return (
-            <div key={card.cards.id} className="card-box">
+            <div
+              key={card.cards.id}
+              className="card-box"
+              onClick={handleCardFlip}
+            >
               <div className="single-card">
-                <h2>{card.cards.front}</h2>
-                <h2>{card.cards.back}</h2>
+                <h2>{isViewingBack ? card.cards.back : card.cards.front}</h2>
                 <h2>{card.cards.CEFR_level}</h2>
                 <h2>{card.cards.frequency}</h2>
                 <h4>{card?.userCards?.understanding}</h4>
                 <ul>
-                  {understandingValues.map((value) => {
-                    return (
-                      <li key={value}>
-                        <Form
-                          method="post"
-                          action={`/userCards/${card?.userCards?.id}/update`}
-                        >
-                          <input
-                            type="hidden"
-                            name="deckCardId"
-                            value={card.deckCards.id}
-                          />
-                          <button
-                            name="understanding"
-                            value={value}
-                            type="submit"
-                          >
-                            {value}
-                          </button>
-                        </Form>
-                      </li>
-                    );
-                  })}
+                  {isViewingBack
+                    ? understandingValues.map((value) => {
+                        return (
+                          <li key={value}>
+                            <Form
+                              method="post"
+                              action={`/userCards/${card?.userCards?.id}/update`}
+                            >
+                              <input
+                                type="hidden"
+                                name="deckCardId"
+                                value={card.deckCards.id}
+                              />
+                              <button
+                                name="understanding"
+                                value={value}
+                                type="submit"
+                              >
+                                {value}
+                              </button>
+                            </Form>
+                          </li>
+                        );
+                      })
+                    : null}
                 </ul>
               </div>
               <Link to={`/cards/${singleDeckCard[0].cards.id}/edit`}>Edit</Link>
