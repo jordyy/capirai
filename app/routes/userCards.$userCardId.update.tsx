@@ -33,7 +33,11 @@ const cardSchema = z.object({
 
 export const action = async ({ params, request }: ActionFunctionArgs) => {
   const userCardIds = await db
-    .select({ UserCardID: userCards.id, DeckCardID: deckCards.id })
+    .select({
+      userCardID: userCards.id,
+      deckCardID: deckCards.id,
+      deckId: deckCards.deckID,
+    })
     .from(userCards)
     .innerJoin(deckCards, eq(userCards.cardID, deckCards.cardID))
     .innerJoin(cards, eq(userCards.cardID, cards.id))
@@ -44,11 +48,15 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
   }
 
   const currentIndex = userCardIds.findIndex(
-    (card) => card.UserCardID === Number(params.userCardId)
+    (card) => card.userCardID === Number(params.userCardId)
   );
   const nextCard = userCardIds[currentIndex + 1] || null;
 
-  console.log({ nextCard, currentIndex });
+  if (nextCard === null) {
+    return redirect(`/decks/${userCardIds[0].deckId}`);
+  }
+
+  console.log({ userCardIds, nextCard, currentIndex });
 
   if (!params.userCardId || isNaN(Number(params.userCardId))) {
     throw new Response("No user card id provided", { status: 400 });
@@ -59,7 +67,6 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
   }
   const formData = await request.formData();
   const understanding = formData.get("understanding");
-  const deckCardId = formData.get("deckCardId");
 
   const parsedInput = cardSchema.safeParse({
     understanding: understanding,
@@ -82,7 +89,8 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
           | undefined,
       })
       .where(eq(userCards.id, Number(params.userCardId)));
-    return redirect(`/deckCards/${nextCard?.DeckCardID}`);
+
+    return redirect(`/deckCards/${nextCard?.deckCardID}`);
   } catch (error) {
     console.log({ card_edit_error: error });
     return json({ status: "error" });
