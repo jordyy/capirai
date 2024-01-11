@@ -2,7 +2,7 @@ import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, useLoaderData, useNavigation } from "@remix-run/react";
 import { eq } from "drizzle-orm";
-import { userCards, deckCards } from "../../db/schema";
+import { userCards, cards, deckCards } from "../../db/schema";
 import { z } from "zod";
 import React from "react";
 import { db } from "../../db/index";
@@ -32,6 +32,28 @@ const cardSchema = z.object({
 });
 
 export const action = async ({ params, request }: ActionFunctionArgs) => {
+  const userCardIds = await db
+    .select({ UserCardID: userCards.id, DeckCardID: deckCards.id })
+    .from(userCards)
+    .innerJoin(deckCards, eq(userCards.cardID, deckCards.cardID))
+    .innerJoin(cards, eq(userCards.cardID, cards.id))
+    .orderBy(userCards.id);
+
+  if (!userCardIds) {
+    throw new Response("No cards to review", { status: 404 });
+  }
+
+  const currentIndex = userCardIds.findIndex(
+    (card) => card.UserCardID === Number(params.userCardId)
+  );
+  const nextCard = userCardIds[currentIndex + 1] || null;
+
+  console.log({ nextCard, currentIndex });
+
+  if (!params.userCardId || isNaN(Number(params.userCardId))) {
+    throw new Response("No user card id provided", { status: 400 });
+  }
+
   if (!params.userCardId || isNaN(Number(params.userCardId))) {
     throw new Response("No user card id provided", { status: 400 });
   }
@@ -60,7 +82,7 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
           | undefined,
       })
       .where(eq(userCards.id, Number(params.userCardId)));
-    return redirect(`/deckCards/${deckCardId}`);
+    return redirect(`/deckCards/${nextCard?.DeckCardID}`);
   } catch (error) {
     console.log({ card_edit_error: error });
     return json({ status: "error" });
@@ -70,7 +92,6 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
 export default function UpdateUserCard({}) {
   const { understanding, userCardId, userCard } =
     useLoaderData<typeof loader>();
-  const navigation = useNavigation();
 
   console.log({ understanding, userCardId, userCard });
   return (

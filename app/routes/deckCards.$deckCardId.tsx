@@ -51,33 +51,12 @@ const deckCardIdSchema = z.object({
 export const action = async ({ params, request }: ActionFunctionArgs) => {
   const formData = await request.formData();
   const currentCardId = Number(formData.get("deckCardId"));
-  const nextCardId = await getNextCardId(currentCardId);
+  // const nextCardId = await getNextCardId(currentCardId);
 
   const parsedDeckCardId = deckCardIdSchema.safeParse(params.deckCardId);
 
   if (!parsedDeckCardId.success) {
     return json({ error: "No deck card id provided" }, { status: 400 });
-  }
-
-  async function getNextCardId(currentCardId: number) {
-    const cardIds = await drizzle
-      .select({ cardID: deckCards.cardID })
-      .from(deckCards)
-      .innerJoin(decks, eq(deckCards.deckID, decks.id))
-      .innerJoin(cards, eq(deckCards.cardID, cards.id))
-      .leftJoin(userCards, eq(userCards.cardID, deckCards.cardID))
-      .orderBy(deckCards.cardID);
-
-    const currentIndex = cardIds.findIndex(
-      (card) => card.cardID === currentCardId
-    );
-    const nextCard = cardIds[currentIndex + 1];
-
-    if (nextCard !== null) {
-      return redirect(`/deckCards/${nextCard}`);
-    } else {
-      return json("Congratulations! You have finished this deck.");
-    }
   }
 };
 
