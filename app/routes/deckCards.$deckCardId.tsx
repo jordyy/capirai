@@ -19,7 +19,8 @@ export async function loader({ params }: LoaderFunctionArgs) {
       .innerJoin(decks, eq(deckCards.deckID, decks.id))
       .innerJoin(cards, eq(deckCards.cardID, cards.id))
       .leftJoin(userCards, eq(userCards.cardID, deckCards.cardID))
-      .where(eq(deckCards.id, parsedDeckCardId));
+      .where(eq(deckCards.id, parsedDeckCardId))
+      .orderBy(deckCards.cardID);
 
     const understandingEnumValues = await db.execute(
       sql.raw(`
@@ -47,11 +48,36 @@ const deckCardIdSchema = z.object({
   deckCardId: z.string(),
 });
 
-export const action = async ({ params }: ActionFunctionArgs) => {
+export const action = async ({ params, request }: ActionFunctionArgs) => {
+  const formData = await request.formData();
+  const currentCardId = Number(formData.get("deckCardId"));
+  const nextCardId = await getNextCardId(currentCardId);
+
   const parsedDeckCardId = deckCardIdSchema.safeParse(params.deckCardId);
 
   if (!parsedDeckCardId.success) {
     return json({ error: "No deck card id provided" }, { status: 400 });
+  }
+
+  async function getNextCardId(currentCardId: number) {
+    const cardIds = await drizzle
+      .select({ cardID: deckCards.cardID })
+      .from(deckCards)
+      .innerJoin(decks, eq(deckCards.deckID, decks.id))
+      .innerJoin(cards, eq(deckCards.cardID, cards.id))
+      .leftJoin(userCards, eq(userCards.cardID, deckCards.cardID))
+      .orderBy(deckCards.cardID);
+
+    const currentIndex = cardIds.findIndex(
+      (card) => card.cardID === currentCardId
+    );
+    const nextCard = cardIds[currentIndex + 1];
+
+    if (nextCard !== null) {
+      return redirect(`/deckCards/${nextCard}`);
+    } else {
+      return json("Congratulations! You have finished this deck.");
+    }
   }
 };
 
@@ -88,8 +114,8 @@ export default function SingleDeckCard(params) {
       <h1 className="single-card-container">Single Card View</h1>
       {singleDeckCard.map((card) => {
         return (
-          <div onClick={handleCardFlip}>
-            <div key={card.cards.id} className="card-box">
+          <div key={card.cards.id} onClick={handleCardFlip}>
+            <div className="card-box">
               <div className="single-card">
                 <h2 className="single-card-text">
                   {isViewingBack ? card.cards.back : card.cards.front}

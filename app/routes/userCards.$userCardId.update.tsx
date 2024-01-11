@@ -1,11 +1,6 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import {
-  Form,
-  useLoaderData,
-  useNavigate,
-  useNavigation,
-} from "@remix-run/react";
+import { Form, useLoaderData, useNavigation } from "@remix-run/react";
 import { eq } from "drizzle-orm";
 import { userCards, deckCards } from "../../db/schema";
 import { z } from "zod";
@@ -76,8 +71,6 @@ export default function UpdateUserCard({}) {
   const { understanding, userCardId, userCard } =
     useLoaderData<typeof loader>();
   const navigation = useNavigation();
-  const navigate = useNavigate();
-  const isSaving = navigation.formAction === `/userCards/${userCards.id}/edit`;
 
   console.log({ understanding, userCardId, userCard });
   return (
@@ -92,14 +85,6 @@ export default function UpdateUserCard({}) {
           placeholder="understanding"
           id="understanding"
         />
-      </p>
-      <p>
-        <button type="submit">
-          {isSaving ? "Saving changes..." : "Save changes"}
-        </button>
-        <button onClick={() => navigate(-1)} type="button">
-          Cancel
-        </button>
       </p>
     </Form>
   );
