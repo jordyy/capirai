@@ -16,7 +16,7 @@ import React from "react";
 import { z } from "zod";
 import { eq, and } from "drizzle-orm";
 import { drizzle } from "../../utils/db.server";
-import { userDeckSubscriptions } from "../../../db/schema";
+import { userDeckSubscriptions, deckCards } from "../../../db/schema";
 import { getAuthCookie, requireAuthCookie } from "../../auth";
 
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -38,6 +38,17 @@ export async function loader({ request }: LoaderFunctionArgs) {
     } as const);
   }
 
+  const myDeckCardIds = await drizzle
+    .select({ cardID: deckCards.id })
+    .from(deckCards)
+    .innerJoin(decks, eq(deckCards.deckID, decks.id))
+    .innerJoin(
+      userDeckSubscriptions,
+      eq(decks.id, userDeckSubscriptions.deckID)
+    )
+    .orderBy(deckCards.id)
+    .limit(1);
+
   const userSubscriptions = await drizzle
     .select()
     .from(userDeckSubscriptions)
@@ -47,7 +58,12 @@ export async function loader({ request }: LoaderFunctionArgs) {
         eq(userDeckSubscriptions.subscribed, true)
       )
     );
-  return json({ allUserDecks, isAuth: true, userSubscriptions } as const);
+  return json({
+    allUserDecks,
+    isAuth: true,
+    userSubscriptions,
+    myDeckCardIds,
+  } as const);
 }
 
 export const action = async ({ request, params }: ActionFunctionArgs) => {
@@ -102,7 +118,7 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
 };
 
 export default function Home() {
-  const { allUserDecks, userSubscriptions, isAuth } =
+  const { allUserDecks, userSubscriptions, isAuth, myDeckCardIds } =
     useLoaderData<typeof loader>();
 
   const navigation = useNavigation();
@@ -130,6 +146,9 @@ export default function Home() {
                         : `${deck.decks.name}`}
                     </button>
                   </Link>{" "}
+                  <Link to={`/deckcards/${myDeckCardIds[0].cardID}`}>
+                    Review
+                  </Link>
                   <br />
                   completion - {deck.userDeckSubcriptions.completion} <br />
                   <fetcher.Form method="POST">

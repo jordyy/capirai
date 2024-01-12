@@ -5,7 +5,7 @@ import {
   redirect,
 } from "@remix-run/node";
 import { useLoaderData, useActionData } from "@remix-run/react";
-import { decks } from "../../db/schema";
+import { decks, deckCards } from "../../db/schema";
 import { db } from "../../db/index";
 import { z } from "zod";
 import React from "react";
@@ -26,15 +26,36 @@ export async function loader({ request }: LoaderFunctionArgs) {
       eq(decks.id, userDeckSubscriptions.deckID)
     );
 
+  const myDeckCardIds = await drizzle
+    .select({ cardID: deckCards.id })
+    .from(deckCards)
+    .innerJoin(decks, eq(deckCards.deckID, decks.id))
+    .innerJoin(
+      userDeckSubscriptions,
+      eq(decks.id, userDeckSubscriptions.deckID)
+    )
+    .orderBy(deckCards.id)
+    .limit(1);
+
   if (!userId) {
-    return json({ myDecks, userSubscriptions: null, isAuth: false } as const);
+    return json({
+      myDecks,
+      userSubscriptions: null,
+      isAuth: false,
+      myDeckCardIds,
+    } as const);
   }
 
   const userSubscriptions = await drizzle
     .select()
     .from(userDeckSubscriptions)
     .where(eq(userDeckSubscriptions.userID, userId));
-  return json({ myDecks, isAuth: true, userSubscriptions } as const);
+  return json({
+    myDecks,
+    isAuth: true,
+    userSubscriptions,
+    myDeckCardIds,
+  } as const);
 }
 
 export const action = async ({ request, params }: ActionFunctionArgs) => {
@@ -82,9 +103,12 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
 };
 
 export default function myDecks() {
-  const { myDecks, userSubscriptions, isAuth } = useLoaderData<typeof loader>();
+  const { myDecks, userSubscriptions, isAuth, myDeckCardIds } =
+    useLoaderData<typeof loader>();
   const subscribe = useActionData<typeof loader>();
   const fetcher = useFetcher();
+
+  console.log({ myDeckCardIDs: myDeckCardIds });
 
   return (
     <div id="my-decks">
@@ -123,6 +147,11 @@ export default function myDecks() {
                 </fetcher.Form>
                 <fetcher.Form method="POST">
                   <input type="hidden" name="deckId" value={deck.decks.id} />
+                  {/* <input
+                    type="hidden"
+                    name="cardID"
+                    value={myDeckCardIds[0].cardID}
+                  /> */}
                   <button
                     aria-label="Toggle Subscription"
                     name="subscribe"
@@ -131,6 +160,7 @@ export default function myDecks() {
                     {isSubscribed ? "Unsubscribe" : "Subscribe"}
                   </button>
                 </fetcher.Form>
+                <Link to={`/deckcards/${myDeckCardIds[0].cardID}`}>Review</Link>
               </div>
             ) : (
               <div> You must be logged in to view your subscribed decks.</div>
