@@ -12,7 +12,6 @@ import {
 } from "@remix-run/react";
 import { decks } from "../../../db/schema";
 import { db } from "../../../db/index";
-import React from "react";
 import { z } from "zod";
 import { eq, and } from "drizzle-orm";
 import { drizzle } from "../../utils/db.server";
@@ -30,6 +29,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     );
 
   const allDecks = await drizzle.select().from(decks);
+
   if (!userId) {
     return json({
       allUserDecks,
@@ -39,7 +39,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   }
 
   const myDeckCardIds = await drizzle
-    .select({ cardID: deckCards.id })
+    .select({ cardID: deckCards.cardID, deckID: deckCards.deckID })
     .from(deckCards)
     .innerJoin(decks, eq(deckCards.deckID, decks.id))
     .innerJoin(
@@ -47,7 +47,12 @@ export async function loader({ request }: LoaderFunctionArgs) {
       eq(decks.id, userDeckSubscriptions.deckID)
     )
     .orderBy(deckCards.id)
-    .limit(1);
+    .where(
+      and(
+        eq(userDeckSubscriptions.userID, userId),
+        eq(userDeckSubscriptions.subscribed, true)
+      )
+    );
 
   const userSubscriptions = await drizzle
     .select()
@@ -58,6 +63,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
         eq(userDeckSubscriptions.subscribed, true)
       )
     );
+
   return json({
     allUserDecks,
     isAuth: true,
@@ -140,6 +146,7 @@ export default function Home() {
               return isSubscribed ? (
                 <div key={deck.decks.id} className="deck-box">
                   <Link to={`/decks/${deck.decks.id}`}>
+                    <input type="hidden" name="cardId" value={myDeckCardIds} />
                     <button type="submit" className="deck-name">
                       {navigation.location
                         ? "Loading..."
