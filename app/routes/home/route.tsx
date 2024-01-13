@@ -124,27 +124,39 @@ export default function myDecks() {
                     (subscription) => subscription.deckID === deck.decks.id
                   )?.subscribed;
             return (
-              <div key={deck.decks.id} className="deck-box">
-                <Link to={`/decks/${deck.decks.id}`}>
-                  <button type="submit" className="deck-name">
-                    {navigation.location ? "Loading..." : `${deck.decks.name}`}
-                  </button>
-                </Link>{" "}
-                <Link to={`/deckcards/${myDeckCardIds[0].cardID}`}>Review</Link>
-                <br />
-                completion - {deck.userDeckSubcriptions.completion} <br />
-                <fetcher.Form method="POST">
-                  <input type="hidden" name="deckId" value={deck.decks.id} />
-                  <button
-                    aria-label="Toggle Subscription"
-                    className="subscribed"
-                    name="subscribe"
-                    value={isSubscribed ? 0 : 1}
-                  >
-                    {isSubscribed ? "Unsubscribe" : "Subscribe"}
-                  </button>
-                </fetcher.Form>
-              </div>
+              <>
+                {isSubscribed ? (
+                  <div key={deck.decks.id} className="deck-box">
+                    <Link to={`/decks/${deck.decks.id}`}>
+                      <button type="submit" className="deck-name">
+                        {navigation.location
+                          ? "Loading..."
+                          : `${deck.decks.name}`}
+                      </button>
+                    </Link>{" "}
+                    <Link to={`/deckcards/${myDeckCardIds[0].cardID}`}>
+                      Review
+                    </Link>
+                    <br />
+                    completion - {deck.userDeckSubcriptions.completion} <br />
+                    <fetcher.Form method="POST">
+                      <input
+                        type="hidden"
+                        name="deckId"
+                        value={deck.decks.id}
+                      />
+                      <button
+                        aria-label="Toggle Subscription"
+                        className="subscribed"
+                        name="subscribe"
+                        value={isSubscribed ? 0 : 1}
+                      >
+                        {isSubscribed ? "Unsubscribe" : "Subscribe"}
+                      </button>
+                    </fetcher.Form>
+                  </div>
+                ) : null}
+              </>
             );
           })}
         </div>
