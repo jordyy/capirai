@@ -118,7 +118,7 @@ export default function LoginForm() {
   return (
     <>
       <Form method="post">
-        {errorMessage ? errorMessage : null}
+        {errorMessage ? <div className="error">{errorMessage}</div> : null}
         <label>
           email:{" "}
           <input
