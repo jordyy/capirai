@@ -98,9 +98,14 @@ export default function Decks() {
   return (
     <div id="all-decks">
       {!isAuth ? (
-        <Form method="post" action="/login">
-          <button>Login</button>
-        </Form>
+        <>
+          <Form method="post" action="/login">
+            <button>Login</button>
+          </Form>
+          <Form method="post" action="/signup">
+            <button>Signup</button>
+          </Form>
+        </>
       ) : null}
 
       <h1>All Decks</h1>
