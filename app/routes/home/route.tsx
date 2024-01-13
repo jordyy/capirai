@@ -7,6 +7,7 @@ import {
 import { useLoaderData, useActionData, useNavigation } from "@remix-run/react";
 import { decks, deckCards } from "../../../db/schema";
 import { db } from "../../../db/index";
+import React from "react";
 import { z } from "zod";
 import { eq, and } from "drizzle-orm";
 import { drizzle } from "../../utils/db.server";
@@ -109,40 +110,42 @@ export default function myDecks() {
 
   return (
     <>
-      <h1>My Decks</h1>
-      <div className="deck-container">
-        {myDecks.map((deck) => {
-          const isSubscribed =
-            Number(fetcher.formData?.get("deckId")) === deck.decks.id
-              ? Boolean(fetcher.formData?.get("subscribe"))
-              : userSubscriptions?.find(
-                  (subscription) => subscription.deckID === deck.decks.id
-                )?.subscribed;
-          return (
-            <div key={deck.decks.id} className="deck-box">
-              <Link to={`/decks/${deck.decks.id}`}>
-                <button type="submit" className="deck-name">
-                  {navigation.location ? "Loading..." : `${deck.decks.name}`}
-                </button>
-              </Link>{" "}
-              <Link to={`/deckcards/${myDeckCardIds[0].cardID}`}>Review</Link>
-              <br />
-              completion - {deck.userDeckSubcriptions.completion} <br />
-              <fetcher.Form method="POST">
-                <input type="hidden" name="deckId" value={deck.decks.id} />
-                <button
-                  aria-label="Toggle Subscription"
-                  className="subscribed"
-                  name="subscribe"
-                  value={isSubscribed ? 0 : 1}
-                >
-                  {isSubscribed ? "Unsubscribe" : "Subscribe"}
-                </button>
-              </fetcher.Form>
-            </div>
-          );
-        })}
-      </div>
+      <h1>{isAuth ? "My Decks" : "Deck Library"}</h1>
+      {!isAuth ? null : (
+        <div className="deck-container">
+          {myDecks.map((deck) => {
+            const isSubscribed =
+              Number(fetcher.formData?.get("deckId")) === deck.decks.id
+                ? Boolean(fetcher.formData?.get("subscribe"))
+                : userSubscriptions?.find(
+                    (subscription) => subscription.deckID === deck.decks.id
+                  )?.subscribed;
+            return (
+              <div key={deck.decks.id} className="deck-box">
+                <Link to={`/decks/${deck.decks.id}`}>
+                  <button type="submit" className="deck-name">
+                    {navigation.location ? "Loading..." : `${deck.decks.name}`}
+                  </button>
+                </Link>{" "}
+                <Link to={`/deckcards/${myDeckCardIds[0].cardID}`}>Review</Link>
+                <br />
+                completion - {deck.userDeckSubcriptions.completion} <br />
+                <fetcher.Form method="POST">
+                  <input type="hidden" name="deckId" value={deck.decks.id} />
+                  <button
+                    aria-label="Toggle Subscription"
+                    className="subscribed"
+                    name="subscribe"
+                    value={isSubscribed ? 0 : 1}
+                  >
+                    {isSubscribed ? "Unsubscribe" : "Subscribe"}
+                  </button>
+                </fetcher.Form>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </>
   );
 }
