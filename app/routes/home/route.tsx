@@ -8,6 +8,7 @@ import { useLoaderData, useActionData, useNavigation } from "@remix-run/react";
 import { decks, deckCards } from "../../../db/schema";
 import { db } from "../../../db/index";
 import React from "react";
+import Decks from "../decks";
 import { z } from "zod";
 import { eq, and } from "drizzle-orm";
 import { drizzle } from "../../utils/db.server";
@@ -111,7 +112,9 @@ export default function myDecks() {
   return (
     <>
       <h1>{isAuth ? "My Decks" : "Deck Library"}</h1>
-      {!isAuth ? null : (
+      {!isAuth ? (
+        redirect("/decks")
+      ) : (
         <div className="deck-container">
           {myDecks.map((deck) => {
             const isSubscribed =
