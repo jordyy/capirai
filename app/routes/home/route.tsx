@@ -8,7 +8,6 @@ import { useLoaderData, useActionData, useNavigation } from "@remix-run/react";
 import { decks, deckCards } from "../../../db/schema";
 import { db } from "../../../db/index";
 import { z } from "zod";
-import React from "react";
 import { eq, and } from "drizzle-orm";
 import { drizzle } from "../../utils/db.server";
 import { Link } from "@remix-run/react";
@@ -89,7 +88,6 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
         await db
           .insert(userDeckSubscriptions)
           .values({ userID: userId, deckID: deckId, subscribed: subscribe });
-        // .onConflictDoUpdate({set: {subscribed: subscribe}, target: {userID: userId, deckID: deckId});
       }
       return null;
     } else if (!isSubscribeAction) {
@@ -108,8 +106,6 @@ export default function myDecks() {
   const subscribe = useActionData<typeof loader>();
   const fetcher = useFetcher();
   const navigation = useNavigation();
-
-  console.log({ myDeckCardIDs: myDeckCardIds });
 
   return (
     <>
