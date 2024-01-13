@@ -7,8 +7,6 @@ import {
 import { useLoaderData, useActionData, useNavigation } from "@remix-run/react";
 import { decks, deckCards } from "../../../db/schema";
 import { db } from "../../../db/index";
-import React from "react";
-import Decks from "../decks";
 import { z } from "zod";
 import { eq, and } from "drizzle-orm";
 import { drizzle } from "../../utils/db.server";
@@ -124,7 +122,7 @@ export default function myDecks() {
                     (subscription) => subscription.deckID === deck.decks.id
                   )?.subscribed;
             return (
-              <>
+              <div key={deck.decks.id}>
                 {isSubscribed ? (
                   <div key={deck.decks.id} className="deck-box">
                     <Link to={`/decks/${deck.decks.id}`}>
@@ -156,7 +154,7 @@ export default function myDecks() {
                     </fetcher.Form>
                   </div>
                 ) : null}
-              </>
+              </div>
             );
           })}
         </div>
