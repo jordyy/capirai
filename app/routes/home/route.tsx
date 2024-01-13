@@ -1,26 +1,24 @@
 import {
   LoaderFunctionArgs,
   ActionFunctionArgs,
-  redirect,
   json,
+  redirect,
 } from "@remix-run/node";
-import {
-  useLoaderData,
-  useFetcher,
-  Link,
-  useNavigation,
-} from "@remix-run/react";
-import { decks } from "../../../db/schema";
+import { useLoaderData, useActionData, useNavigation } from "@remix-run/react";
+import { decks, deckCards } from "../../../db/schema";
 import { db } from "../../../db/index";
 import { z } from "zod";
+import React from "react";
 import { eq, and } from "drizzle-orm";
 import { drizzle } from "../../utils/db.server";
-import { userDeckSubscriptions, deckCards } from "../../../db/schema";
+import { Link } from "@remix-run/react";
+import { useFetcher } from "@remix-run/react";
+import { userDeckSubscriptions } from "../../../db/schema";
 import { getAuthCookie, requireAuthCookie } from "../../auth";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const userId = await getAuthCookie(request);
-  const allUserDecks = await drizzle
+  const myDecks = await drizzle
     .select()
     .from(decks)
     .innerJoin(
@@ -28,18 +26,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
       eq(decks.id, userDeckSubscriptions.deckID)
     );
 
-  const allDecks = await drizzle.select().from(decks);
-
-  if (!userId) {
-    return json({
-      allUserDecks,
-      userSubscriptions: null,
-      isAuth: false,
-    } as const);
-  }
-
   const myDeckCardIds = await drizzle
-    .select({ cardID: deckCards.cardID, deckID: deckCards.deckID })
+    .select({ cardID: deckCards.id })
     .from(deckCards)
     .innerJoin(decks, eq(deckCards.deckID, decks.id))
     .innerJoin(
@@ -47,25 +35,23 @@ export async function loader({ request }: LoaderFunctionArgs) {
       eq(decks.id, userDeckSubscriptions.deckID)
     )
     .orderBy(deckCards.id)
-    .where(
-      and(
-        eq(userDeckSubscriptions.userID, userId),
-        eq(userDeckSubscriptions.subscribed, true)
-      )
-    );
+    .limit(1);
+
+  if (!userId) {
+    return json({
+      myDecks,
+      userSubscriptions: null,
+      isAuth: false,
+      myDeckCardIds,
+    } as const);
+  }
 
   const userSubscriptions = await drizzle
     .select()
     .from(userDeckSubscriptions)
-    .where(
-      and(
-        eq(userDeckSubscriptions.userID, userId),
-        eq(userDeckSubscriptions.subscribed, true)
-      )
-    );
-
+    .where(eq(userDeckSubscriptions.userID, userId));
   return json({
-    allUserDecks,
+    myDecks,
     isAuth: true,
     userSubscriptions,
     myDeckCardIds,
@@ -83,7 +69,6 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
       const subscribe = Boolean(
         z.coerce.number().parse(formData.get("subscribe"))
       );
-      console.log({ subscribe });
       const [existingSubscription] = await db
         .select()
         .from(userDeckSubscriptions)
@@ -104,18 +89,12 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
         await db
           .insert(userDeckSubscriptions)
           .values({ userID: userId, deckID: deckId, subscribed: subscribe });
+        // .onConflictDoUpdate({set: {subscribed: subscribe}, target: {userID: userId, deckID: deckId});
       }
       return null;
     } else if (!isSubscribeAction) {
-      await db
-        .delete(userDeckSubscriptions)
-        .where(
-          and(
-            eq(userDeckSubscriptions.deckID, deckId),
-            eq(userDeckSubscriptions.userID, userId)
-          )
-        );
-      return null;
+      await db.delete(decks).where(eq(decks.id, deckId));
+      return redirect(`/decks`);
     }
   } catch (error) {
     console.log({ deck_delete_error: params.error });
@@ -123,58 +102,50 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
   }
 };
 
-export default function Home() {
-  const { allUserDecks, userSubscriptions, isAuth, myDeckCardIds } =
+export default function myDecks() {
+  const { myDecks, userSubscriptions, isAuth, myDeckCardIds } =
     useLoaderData<typeof loader>();
-
-  const navigation = useNavigation();
+  const subscribe = useActionData<typeof loader>();
   const fetcher = useFetcher();
-  const dataArray = allUserDecks;
+  const navigation = useNavigation();
+
+  console.log({ myDeckCardIDs: myDeckCardIds });
 
   return (
     <>
-      <h1>Your Decks</h1>
+      <h1>My Decks</h1>
       <div className="deck-container">
-        {isAuth
-          ? dataArray.map((deck) => {
-              const isSubscribed =
-                Number(fetcher.formData?.get("deckId")) === deck.decks.id
-                  ? Boolean(fetcher.formData?.get("subscribe"))
-                  : userSubscriptions?.find(
-                      (subscription) => subscription.deckID === deck.decks.id
-                    )?.subscribed;
-              return isSubscribed ? (
-                <div key={deck.decks.id} className="deck-box">
-                  <Link to={`/decks/${deck.decks.id}`}>
-                    <input type="hidden" name="cardId" value={myDeckCardIds} />
-                    <button type="submit" className="deck-name">
-                      {navigation.location
-                        ? "Loading..."
-                        : `${deck.decks.name}`}
-                    </button>
-                  </Link>{" "}
-                  <Link to={`/deckcards/${myDeckCardIds[0].cardID}`}>
-                    Review
-                  </Link>
-                  <br />
-                  completion - {deck.userDeckSubcriptions.completion} <br />
-                  <fetcher.Form method="POST">
-                    <input type="hidden" name="deckId" value={deck.decks.id} />
-                    <button
-                      aria-label="Toggle Subscription"
-                      className="subscribed"
-                      name="unsubscribe"
-                      value={isSubscribed ? 0 : 1}
-                    >
-                      {deck.userDeckSubcriptions.subscribed
-                        ? "UNSUBSCRIBE"
-                        : null}
-                    </button>
-                  </fetcher.Form>
-                </div>
-              ) : null;
-            })
-          : null}
+        {myDecks.map((deck) => {
+          const isSubscribed =
+            Number(fetcher.formData?.get("deckId")) === deck.decks.id
+              ? Boolean(fetcher.formData?.get("subscribe"))
+              : userSubscriptions?.find(
+                  (subscription) => subscription.deckID === deck.decks.id
+                )?.subscribed;
+          return (
+            <div key={deck.decks.id} className="deck-box">
+              <Link to={`/decks/${deck.decks.id}`}>
+                <button type="submit" className="deck-name">
+                  {navigation.location ? "Loading..." : `${deck.decks.name}`}
+                </button>
+              </Link>{" "}
+              <Link to={`/deckcards/${myDeckCardIds[0].cardID}`}>Review</Link>
+              <br />
+              completion - {deck.userDeckSubcriptions.completion} <br />
+              <fetcher.Form method="POST">
+                <input type="hidden" name="deckId" value={deck.decks.id} />
+                <button
+                  aria-label="Toggle Subscription"
+                  className="subscribed"
+                  name="subscribe"
+                  value={isSubscribed ? 0 : 1}
+                >
+                  {isSubscribed ? "Unsubscribe" : "Subscribe"}
+                </button>
+              </fetcher.Form>
+            </div>
+          );
+        })}
       </div>
     </>
   );
