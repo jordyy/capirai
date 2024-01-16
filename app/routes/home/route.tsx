@@ -127,7 +127,7 @@ export default function myDecks() {
                   <div key={deck.decks.id} className="deck-box">
                     <Link to={`/decks/${deck.decks.id}`}>
                       <button type="submit" className="deck-name">
-                        {navigation.location
+                        {navigation.formAction === `/decks/${deck.decks.id}`
                           ? "Loading..."
                           : `${deck.decks.name}`}
                       </button>
