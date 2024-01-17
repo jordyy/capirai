@@ -83,10 +83,10 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
           .set({ subscribed: subscribe })
           .where(eq(userDeckSubscriptions.id, existingSubscription.id));
 
-        for (const card of cardIds) {
+        if (cardIds.length > 0) {
           await db
             .insert(userCards)
-            .values({ userID: userId, cardID: card?.cardID });
+            .values({ userID: userId, cardID: cardIds[0]?.cardID });
         }
       } else {
         await db

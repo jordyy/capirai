@@ -1,6 +1,6 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import { eq, is, sql } from "drizzle-orm";
+import { eq, is, sql, and } from "drizzle-orm";
 import { Form, useLoaderData, Link, useFetcher } from "@remix-run/react";
 import React, { useState } from "react";
 
@@ -8,6 +8,7 @@ import { drizzle } from "../utils/db.server";
 import { db } from "../../db/index";
 import { deckCards, decks, cards, userCards } from "../../db/schema";
 import { z } from "zod";
+import { getAuthCookie, requireAuthCookie } from "../auth";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const parsedDeckCardId = z.coerce.number().parse(params.deckCardId);
@@ -49,8 +50,10 @@ const deckCardIdSchema = z.object({
 });
 
 export const action = async ({ params, request }: ActionFunctionArgs) => {
+  const userId = await requireAuthCookie(request);
   const formData = await request.formData();
-  const currentCardId = Number(formData.get("deckCardId"));
+  const currentDeckCardId = Number(formData.get("deckCardId"));
+  const currentCardId = Number(formData.get("cardId"));
   const parsedDeckCardId = deckCardIdSchema.safeParse(params.deckCardId);
   const deckIdString = z.coerce.number().parse(formData.get("deckId"));
 
@@ -59,6 +62,13 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
   }
 
   const deckId = Number(deckIdString);
+
+  const userCardExists = await drizzle
+    .select()
+    .from(userCards)
+    .where(
+      and(eq(userCards.userID, userId), eq(userCards.cardID, currentCardId))
+    );
 
   if (!parsedDeckCardId.success) {
     return json({ error: "No deck card id provided" }, { status: 400 });
