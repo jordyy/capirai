@@ -3,6 +3,7 @@ import {
   pgEnum,
   serial,
   text,
+  timestamp,
   integer,
   real,
   boolean,
@@ -76,6 +77,8 @@ export const userCards = pgTable("userCards", {
   id: serial("id").primaryKey(),
   userID: integer("user_ID").references(() => users.id),
   cardID: integer("card_ID").references(() => cards.id),
+  timesReviewed: integer("times_reviewed").default(0),
+  lastReviewed: timestamp("last_reviewed").defaultNow(),
   understanding: understandingEnum("understanding").default(
     "I have never seen it"
   ),
@@ -95,6 +98,7 @@ export const userCardsRelations = relations(userCards, ({ one }) => ({
 export const decks = pgTable("decks", {
   id: serial("id").primaryKey(),
   name: text("deck_name"),
+  isPrivate: boolean("is_private").default(false),
 });
 
 export const decksRelations = relations(decks, ({ many }) => ({

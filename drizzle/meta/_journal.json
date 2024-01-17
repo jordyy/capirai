@@ -57,6 +57,13 @@
       "when": 1704124107446,
       "tag": "0007_powerful_ma_gnuci",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1705435391572,
+      "tag": "0008_rich_omega_flight",
+      "breakpoints": true
     }
   ]
 }

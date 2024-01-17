@@ -74,13 +74,13 @@ export default function Deck({}) {
                 <h2>{card.cards.CEFR_level}</h2>
                 <h2>{card.cards.frequency}</h2>
                 <div className="data-container">
-                  <div>deckCardID: {card.deckCards.id}</div>
+                  {/* <div>deckCardID: {card.deckCards.id}</div>
                   <div>deckID:{card.deckCards.deckID}</div>
                   <div>userCardID: {card?.userCards?.id}</div>
-                  <div>cardID: {card?.cards?.id}</div>
+                  <div>cardID: {card?.cards?.id}</div> */}
                 </div>
               </div>
-              <Link to={`/cards/${card.cards.id}/edit`}>Edit</Link>
+              <Link to={`/cards/${card?.cards.id}/edit`}>Edit</Link>
               <Form
                 method="post"
                 onSubmit={(event) => {

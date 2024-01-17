@@ -1,655 +1,731 @@
 front,back,frequency,language_code,CEFR_level,type
-di,"of, from, than, some/any",8.37,it,A1,vocabulary
-il,the,7.9,it,A1,vocabulary
-in,in,3.38,it,A1,vocabulary
-essere,to be,3.03,it,A1,vocabulary
-e,and,2.81,it,A1,vocabulary
-che,which,1.7,it,A1,vocabulary
-al,to the,1.67,it,A1,vocabulary
-da,"from, by, since",1.65,it,A1,vocabulary
-a,"to, at, in",1.61,it,A1,vocabulary
-un,a,1.24,it,A1,vocabulary
-per,to,1.23,it,A1,vocabulary
-si,oneself,1.06,it,A1,vocabulary
-una,"a, an",1.05,it,A1,vocabulary
-con,with,0.93,it,A1,vocabulary
-avere,to have,0.91,it,A1,vocabulary
-non,not,0.69,it,A1,vocabulary
-suo,"his, her, its, your (formal)",0.59,it,A1,vocabulary
-su,"on, above, onto, about",0.55,it,A1,vocabulary
-questo,"this, this one",0.45,it,A1,vocabulary
-come,"how, like",0.45,it,A1,vocabulary
-più,"more, plus",0.43,it,A1,vocabulary
-anche,"also, too, even",0.38,it,A1,vocabulary
-ma,but,0.35,it,A1,vocabulary
-venire,to come,0.34,it,A1,vocabulary
-fare,"to do, to make",0.32,it,A1,vocabulary
-ad,"to, at (before certain words starting with a vowel)",0.31,it,A1,vocabulary
-quello,"that, that one",0.31,it,A1,vocabulary
-potere,"can, to be able to",0.3,it,A1,vocabulary
-altro,"other, another",0.3,it,A1,vocabulary
-anno,year,0.29,it,A1,vocabulary
-ed,and (in place of 'e' before words beginning with a vowel),0.28,it,A1,vocabulary
-o,or,0.27,it,A1,vocabulary
-tutto,"all, everything",0.27,it,A1,vocabulary
-primo,first,0.26,it,A1,vocabulary
-tra,"between, among (position or time)",0.23,it,A1,vocabulary
-cui,"which, whom",0.22,it,A1,vocabulary
-due,two,0.21,it,A1,vocabulary
-dopo,after,0.2,it,A1,vocabulary
-d',"of, from (abbreviation of 'di')",0.2,it,A1,vocabulary
-parte,"part, side",0.2,it,A1,vocabulary
-se,if,0.19,it,A1,vocabulary
-molto,"very, much, many",0.19,it,A1,vocabulary
-lo,the (masculine singular),0.18,it,A1,vocabulary
-solo,"alone, only, just",0.18,it,A1,vocabulary
-ci,"us, there",0.16,it,A1,vocabulary
-secondo,"second, according to",0.16,it,A1,vocabulary
-loro,"their, them",0.16,it,A1,vocabulary
-nuovo,new,0.16,it,A1,vocabulary
-quale,"which, what",0.15,it,A1,vocabulary
-dovere,"must, to have to",0.14,it,A1,vocabulary
-uno,one,0.14,it,A1,vocabulary
-alcuno,"some, any",0.13,it,A1,vocabulary
-dire,"to say, to tell",0.12,it,A1,vocabulary
-proprio,"own, exactly",0.12,it,A1,vocabulary
-quando,when,0.12,it,A1,vocabulary
-poi,"then, later",0.12,it,A1,vocabulary
-grande,"big, large, great",0.12,it,A1,vocabulary
-vedere,to see,0.11,it,A1,vocabulary
-dare,to give,0.11,it,A1,vocabulary
-trovare,to find,0.11,it,A1,vocabulary
-volta,time,0.11,it,A1,vocabulary
-ne,"of it, about it, from there",0.11,it,A1,vocabulary
-dove,where,0.11,it,A1,vocabulary
-tempo,"time, weather",0.1,it,A1,vocabulary
-mentre,"while, whereas",0.1,it,A1,vocabulary
-italiano,italian,0.1,it,A1,vocabulary
-ultimo,last,0.1,it,A1,vocabulary
-sempre,always,0.1,it,A1,vocabulary
-nome,name,0.1,it,A1,vocabulary
-così,"so, thus, like this/that",0.09,it,A1,vocabulary
-città ,city,0.09,it,A1,vocabulary
-Italia,Italy,0.09,it,A1,vocabulary
-fino,"until, up to",0.09,it,A1,vocabulary
-durante,during,0.09,it,A1,vocabulary
-ancora,"still, again",0.09,it,A1,vocabulary
-gruppo,group,0.09,it,A1,vocabulary
-storia,"story, history",0.09,it,A1,vocabulary
-andare,to go,0.09,it,A1,vocabulary
-prima,"before, first",0.09,it,A1,vocabulary
-stesso,same,0.09,it,A1,vocabulary
-esterno,"external, outside",0.09,it,A1,vocabulary
-ogni,"every, each",0.08,it,A1,vocabulary
-diverso,"different, various",0.08,it,A1,vocabulary
-poco,"little, few, not much",0.08,it,A1,vocabulary
-volere,to want,0.08,it,A1,vocabulary
-film,"film, movie",0.08,it,A1,vocabulary
-senza,without,0.08,it,A1,vocabulary
-vita,life,0.08,it,A1,vocabulary
-tre,three,0.08,it,A1,vocabulary
-contro,against,0.08,it,A1,vocabulary
-portare,"to bring, to carry",0.08,it,A1,vocabulary
-già ,already,0.08,it,A1,vocabulary
-opera,"work, operation, opera",0.08,it,A1,vocabulary
-quindi,"therefore, so, then",0.08,it,A1,vocabulary
-noto,"known, noted (can also mean 'famous')",0.08,it,A1,vocabulary
-quanto,"how much, how many, as much as",0.08,it,A1,vocabulary
-collegamento,"connection, link, relationship",0.07,it,A1,vocabulary
-punto,"point, dot, spot",0.07,it,A1,vocabulary
-secolo,century,0.07,it,A1,vocabulary
-caso,"case, chance, occurrence",0.07,it,A1,vocabulary
-figlio,"son, male child",0.07,it,A1,vocabulary
-serie,"series, set",0.07,it,A1,vocabulary
-giorno,day,0.07,it,A1,vocabulary
-perché,"why, because",0.07,it,A1,vocabulary
-ora,"now, hour",0.07,it,A1,vocabulary
-modo,"way, manner, method",0.07,it,A1,vocabulary
-fine,"end, purpose, fine",0.07,it,A1,vocabulary
-guerra,war,0.07,it,A1,vocabulary
-prendere,"to take, to catch, to get",0.07,it,A1,vocabulary
-gli,the,0.07,it,A1,vocabulary
-vi,"there, you, to you",0.07,it,A1,vocabulary
-la,the,0.07,it,A1,vocabulary
-oltre,"beyond, over, besides",0.07,it,A1,vocabulary
-successivo,"next, following, subsequent",0.07,it,A1,vocabulary
-mondo,world,0.07,it,A1,vocabulary
-casa,"house, home",0.06,it,A1,vocabulary
-però,"but, however",0.06,it,A1,vocabulary
-voce,"voice, word, entry",0.06,it,A1,vocabulary
-cosa,"thing, what, matter",0.06,it,A1,vocabulary
-mi,"me, myself",0.06,it,A1,vocabulary
-verso,"towards, about, verse",0.06,it,A1,vocabulary
-riuscire,"to succeed, to manage, to be able to",0.06,it,A1,vocabulary
-sistema,system,0.06,it,A1,vocabulary
-San,saint,0.06,it,A1,vocabulary
-uomo,"man, human",0.06,it,A1,vocabulary
-famiglia,family,0.06,it,A1,vocabulary
-piccolo,"small, little, young",0.06,it,A1,vocabulary
-sotto,"under, below, beneath",0.06,it,A1,vocabulary
-oggi,today,0.06,it,A1,vocabulary
-lungo,"long, along",0.06,it,A1,vocabulary
-interno,"internal, inside",0.06,it,A1,vocabulary
-progetto,"project, plan",0.06,it,A1,vocabulary
-via,"way, road, street (can also mean ""gone"" or ""away"" in certain contexts)",0.06,it,A1,vocabulary
-invece,"instead, on the other hand",0.06,it,A1,vocabulary
-circa,"about, approximately, around",0.06,it,A1,vocabulary
-fra,"between, among",0.06,it,A1,vocabulary
-usare,to use,0.06,it,A1,vocabulary
-infatti,"in fact, indeed",0.06,it,A1,vocabulary
-persona,person,0.06,it,A1,vocabulary
-utilizzare,"to utilize, to use",0.06,it,A1,vocabulary
-periodo,"period, time",0.06,it,A1,vocabulary
-iniziare,"to start, to begin",0.06,it,A1,vocabulary
-lui,"he, him",0.06,it,A1,vocabulary
-rimanere,"to remain, to stay, to be left",0.06,it,A1,vocabulary
-mettere,"to put, place",0.06,it,A1,vocabulary
-pubblicare,to publish,0.06,it,A1,vocabulary
-arrivare,to arrive,0.06,it,A1,vocabulary
-diventare,to become,0.06,it,A1,vocabulary
-scrivere,to write,0.06,it,A1,vocabulary
-esempio,example,0.06,it,A1,vocabulary
-tanto,"so much, a lot",0.05,it,A1,vocabulary
-seguito,"following, a sequel",0.05,it,A1,vocabulary
-forma,"form, shape",0.05,it,A1,vocabulary
-sapere,to know,0.05,it,A1,vocabulary
-chiamare,to call,0.05,it,A1,vocabulary
-passare,"to pass, spend (time)",0.05,it,A1,vocabulary
-importante,important,0.05,it,A1,vocabulary
-numero,number,0.05,it,A1,vocabulary
-inoltre,"furthermore, moreover, in addition",0.05,it,A1,vocabulary
-pubblico,public,0.05,it,A1,vocabulary
-mai,never,0.05,it,A1,vocabulary
-chiesa,church,0.05,it,A1,vocabulary
-vero,"true, real",0.05,it,A1,vocabulary
-alto,"high, tall",0.05,it,A1,vocabulary
-nazionale,national,0.05,it,A1,vocabulary
-ottenere,"to obtain, get",0.05,it,A1,vocabulary
-chi,who,0.05,it,A1,vocabulary
-presentare,"to present, introduce",0.05,it,A1,vocabulary
-li,them,0.05,it,A1,vocabulary
-politico,"political, politician",0.05,it,A1,vocabulary
-lasciare,"to leave, let",0.05,it,A1,vocabulary
-particolare,"particular, detail",0.05,it,A1,vocabulary
-unico,"unique, only",0.05,it,A1,vocabulary
-comune,"common, municipality",0.05,it,A1,vocabulary
-vario,various,0.05,it,A1,vocabulary
-insieme,together,0.05,it,A1,vocabulary
-Roma,Rome,0.05,it,A1,vocabulary
-principale,"main, principal",0.05,it,A1,vocabulary
-presente,"present, current",0.05,it,A1,vocabulary
-certo,"certain, sure",0.05,it,A1,vocabulary
-titolo,title,0.05,it,A1,vocabulary
-paese,"country, village",0.05,it,A1,vocabulary
-parlare,to speak,0.05,it,A1,vocabulary
-nascere,to be born,0.05,it,A1,vocabulary
-sia,"be (subjunctive of ""essere""), whether",0.05,it,A1,vocabulary
-seguire,to follow,0.05,it,A1,vocabulary
-considerare,to consider,0.05,it,A1,vocabulary
-stagione,season,0.05,it,A1,vocabulary
-trattare,"to treat, deal with",0.05,it,A1,vocabulary
-entrare,to enter,0.05,it,A1,vocabulary
-tipo,"type, kind",0.05,it,A1,vocabulary
-centro,center,0.05,it,A1,vocabulary
-posto,"place, spot",0.05,it,A1,vocabulary
-spesso,often,0.05,it,A1,vocabulary
-correlare,to correlate,0.05,it,A1,vocabulary
-successo,"success, happened",0.05,it,A1,vocabulary
-fatto,"fact, deed",0.05,it,A1,vocabulary
-divenire,to become,0.05,it,A1,vocabulary
-causa,"cause, reason",0.05,it,A1,vocabulary
-squadra,team,0.04,it,A1,vocabulary
-territorio,territory,0.04,it,A1,vocabulary
-lavoro,"work, job",0.04,it,A1,vocabulary
-creare,to create,0.04,it,A1,vocabulary
-rendere,"to make, render",0.04,it,A1,vocabulary
-nostro,our,0.04,it,A1,vocabulary
-vincere,to win,0.04,it,A1,vocabulary
-partire,"to depart, leave",0.04,it,A1,vocabulary
-raggiungere,"to reach, achieve",0.04,it,A1,vocabulary
-meno,less,0.04,it,A1,vocabulary
-base,"base, basis",0.04,it,A1,vocabulary
-stato,"state, status, have been ",0.04,it,A1,vocabulary
-personaggio,"character, personality",0.04,it,A1,vocabulary
-termine,"term, end",0.04,it,A1,vocabulary
-tale,"such, such a",0.04,it,A1,vocabulary
-studio,"study, studio",0.04,it,A1,vocabulary
-decidere,to decide,0.04,it,A1,vocabulary
-quasi,almost,0.04,it,A1,vocabulary
-mio,my,0.04,it,A1,vocabulary
-soprattutto,especially,0.04,it,A1,vocabulary
-morte,death,0.04,it,A1,vocabulary
-momento,moment,0.04,it,A1,vocabulary
-mese,month,0.04,it,A1,vocabulary
-versione,version,0.04,it,A1,vocabulary
-realizzare,"to realize, achieve",0.04,it,A1,vocabulary
-grazie,thanks,0.04,it,A1,vocabulary
-conoscere,"to know, to be acquainted with",0.04,it,A1,vocabulary
-vivere,to live,0.04,it,A1,vocabulary
-giovane,young,0.04,it,A1,vocabulary
-cercare,"to search, look for",0.04,it,A1,vocabulary
-antico,"ancient, old",0.04,it,A1,vocabulary
-linea,line,0.04,it,A1,vocabulary
-storico,historical,0.04,it,A1,vocabulary
-ciò,"that, this",0.04,it,A1,vocabulary
-rispetto,"respect, regarding",0.04,it,A1,vocabulary
-ben,well,0.04,it,A1,vocabulary
-inizio,beginning,0.04,it,A1,vocabulary
-tornare,to return,0.04,it,A1,vocabulary
-provincia,province,0.04,it,A1,vocabulary
-zona,"zone, area",0.04,it,A1,vocabulary
-album,album,0.04,it,A1,vocabulary
-possibile,possible,0.04,it,A1,vocabulary
-continuare,to continue,0.04,it,A1,vocabulary
-problema,"problem, issue",0.04,it,A1,vocabulary
-ragazzo,"boy, young man, (can mean boyfriend in a romantic context)",0.04,it,A1,vocabulary
-donna,"woman, lady, (can mean wife in some contexts)",0.04,it,A1,vocabulary
-costruire,"to build, to construct",0.04,it,A1,vocabulary
-servizio,service,0.04,it,A1,vocabulary
-le,the (feminine plural or direct object pronoun),0.04,it,A1,vocabulary
-generale,general,0.04,it,A1,vocabulary
-presso,"at, near",0.04,it,A1,vocabulary
-comprendere,"to understand, to comprise",0.04,it,A1,vocabulary
-forza,"strength, force ",0.04,it,A1,vocabulary
-allora,"then, at that time",0.04,it,A1,vocabulary
-sembrare,"to seem, to appear",0.04,it,A1,vocabulary
-qui,here,0.04,it,A1,vocabulary
-campo,field,0.04,it,A1,vocabulary
-pensare,to think,0.04,it,A1,vocabulary
-quattro,four,0.04,it,A1,vocabulary
-tema,"theme, topic, subject",0.04,it,A1,vocabulary
-morire,to die,0.04,it,A1,vocabulary
-corso,course,0.04,it,A1,vocabulary
-maggiore,"greater, major, elder",0.04,it,A1,vocabulary
-produrre,to produce,0.04,it,A1,vocabulary
-tenere,"to hold, to keep, to maintain",0.04,it,A1,vocabulary
-attività ,activity,0.04,it,A1,vocabulary
-me,me,0.04,it,A1,vocabulary
-permettere,"to allow, to permit",0.04,it,A1,vocabulary
-luogo,"place, location",0.04,it,A1,vocabulary
-numeroso,numerous,0.04,it,A1,vocabulary
-diritto,"right (as in legal right), straight",0.04,it,A1,vocabulary
-qualche,"some, a few",0.04,it,A1,vocabulary
-tuttavia,"however, nevertheless",0.04,it,A1,vocabulary
-governo,government,0.04,it,A1,vocabulary
-livello,level,0.04,it,A1,vocabulary
-stessa,same (feminine form of stesso),0.04,it,A1,vocabulary
-chiedere,"to ask, to request",0.04,it,A1,vocabulary
-rappresentare,to represent,0.04,it,A1,vocabulary
-società ,"society, company",0.04,it,A1,vocabulary
-dedicare,to dedicate,0.04,it,A1,vocabulary
-produzione,production,0.04,it,A1,vocabulary
-ricordare,to remember,0.04,it,A1,vocabulary
-programma,to program,0.04,it,A1,vocabulary
-io,I,0.04,it,A1,vocabulary
-stare,"to stay, to be",0.04,it,A1,vocabulary
-settembre,September,0.04,it,A1,vocabulary
-strada,"street, road",0.04,it,A1,vocabulary
-comunque,"anyway, however, nevertheless",0.04,it,A1,vocabulary
-terzo,third,0.03,it,A1,vocabulary
-bene,"good, well, fine",0.03,it,A1,vocabulary
-padre,father,0.03,it,A1,vocabulary
-mezzo,"means (way of doing something), half",0.03,it,A1,vocabulary
-partecipare,"to participate, to take part",0.03,it,A1,vocabulary
-acqua,water,0.03,it,A1,vocabulary
-francese,French,0.03,it,A1,vocabulary
-gioco,"game, play",0.03,it,A1,vocabulary
-costituire,"to constitute, to form, to establish",0.03,it,A1,vocabulary
-area,"area, zone, region",0.03,it,A1,vocabulary
-ruolo,"role, part",0.03,it,A1,vocabulary
-origine,"origin, source",0.03,it,A1,vocabulary
-rete,"network, net, web",0.03,it,A1,vocabulary
-avvenire,"to happen, to occur, future (noun)",0.03,it,A1,vocabulary
-posizione,"position, location, stance",0.03,it,A1,vocabulary
-porre,"to place, to put, to set",0.03,it,A1,vocabulary
-libro,book,0.03,it,A1,vocabulary
-quest',"this (shortened form, used before a vowel)",0.03,it,A1,vocabulary
-amico,friend (male),0.03,it,A1,vocabulary
-attraverso,"through, across",0.03,it,A1,vocabulary
-presenza,presence,0.03,it,A1,vocabulary
-legge,"law, rule",0.03,it,A1,vocabulary
-uso,"use, usage, practice",0.03,it,A1,vocabulary
-genere,"genre, kind, gender",0.03,it,A1,vocabulary
-perdere,"to lose, to miss",0.03,it,A1,vocabulary
-grado,"degree, level, rank",0.03,it,A1,vocabulary
-Bibliografia,bibliography,0.03,it,A1,vocabulary
-esistere,to exist,0.03,it,A1,vocabulary
-epoca,"epoch, era, period",0.03,it,A1,vocabulary
-II,two (Roman numeral),0.03,it,A1,vocabulary
-piano,"plan, level, floor, piano (musical instrument)",0.03,it,A1,vocabulary
-forte,"strong, loud, fort",0.03,it,A1,vocabulary
-uscire,"to go out, to exit, to come out",0.03,it,A1,vocabulary
-tedesco,German,0.03,it,A1,vocabulary
-finale,"final (adj.), finale (noun)",0.03,it,A1,vocabulary
-lavorare,"to work, to labor",0.03,it,A1,vocabulary
-militare,"military, to serve in the military",0.03,it,A1,vocabulary
-struttura,"structure, framework",0.03,it,A1,vocabulary
-mano,hand,0.03,it,A1,vocabulary
-nonostante,"despite, notwithstanding",0.03,it,A1,vocabulary
-inglese,English,0.03,it,A1,vocabulary
-video,video,0.03,it,A1,vocabulary
-campionato,"championship, league",0.03,it,A1,vocabulary
-corpo,"body, corps",0.03,it,A1,vocabulary
-mondiale,"world, global",0.03,it,A1,vocabulary
-partito,"party, departed",0.03,it,A1,vocabulary
-risultato,"result, outcome",0.03,it,A1,vocabulary
-re,king,0.03,it,A1,vocabulary
-commento,"comment, commentary",0.03,it,A1,vocabulary
-l' ,"the (abbreviation of ""il"" before vowels)",0.03,it,A1,vocabulary
-forse,"perhaps, maybe",0.03,it,A1,vocabulary
-lei,"she, her, you (formal)",0.03,it,A1,vocabulary
-vicino,"near, close, neighbor",0.03,it,A1,vocabulary
-valore,"value, worth, merit",0.03,it,A1,vocabulary
-autore,"author, writer",0.03,it,A1,vocabulary
-europeo,European,0.03,it,A1,vocabulary
-specie,"species, kind, type",0.03,it,A1,vocabulary
-singolo,"single, individual, (music) single",0.03,it,A1,vocabulary
-internazionale,international,0.03,it,A1,vocabulary
-canzone,song,0.03,it,A1,vocabulary
-realtà ,"reality, fact, truth",0.03,it,A1,vocabulary
-lingua,"language, tongue",0.03,it,A1,vocabulary
-ordine,order (sequence or command),0.03,it,A1,vocabulary
-parola,"word, speech, promise",0.03,it,A1,vocabulary
-dirigere,"to direct (a film), to lead, to manage",0.03,it,A1,vocabulary
-carriera,"career, racecourse",0.03,it,A1,vocabulary
-milione,million,0.03,it,A1,vocabulary
-intero,"whole, entire, full, complete",0.03,it,A1,vocabulary
-ricerca,"research, search",0.03,it,A1,vocabulary
-popolazione,population,0.03,it,A1,vocabulary
-maggio,May,0.03,it,A1,vocabulary
-motore,"engine, motor",0.03,it,A1,vocabulary
-bello,"beautiful, handsome, nice, good",0.03,it,A1,vocabulary
-ti,young,0.03,it,A1,vocabulary
-musica,music,0.03,it,A1,vocabulary
-membro,"member, limb (less common)",0.03,it,A1,vocabulary
-terra,"earth, land, ground, soil, dirt",0.03,it,A1,vocabulary
-regione,"region, area",0.03,it,A1,vocabulary
-Milano,Milan,0.03,it,A1,vocabulary
-scuola,school,0.03,it,A1,vocabulary
-simile,"similar, alike",0.03,it,A1,vocabulary
-precedente,"previous, preceding, precedent",0.03,it,A1,vocabulary
-definire,"to define, to determine, to describe",0.03,it,A1,vocabulary
-scoprire,"to discover, to uncover, to reveal",0.03,it,A1,vocabulary
-ricevere,to receive,0.03,it,A1,vocabulary
-sito,"site, location, place, website",0.03,it,A1,vocabulary
-modello,"model, pattern, template",0.03,it,A1,vocabulary
-uccidere,to kill,0.03,it,A1,vocabulary
-egli,"he, him (formal, literary)",0.03,it,A1,vocabulary
-americano,American,0.03,it,A1,vocabulary
-effetto,"effect, impact, special effect",0.03,it,A1,vocabulary
-indicare,"to indicate, to point out, to suggest, to signify",0.03,it,A1,vocabulary
-prevedere,"to predict, to foresee, to plan, to expect",0.03,it,A1,vocabulary
-basso,"low (in height, tone, rank), bass (in music)",0.03,it,A1,vocabulary
-locale,"local, place, premises",0.03,it,A1,vocabulary
-rapporto,"report, relationship, connection",0.03,it,A1,vocabulary
-mostrare,"to show, to display",0.03,it,A1,vocabulary
-comporre,"to compose, to make up, to constitute",0.03,it,A1,vocabulary
-romano,Roman,0.03,it,A1,vocabulary
-sede,"seat, headquarters, venue, location",0.03,it,A1,vocabulary
-arte,art,0.03,it,A1,vocabulary
-Stati,states (countries or conditions),0.03,it,A1,vocabulary
-fondare,to found or establish,0.03,it,A1,vocabulary
-battaglia,battle or struggle,0.03,it,A1,vocabulary
-agosto,August ,0.03,it,A1,vocabulary
-aprire,to open,0.03,it,A1,vocabulary
-funzione,function or role,0.03,it,A1,vocabulary
-umano,human or humane,0.03,it,A1,vocabulary
-sviluppo,"to expand, elaborate, develop, unfold (literary/metaphorical)",0.03,it,A1,vocabulary
-completo,complete or suit (clothing),0.03,it,A1,vocabulary
-giugno,June,0.03,it,A1,vocabulary
-fratello,brother,0.03,it,A1,vocabulary
-cominciare,to begin or start,0.03,it,A1,vocabulary
-sociale,social,0.03,it,A1,vocabulary
-luglio,July,0.03,it,A1,vocabulary
-svolgere,to carry out or develop,0.03,it,A1,vocabulary
-necessario,necessary,0.03,it,A1,vocabulary
-fa,ago,0.03,it,A1,vocabulary
-sud,south,0.03,it,A1,vocabulary
-massimo,maximum or greatest,0.03,it,A1,vocabulary
-attuale,current or present,0.03,it,A1,vocabulary
-movimento,movement,0.03,it,A1,vocabulary
-idea,idea,0.03,it,A1,vocabulary
-finire,to finish or end,0.03,it,A1,vocabulary
-Europa,Europe,0.03,it,A1,vocabulary
-episodio,episode,0.03,it,A1,vocabulary
-economico,economic or economical,0.03,it,A1,vocabulary
-ottobre,October,0.03,it,A1,vocabulary
-centrale,central,0.03,it,A1,vocabulary
-fuori,outside or out,0.03,it,A1,vocabulary
-sviluppare,to develop,0.03,it,A1,vocabulary
-migliore,best or better,0.03,it,A1,vocabulary
-contenere,to contain,0.03,it,A1,vocabulary
-azione,action,0.03,it,A1,vocabulary
-dicembre,December,0.03,it,A1,vocabulary
-vecchio,old,0.03,it,A1,vocabulary
-Francia,France,0.03,it,A1,vocabulary
-bambino,child,0.03,it,A1,vocabulary
-gennaio,January,0.03,it,A1,vocabulary
-credere,to believe,0.03,it,A1,vocabulary
-formare,to form or shape,0.03,it,A1,vocabulary
-I,the (plural),0.03,it,A1,vocabulary
-età ,age,0.03,it,A1,vocabulary
-marzo,March,0.03,it,A1,vocabulary
-subito,immediately or right away,0.03,it,A1,vocabulary
-famoso,famous,0.03,it,A1,vocabulary
-elemento,element,0.03,it,A1,vocabulary
-senso,sense or meaning,0.03,it,A1,vocabulary
-apparire,to appear or seem,0.03,it,A1,vocabulary
-Formula,formula,0.03,it,A1,vocabulary
-caratteristica,characteristic or feature,0.03,it,A1,vocabulary
-registrare,to record or register,0.03,it,A1,vocabulary
-ufficiale,official,0.03,it,A1,vocabulary
-prodotto,product,0.03,it,A1,vocabulary
-aereo,airplane or air,0.02,it,A1,vocabulary
-aprile,April,0.02,it,A1,vocabulary
-costruzione,construction or building,0.02,it,A1,vocabulary
-metà ,half,0.02,it,A1,vocabulary
-maggior,greater or major,0.02,it,A1,vocabulary
-cittadino,citizen,0.02,it,A1,vocabulary
-processo,process or trial,0.02,it,A1,vocabulary
-occupare,to occupy,0.02,it,A1,vocabulary
-giocare,to play,0.02,it,A1,vocabulary
-offrire,to offer,0.02,it,A1,vocabulary
-legare,to tie or bind,0.02,it,A1,vocabulary
-informazione,information,0.02,it,A1,vocabulary
-et,and (in Latin or in artistic contexts),0.02,it,A1,vocabulary
-controllo,control or check,0.02,it,A1,vocabulary
-stile,style,0.02,it,A1,vocabulary
-spazio,space,0.02,it,A1,vocabulary
-troppo,too much,0.02,it,A1,vocabulary
-buono,good,0.02,it,A1,vocabulary
-set,set,0.02,it,A1,vocabulary
-situazione,situation,0.02,it,A1,vocabulary
-line,line,0.02,it,A1,vocabulary
-vittoria,victory,0.02,it,A1,vocabulary
-occasione,occasion or opportunity,0.02,it,A1,vocabulary
-noi,we,0.02,it,A1,vocabulary
-isola,island,0.02,it,A1,vocabulary
-attore,actor,0.02,it,A1,vocabulary
-immagine,image or picture,0.02,it,A1,vocabulary
-sentire,to feel or hear,0.02,it,A1,vocabulary
-oggetto,object,0.02,it,A1,vocabulary
-dato,data or given,0.02,it,A1,vocabulary
-metro,meter or subway,0.02,it,A1,vocabulary
-condizione,condition,0.02,it,A1,vocabulary
-testo,text,0.02,it,A1,vocabulary
-cioà¨,"that is, namely",0.02,it,A1,vocabulary
-cambiare,to change,0.02,it,A1,vocabulary
-novembre,November,0.02,it,A1,vocabulary
-presidente,president,0.02,it,A1,vocabulary
-capo,head or leader,0.02,it,A1,vocabulary
-edizione,edition,0.02,it,A1,vocabulary
-Uniti,united,0.02,it,A1,vocabulary
-sostenere,to support or sustain,0.02,it,A1,vocabulary
-riguardare,to concern or regard,0.02,it,A1,vocabulary
-resto,rest or remainder,0.02,it,A1,vocabulary
-interesse,interest,0.02,it,A1,vocabulary
-scena,scene,0.02,it,A1,vocabulary
-De,of or from,0.02,it,A1,vocabulary
-ormai,"by now, already, at this point",0.02,it,A1,vocabulary
-meglio,better (comparative form of 'bene (well/good)),0.02,it,A1,vocabulary
-no,no,0.02,it,A1,vocabulary
-fase,"phase, stage",0.02,it,A1,vocabulary
-formazione,formation,0.02,it,A1,vocabulary
-cinque,five,0.02,it,A1,vocabulary
-luce,light,0.02,it,A1,vocabulary
-leggere,to read,0.02,it,A1,vocabulary
-stella,star,0.02,it,A1,vocabulary
-colore,color,0.02,it,A1,vocabulary
-risultare,"to result, to turn out",0.02,it,A1,vocabulary
-assumere,"to assume, to take on",0.02,it,A1,vocabulary
-condurre,"to lead, to conduct, to drive",0.02,it,A1,vocabulary
-edificio,building,0.02,it,A1,vocabulary
-dimostrare,"to demonstrate, to show",0.02,it,A1,vocabulary
-musicale,musical,0.02,it,A1,vocabulary
-capire,"to understand, to comprehend",0.02,it,A1,vocabulary
-madre,mother,0.02,it,A1,vocabulary
-almeno,at least,0.02,it,A1,vocabulary
-ritenere,"to believe, to consider",0.02,it,A1,vocabulary
-evento,event,0.02,it,A1,vocabulary
-gara,"race, competition",0.02,it,A1,vocabulary
-ex,"former, previous",0.02,it,A1,vocabulary
-proporre,"to propose, suggest",0.02,it,A1,vocabulary
-probabilmente,probably,0.02,it,A1,vocabulary
-pò,"more, a little (variant of 'più')",0.02,it,A1,vocabulary
-fronte,"front, in front of",0.02,it,A1,vocabulary
-infine,"finally, at last",0.02,it,A1,vocabulary
-classe,"class (classroom, social class, category)",0.02,it,A1,vocabulary
-superiore,"superior, upper",0.02,it,A1,vocabulary
-breve,"short, brief",0.02,it,A1,vocabulary
-restare,"to stay, remain",0.02,it,A1,vocabulary
-arma,"weapon, armament",0.02,it,A1,vocabulary
-fonte,"source, fountain",0.02,it,A1,vocabulary
-fiume,river,0.02,it,A1,vocabulary
-esercito,army,0.02,it,A1,vocabulary
-Santa,Saint (feminine),0.02,it,A1,vocabulary
-libero,"free, unoccupied",0.02,it,A1,vocabulary
-televisivo,television (adj.) (ex: programma televisivo // television program),0.02,it,A1,vocabulary
-l',"the (abbreviation of ""il"" or ""la"" before a vowel)",0.02,it,A1,vocabulary
-derivare,"to derive, originate",0.02,it,A1,vocabulary
-mercato,market,0.02,it,A1,vocabulary
-essa,"it, she (formal or literary pronoun)",0.02,it,A1,vocabulary
-richiedere,"to require, request",0.02,it,A1,vocabulary
-artista,artist,0.02,it,A1,vocabulary
-febbraio,February,0.02,it,A1,vocabulary
-abitante,"inhabitant, resident",0.02,it,A1,vocabulary
-piazza,"square, plaza",0.02,it,A1,vocabulary
-mantenere,"to maintain, keep, support",0.02,it,A1,vocabulary
-semplice,"simple, easy",0.02,it,A1,vocabulary
-trasferire,"to transfer, move",0.02,it,A1,vocabulary
-costringere,"to force, compel",0.02,it,A1,vocabulary
-settimana,week,0.02,it,A1,vocabulary
-situare,"to situate, locate",0.02,it,A1,vocabulary
-attualmente,"currently, at present",0.02,it,A1,vocabulary
-nave,"ship, vessel",0.02,it,A1,vocabulary
-basare,"to base, groun",0.02,it,A1,vocabulary
-canale,"channel, canal, TV channel ",0.02,it,A1,vocabulary
-scegliere,"to choose, select",0.02,it,A1,vocabulary
-possibilità ,"possibility, opportunity",0.02,it,A1,vocabulary
-brano,"piece, excerpt, track (piece of music)",0.02,it,A1,vocabulary
-motivo,"reason, motive, pattern",0.02,it,A1,vocabulary
-bianco,white,0.02,it,A1,vocabulary
-giungere,"to arrive, reach",0.02,it,A1,vocabulary
-partita,"game, match (in sport), departure, batch of goods",0.02,it,A1,vocabulary
-seguente,following or next,0.02,it,A1,vocabulary
-consiglio,"advice, council, board (in a corporate context)",0.02,it,A1,vocabulary
-relativo,"relative, pertaining to, concerning",0.02,it,A1,vocabulary
-originale,original,0.02,it,A1,vocabulary
-dichiarare,"to declare, to state",0.02,it,A1,vocabulary
-diretto,"direct, straightforward",0.02,it,A1,vocabulary
-dimensione,"dimension, size",0.02,it,A1,vocabulary
-futuro,future,0.02,it,A1,vocabulary
-vista,"view, sight, perspective",0.02,it,A1,vocabulary
-servire,to serve,0.02,it,A1,vocabulary
-atto,"act, deed, document, scene (in theatrical terms)",0.02,it,A1,vocabulary
-romanzo,novel,0.02,it,A1,vocabulary
-aspetto,"aspect, look, appearance",0.02,it,A1,vocabulary
-amore,love,0.02,it,A1,vocabulary
-riportare,"to report, to bring back, to carry",0.02,it,A1,vocabulary
-materiale,"material, substance",0.02,it,A1,vocabulary
-disco,"disc, record, disk",0.02,it,A1,vocabulary
-solito,"usual, customary",0.02,it,A1,vocabulary
-cultura,culture,0.02,it,A1,vocabulary
-tuo,your,0.02,it,A1,vocabulary
-scelta,"choice, selection",0.02,it,A1,vocabulary
-relazione,"relationship, report",0.02,it,A1,vocabulary
-lato,side,0.02,it,A1,vocabulary
-biografia,biography,0.02,it,A1,vocabulary
-gran,"great, big, grand",0.02,it,A1,vocabulary
-lavorio,"work, labor, job",0.02,it,A1,vocabulary
-moderno,modern,0.02,it,A1,vocabulary
-effettuare,"to carry out, to perform",0.02,it,A1,vocabulary
-politica,"politics, policy",0.02,it,A1,vocabulary
-riconoscere,"to recognize, to acknowledge",0.02,it,A1,vocabulary
-complesso,"complex, complicated ",0.02,it,A1,vocabulary
-attacco,"attack, onset",0.02,it,A1,vocabulary
-chiaro,"clear, obvious",0.02,it,A1,vocabulary
-riprendere,"to resume, to restart, to take back",0.02,it,A1,vocabulary
-testa,head,0.02,it,A1,vocabulary
-moglie,wife,0.02,it,A1,vocabulary
-tecnico,"technical, technician",0.02,it,A1,vocabulary
-unità ,"unit, unity",0.02,it,A1,vocabulary
-sei,"six, you are",0.02,it,A1,vocabulary
-risalire,"to date back, to climb up",0.02,it,A1,vocabulary
-nero,black,0.02,it,A1,vocabulary
-premio,"prize, award, premium",0.02,it,A1,vocabulary
-figura,"figure, shape",0.02,it,A1,vocabulary
-privato,private,0.02,it,A1,vocabulary
-articolo,"article, item",0.02,it,A1,vocabulary
-sostituire,"to replace, to substitute",0.02,it,A1,vocabulary
-esso,it,0.02,it,A1,vocabulary
-perchà¨,"why, because",0.02,it,A1,vocabulary
-poiché,"since, because",0.02,it,A1,vocabulary
-appena,"just, as soon as",0.02,it,A1,vocabulary
-Repubblica,republic,0.02,it,A1,vocabulary
-aggiungere,to add,0.02,it,A1,vocabulary
-nord,north,0.02,it,A1,vocabulary
-richiesta,"request, demand",0.02,it,A1,vocabulary
-mare,sea,0.02,it,A1,vocabulary
-velocità ,"speed,velocity",0.02,it,A1,vocabulary
-giocatore,player,0.02,it,A1,vocabulary
-giro,"tour, lap, round",0.02,it,A1,vocabulary
-differenza,difference,0.02,it,A1,vocabulary
-tramite,"through, via, by means of",0.02,it,A1,vocabulary
-affermare,"to assert, to claim, to state",0.02,it,A1,vocabulary
-azienda,"company, firm, business",0.02,it,A1,vocabulary
-esperienza,experience,0.02,it,A1,vocabulary
-personale,"staff, personal",0.02,it,A1,vocabulary
-club,club,0.02,it,A1,vocabulary
-pieno,"full, complete",0.02,it,A1,vocabulary
-confronto,"comparison, confrontation",0.02,it,A1,vocabulary
-tipico,typical,0.02,it,A1,vocabulary
-popolare,"popular, to populate",0.02,it,A1,vocabulary
-euro,Euro,0.02,it,A1,vocabulary
-nominare,"to nominate, to appoint, to name",0.02,it,A1,vocabulary
-popolo,"people, nation",0.02,it,A1,vocabulary
-consentire,"to allow, to permit",0.02,it,A1,vocabulary
-caratterizzare,to characterize,0.02,it,A1,vocabulary
-sicuro,"safe, sure, secure",0.02,it,A1,vocabulary
-incontrare,"to meet, to encounter",0.02,it,A1,vocabulary
-assoluto,"absolute, total",0.02,it,A1,vocabulary
-abbandonare,"to abandon, to leave, to give up",0.02,it,A1,vocabulary
-religioso,religious,0.02,it,A1,vocabulary
-animale,animal,0.02,it,A1,vocabulary
-incontro,"meeting, encounter, match",0.02,it,A1,vocabulary
-interpretare,to interpret,0.02,it,A1,vocabulary
-inserire,"to insert, enter",0.02,it,A1,vocabulary
-occhio,eye,0.02,it,A1,vocabulary
-ritorno,return,0.02,it,A1,vocabulary
-appartenere,to belong,0.02,it,A1,vocabulary
-salvare,"to save, to rescue",0.02,it,A1,vocabulary
-ambiente,"environment, atmosphere",0.02,it,A1,vocabulary
-sposare,to marry,0.02,it,A1,vocabulary
-civile,civil,0.02,it,A1,vocabulary
-colpire,"to hit, to strike, to affect",0.02,it,A1,vocabulary
-classico,classic,0.02,it,A1,vocabulary
-organizzare,to organize,0.02,it,A1,vocabulary
-ovvero,"or, in other words",0.02,it,A1,vocabulary
-fornire,"to provide, supply",0.02,it,A1,vocabulary
-strumento,"instrument, tool",0.02,it,A1,vocabulary
-scopo,"purpose, aim",0.02,it,A1,vocabulary
-piuttosto,"rather, instead",0.02,it,A1,vocabulary
-oro,gold,0.02,it,A1,vocabulary
-totale,"total, entire",0.02,it,A1,vocabulary
-essi,they,0.02,it,A1,vocabulary
-prova,"test, proof, trial",0.02,it,A1,vocabulary
+"of, from, than, some/any",di,0.0001,it,A1,vocabulary
+the,il,0.0002,it,A1,vocabulary
+in,in,0.0003,it,A1,vocabulary
+to be,essere,0.0004,it,A1,vocabulary
+and,e,0.0005,it,A1,vocabulary
+which,che,0.0006,it,A1,vocabulary
+to the,al,0.0007,it,A1,vocabulary
+"from, by, since",da,0.0008,it,A1,vocabulary
+"to, at, in",a,0.0009,it,A1,vocabulary
+a,un,0.001,it,A1,vocabulary
+to,per,0.0011,it,A1,vocabulary
+oneself,si,0.0012,it,A1,vocabulary
+"a, an",una,0.0013,it,A1,vocabulary
+with,con,0.0014,it,A1,vocabulary
+to have,avere,0.0015,it,A1,vocabulary
+not,non,0.0016,it,A1,vocabulary
+"his, her, its, your (formal)",suo,0.0017,it,A1,vocabulary
+"on, above, onto, about",su,0.0018,it,A1,vocabulary
+"this, this one",questo,0.0019,it,A1,vocabulary
+"how, like",come,0.002,it,A1,vocabulary
+"more, plus",più,0.0021,it,A1,vocabulary
+"also, too, even",anche,0.0022,it,A1,vocabulary
+but,ma,0.0023,it,A1,vocabulary
+to come,venire,0.0024,it,A1,vocabulary
+"to do, to make",fare,0.0025,it,A1,vocabulary
+"to, at (before certain words starting with a vowel)",ad,0.0026,it,A1,vocabulary
+"that, that one",quello,0.0027,it,A1,vocabulary
+"can, to be able to",potere,0.0028,it,A1,vocabulary
+"other, another",altro,0.0029,it,A1,vocabulary
+year,anno,0.003,it,A1,vocabulary
+and (in place of 'e' before words beginning with a vowel),ed,0.0031,it,A1,vocabulary
+or,o,0.0032,it,A1,vocabulary
+"all, everything",tutto,0.0033,it,A1,vocabulary
+first,primo,0.0034,it,A1,vocabulary
+"between, among (position or time)",tra,0.0035,it,A1,vocabulary
+"which, whom",cui,0.0036,it,A1,vocabulary
+two,due,0.0037,it,A1,vocabulary
+after,dopo,0.0038,it,A1,vocabulary
+"of, from (abbreviation of 'di')",d',0.0039,it,A1,vocabulary
+"part, side",parte,0.004,it,A1,vocabulary
+if,se,0.0041,it,A1,vocabulary
+"very, much, many",molto,0.0042,it,A1,vocabulary
+the (masculine singular),lo,0.0043,it,A1,vocabulary
+"alone, only, just",solo,0.0044,it,A1,vocabulary
+"us, there",ci,0.0045,it,A1,vocabulary
+"second, according to",secondo,0.0046,it,A1,vocabulary
+"their, them",loro,0.0047,it,A1,vocabulary
+new,nuovo,0.0048,it,A1,vocabulary
+"which, what",quale,0.0049,it,A1,vocabulary
+"must, to have to",dovere,0.005,it,A1,vocabulary
+one,uno,0.0051,it,A1,vocabulary
+"some, any",alcuno,0.0052,it,A1,vocabulary
+"to say, to tell",dire,0.0053,it,A1,vocabulary
+"own, exactly",proprio,0.0054,it,A1,vocabulary
+when,quando,0.0055,it,A1,vocabulary
+"then, later",poi,0.0056,it,A1,vocabulary
+"big, large, great",grande,0.0057,it,A1,vocabulary
+to see,vedere,0.0058,it,A1,vocabulary
+to give,dare,0.0059,it,A1,vocabulary
+to find,trovare,0.006,it,A1,vocabulary
+time,volta,0.0061,it,A1,vocabulary
+"of it, about it, from there",ne,0.0062,it,A1,vocabulary
+where,dove,0.0063,it,A1,vocabulary
+"time, weather",tempo,0.0064,it,A1,vocabulary
+"while, whereas",mentre,0.0065,it,A1,vocabulary
+italian,italiano,0.0066,it,A1,vocabulary
+last,ultimo,0.0067,it,A1,vocabulary
+always,sempre,0.0068,it,A1,vocabulary
+name,nome,0.0069,it,A1,vocabulary
+"so, thus, like this/that",così,0.007,it,A1,vocabulary
+city,città ,0.0071,it,A1,vocabulary
+Italy,Italia,0.0072,it,A1,vocabulary
+"until, up to",fino,0.0073,it,A1,vocabulary
+during,durante,0.0074,it,A1,vocabulary
+"still, again",ancora,0.0075,it,A1,vocabulary
+group,gruppo,0.0076,it,A1,vocabulary
+"story, history",storia,0.0077,it,A1,vocabulary
+to go,andare,0.0078,it,A1,vocabulary
+"before, first",prima,0.0079,it,A1,vocabulary
+same,stesso,0.008,it,A1,vocabulary
+"external, outside",esterno,0.0081,it,A1,vocabulary
+"every, each",ogni,0.0082,it,A1,vocabulary
+"different, various",diverso,0.0083,it,A1,vocabulary
+"little, few, not much",poco,0.0084,it,A1,vocabulary
+to want,volere,0.0085,it,A1,vocabulary
+"film, movie",film,0.0086,it,A1,vocabulary
+without,senza,0.0087,it,A1,vocabulary
+life,vita,0.0089,it,A1,vocabulary
+three,tre,0.009,it,A1,vocabulary
+against,contro,0.0091,it,A1,vocabulary
+"to bring, to carry",portare,0.0092,it,A1,vocabulary
+already,già ,0.0093,it,A1,vocabulary
+"work, operation, opera",opera,0.0094,it,A1,vocabulary
+"therefore, so, then",quindi,0.0095,it,A1,vocabulary
+"known, noted (can also mean 'famous')",noto,0.0096,it,A1,vocabulary
+"how much, how many, as much as",quanto,0.0097,it,A1,vocabulary
+"connection, link, relationship",collegamento,0.0098,it,A1,vocabulary
+"point, dot, spot",punto,0.0099,it,A1,vocabulary
+century,secolo,0.01,it,A1,vocabulary
+"case, chance, occurrence",caso,0.0101,it,A1,vocabulary
+"son, male child",figlio,0.0102,it,A1,vocabulary
+"series, set",serie,0.0103,it,A1,vocabulary
+day,giorno,0.0104,it,A1,vocabulary
+"why, because",perché,0.0105,it,A1,vocabulary
+"now, hour",ora,0.0106,it,A1,vocabulary
+"way, manner, method",modo,0.0107,it,A1,vocabulary
+"end, purpose, fine",fine,0.0108,it,A1,vocabulary
+war,guerra,0.0109,it,A1,vocabulary
+"to take, to catch, to get",prendere,0.011,it,A1,vocabulary
+the,gli,0.0111,it,A1,vocabulary
+"there, you, to you",vi,0.0112,it,A1,vocabulary
+the,la,0.0113,it,A1,vocabulary
+"beyond, over, besides",oltre,0.0114,it,A1,vocabulary
+"next, following, subsequent",successivo,0.0115,it,A1,vocabulary
+world,mondo,0.0116,it,A1,vocabulary
+"house, home",casa,0.0118,it,A1,vocabulary
+"but, however",però,0.0119,it,A1,vocabulary
+"voice, word, entry",voce,0.012,it,A1,vocabulary
+"thing, what, matter",cosa,0.0121,it,A1,vocabulary
+"me, myself",mi,0.0122,it,A1,vocabulary
+"towards, about, verse",verso,0.0123,it,A1,vocabulary
+"to succeed, to manage, to be able to",riuscire,0.0124,it,A1,vocabulary
+system,sistema,0.0125,it,A1,vocabulary
+saint,San,0.0126,it,A1,vocabulary
+"man, human",uomo,0.0127,it,A1,vocabulary
+family,famiglia,0.0128,it,A1,vocabulary
+"small, little, young",piccolo,0.0129,it,A1,vocabulary
+"under, below, beneath",sotto,0.013,it,A1,vocabulary
+today,oggi,0.0131,it,A1,vocabulary
+"long, along",lungo,0.0132,it,A1,vocabulary
+"internal, inside",interno,0.0133,it,A1,vocabulary
+"project, plan",progetto,0.0134,it,A1,vocabulary
+"way, road, street (can also mean ""gone"" or ""away"" in certain contexts)",via,0.0135,it,A1,vocabulary
+"instead, on the other hand",invece,0.0136,it,A1,vocabulary
+"about, approximately, around",circa,0.0137,it,A1,vocabulary
+"between, among",fra,0.0138,it,A1,vocabulary
+to use,usare,0.0139,it,A1,vocabulary
+"in fact, indeed",infatti,0.014,it,A1,vocabulary
+person,persona,0.0141,it,A1,vocabulary
+"to utilize, to use",utilizzare,0.0142,it,A1,vocabulary
+"period, time",periodo,0.0143,it,A1,vocabulary
+"to start, to begin",iniziare,0.0144,it,A1,vocabulary
+"he, him",lui,0.0145,it,A1,vocabulary
+"to remain, to stay, to be left",rimanere,0.0146,it,A1,vocabulary
+"to put, place",mettere,0.0147,it,A1,vocabulary
+to publish,pubblicare,0.0148,it,A1,vocabulary
+to arrive,arrivare,0.0149,it,A1,vocabulary
+to become,diventare,0.015,it,A1,vocabulary
+to write,scrivere,0.0151,it,A1,vocabulary
+example,esempio,0.0152,it,A1,vocabulary
+"so much, a lot",tanto,0.0153,it,A1,vocabulary
+"following, a sequel",seguito,0.0154,it,A1,vocabulary
+"form, shape",forma,0.0155,it,A1,vocabulary
+to know,sapere,0.0156,it,A1,vocabulary
+to call,chiamare,0.0157,it,A1,vocabulary
+"to pass, spend (time)",passare,0.0158,it,A1,vocabulary
+important,importante,0.0159,it,A1,vocabulary
+number,numero,0.016,it,A1,vocabulary
+"furthermore, moreover, in addition",inoltre,0.0161,it,A1,vocabulary
+public,pubblico,0.0162,it,A1,vocabulary
+never,mai,0.0163,it,A1,vocabulary
+church,chiesa,0.0164,it,A1,vocabulary
+"true, real",vero,0.0165,it,A1,vocabulary
+"high, tall",alto,0.0166,it,A1,vocabulary
+national,nazionale,0.0167,it,A1,vocabulary
+"to obtain, get",ottenere,0.0168,it,A1,vocabulary
+who,chi,0.0169,it,A1,vocabulary
+"to present, introduce",presentare,0.017,it,A1,vocabulary
+them,li,0.0171,it,A1,vocabulary
+"political, politician",politico,0.0172,it,A1,vocabulary
+"to leave, let",lasciare,0.0173,it,A1,vocabulary
+"particular, detail",particolare,0.0174,it,A1,vocabulary
+"unique, only",unico,0.0175,it,A1,vocabulary
+"common, municipality",comune,0.0176,it,A1,vocabulary
+various,vario,0.0177,it,A1,vocabulary
+together,insieme,0.0178,it,A1,vocabulary
+Rome,Roma,0.0179,it,A1,vocabulary
+"main, principal",principale,0.018,it,A1,vocabulary
+"present, current",presente,0.0181,it,A1,vocabulary
+"certain, sure",certo,0.0182,it,A1,vocabulary
+title,titolo,0.0183,it,A1,vocabulary
+"country, village",paese,0.0184,it,A1,vocabulary
+to speak,parlare,0.0185,it,A1,vocabulary
+to be born,nascere,0.0186,it,A1,vocabulary
+"be (subjunctive of ""essere""), whether",sia,0.0187,it,A1,vocabulary
+to follow,seguire,0.0188,it,A1,vocabulary
+to consider,considerare,0.0189,it,A1,vocabulary
+season,stagione,0.019,it,A1,vocabulary
+"to treat, deal with",trattare,0.0191,it,A1,vocabulary
+to enter,entrare,0.0192,it,A1,vocabulary
+"type, kind",tipo,0.0193,it,A1,vocabulary
+center,centro,0.0194,it,A1,vocabulary
+"place, spot",posto,0.0195,it,A1,vocabulary
+often,spesso,0.0196,it,A1,vocabulary
+to correlate,correlare,0.0198,it,A1,vocabulary
+"success, happened",successo,0.0199,it,A1,vocabulary
+"fact, deed",fatto,0.02,it,A1,vocabulary
+to become,divenire,0.0201,it,A1,vocabulary
+"cause, reason",causa,0.0202,it,A1,vocabulary
+team,squadra,0.0203,it,A1,vocabulary
+territory,territorio,0.0204,it,A1,vocabulary
+"work, job",lavoro,0.0205,it,A1,vocabulary
+to create,creare,0.0206,it,A1,vocabulary
+"to make, render",rendere,0.0207,it,A1,vocabulary
+our,nostro,0.0208,it,A1,vocabulary
+to win,vincere,0.0209,it,A1,vocabulary
+"to depart, leave",partire,0.021,it,A1,vocabulary
+"to reach, achieve",raggiungere,0.0211,it,A1,vocabulary
+less,meno,0.0212,it,A1,vocabulary
+"base, basis",base,0.0213,it,A1,vocabulary
+"state, status, have been ",stato,0.0214,it,A1,vocabulary
+"character, personality",personaggio,0.0215,it,A1,vocabulary
+"term, end",termine,0.0216,it,A1,vocabulary
+"such, such a",tale,0.0217,it,A1,vocabulary
+"study, studio",studio,0.0218,it,A1,vocabulary
+to decide,decidere,0.0219,it,A1,vocabulary
+almost,quasi,0.022,it,A1,vocabulary
+my,mio,0.0221,it,A1,vocabulary
+especially,soprattutto,0.0222,it,A1,vocabulary
+death,morte,0.0223,it,A1,vocabulary
+moment,momento,0.0224,it,A1,vocabulary
+month,mese,0.0225,it,A1,vocabulary
+version,versione,0.0226,it,A1,vocabulary
+"to realize, achieve",realizzare,0.0227,it,A1,vocabulary
+thanks,grazie,0.0228,it,A1,vocabulary
+"to know, to be acquainted with",conoscere,0.0229,it,A1,vocabulary
+to live,vivere,0.023,it,A1,vocabulary
+young,giovane,0.0231,it,A1,vocabulary
+"to search, look for",cercare,0.0232,it,A1,vocabulary
+"ancient, old",antico,0.0233,it,A1,vocabulary
+line,linea,0.0234,it,A1,vocabulary
+historical,storico,0.0235,it,A1,vocabulary
+"that, this",ciò,0.0236,it,A1,vocabulary
+"respect, regarding",rispetto,0.0237,it,A1,vocabulary
+well,ben,0.0238,it,A1,vocabulary
+beginning,inizio,0.0239,it,A1,vocabulary
+to return,tornare,0.024,it,A1,vocabulary
+province,provincia,0.0241,it,A1,vocabulary
+"zone, area",zona,0.0242,it,A1,vocabulary
+album,album,0.0243,it,A1,vocabulary
+possible,possibile,0.0244,it,A1,vocabulary
+to continue,continuare,0.0245,it,A1,vocabulary
+"problem, issue",problema,0.0246,it,A1,vocabulary
+"boy, young man, (can mean boyfriend in a romantic context)",ragazzo,0.0247,it,A1,vocabulary
+"woman, lady, (can mean wife in some contexts)",donna,0.0248,it,A1,vocabulary
+"to build, to construct",costruire,0.0249,it,A1,vocabulary
+service,servizio,0.025,it,A1,vocabulary
+the (feminine plural or direct object pronoun),le,0.0251,it,A1,vocabulary
+general,generale,0.0252,it,A1,vocabulary
+"at, near",presso,0.0253,it,A1,vocabulary
+"to understand, to comprise",comprendere,0.0254,it,A1,vocabulary
+"strength, force ",forza,0.0255,it,A1,vocabulary
+"then, at that time",allora,0.0256,it,A1,vocabulary
+"to seem, to appear",sembrare,0.0257,it,A1,vocabulary
+here,qui,0.0258,it,A1,vocabulary
+field,campo,0.0259,it,A1,vocabulary
+to think,pensare,0.026,it,A1,vocabulary
+four,quattro,0.0261,it,A1,vocabulary
+"theme, topic, subject",tema,0.0262,it,A1,vocabulary
+to die,morire,0.0263,it,A1,vocabulary
+course,corso,0.0264,it,A1,vocabulary
+"greater, major, elder",maggiore,0.0265,it,A1,vocabulary
+to produce,produrre,0.0266,it,A1,vocabulary
+"to hold, to keep, to maintain",tenere,0.0267,it,A1,vocabulary
+activity,attività ,0.0268,it,A1,vocabulary
+me,me,0.0269,it,A1,vocabulary
+"to allow, to permit",permettere,0.027,it,A1,vocabulary
+"place, location",luogo,0.0271,it,A1,vocabulary
+numerous,numeroso,0.0272,it,A1,vocabulary
+"right (as in legal right), straight",diritto,0.0273,it,A1,vocabulary
+"some, a few",qualche,0.0274,it,A1,vocabulary
+"however, nevertheless",tuttavia,0.0275,it,A1,vocabulary
+government,governo,0.0276,it,A1,vocabulary
+level,livello,0.0277,it,A1,vocabulary
+same (feminine form of stesso),stessa,0.0278,it,A1,vocabulary
+"to ask, to request",chiedere,0.0279,it,A1,vocabulary
+to represent,rappresentare,0.028,it,A1,vocabulary
+"society, company",società ,0.0281,it,A1,vocabulary
+to dedicate,dedicare,0.0282,it,A1,vocabulary
+production,produzione,0.0283,it,A1,vocabulary
+to remember,ricordare,0.0284,it,A1,vocabulary
+to program,programma,0.0285,it,A1,vocabulary
+I,io,0.0286,it,A1,vocabulary
+"to stay, to be",stare,0.0287,it,A1,vocabulary
+September,settembre,0.0288,it,A1,vocabulary
+"street, road",strada,0.0289,it,A1,vocabulary
+"anyway, however, nevertheless",comunque,0.029,it,A1,vocabulary
+third,terzo,0.0291,it,A1,vocabulary
+"good, well, fine",bene,0.0292,it,A1,vocabulary
+father,padre,0.0293,it,A1,vocabulary
+"means (way of doing something), half",mezzo,0.0294,it,A1,vocabulary
+"to participate, to take part",partecipare,0.0295,it,A1,vocabulary
+water,acqua,0.0296,it,A1,vocabulary
+French,francese,0.0297,it,A1,vocabulary
+"game, play",gioco,0.0298,it,A1,vocabulary
+"to constitute, to form, to establish",costituire,0.0299,it,A1,vocabulary
+"area, zone, region",area,0.03,it,A1,vocabulary
+"role, part",ruolo,0.0301,it,A1,vocabulary
+"origin, source",origine,0.0302,it,A1,vocabulary
+"network, net, web",rete,0.0303,it,A1,vocabulary
+"to happen, to occur, future (noun)",avvenire,0.0304,it,A1,vocabulary
+"position, location, stance",posizione,0.0305,it,A1,vocabulary
+"to place, to put, to set",porre,0.0306,it,A1,vocabulary
+book,libro,0.0307,it,A1,vocabulary
+"this (shortened form, used before a vowel)",quest',0.0308,it,A1,vocabulary
+friend (male),amico,0.0309,it,A1,vocabulary
+"through, across",attraverso,0.031,it,A1,vocabulary
+presence,presenza,0.0311,it,A1,vocabulary
+"law, rule",legge,0.0312,it,A1,vocabulary
+"use, usage, practice",uso,0.0313,it,A1,vocabulary
+"genre, kind, gender",genere,0.0314,it,A1,vocabulary
+"to lose, to miss",perdere,0.0315,it,A1,vocabulary
+"degree, level, rank",grado,0.0316,it,A1,vocabulary
+bibliography,Bibliografia,0.0317,it,A1,vocabulary
+to exist,esistere,0.0318,it,A1,vocabulary
+"epoch, era, period",epoca,0.0319,it,A1,vocabulary
+two (Roman numeral),II,0.032,it,A1,vocabulary
+"plan, level, floor, piano (musical instrument)",piano,0.0321,it,A1,vocabulary
+"strong, loud, fort",forte,0.0322,it,A1,vocabulary
+"to go out, to exit, to come out",uscire,0.0323,it,A1,vocabulary
+German,tedesco,0.0324,it,A1,vocabulary
+"final (adj.), finale (noun)",finale,0.0325,it,A1,vocabulary
+"to work, to labor",lavorare,0.0326,it,A1,vocabulary
+"military, to serve in the military",militare,0.0327,it,A1,vocabulary
+"structure, framework",struttura,0.0328,it,A1,vocabulary
+hand,mano,0.0329,it,A1,vocabulary
+"despite, notwithstanding",nonostante,0.033,it,A1,vocabulary
+English,inglese,0.0331,it,A1,vocabulary
+video,video,0.0332,it,A1,vocabulary
+"championship, league",campionato,0.0333,it,A1,vocabulary
+"body, corps",corpo,0.0334,it,A1,vocabulary
+"world, global",mondiale,0.0335,it,A1,vocabulary
+"party, departed",partito,0.0336,it,A1,vocabulary
+"result, outcome",risultato,0.0337,it,A1,vocabulary
+king,re,0.0338,it,A1,vocabulary
+"comment, commentary",commento,0.0339,it,A1,vocabulary
+"the (abbreviation of ""il"" before vowels)",l' ,0.034,it,A1,vocabulary
+"perhaps, maybe",forse,0.0341,it,A1,vocabulary
+"she, her, you (formal)",lei,0.0343,it,A1,vocabulary
+"near, close, neighbor",vicino,0.0344,it,A1,vocabulary
+"value, worth, merit",valore,0.0345,it,A1,vocabulary
+"author, writer",autore,0.0346,it,A1,vocabulary
+European,europeo,0.0347,it,A1,vocabulary
+"species, kind, type",specie,0.0348,it,A1,vocabulary
+"single, individual, (music) single",singolo,0.0349,it,A1,vocabulary
+international,internazionale,0.035,it,A1,vocabulary
+song,canzone,0.0351,it,A1,vocabulary
+"reality, fact, truth",realtà ,0.0352,it,A1,vocabulary
+"language, tongue",lingua,0.0353,it,A1,vocabulary
+order (sequence or command),ordine,0.0354,it,A1,vocabulary
+"word, speech, promise",parola,0.0355,it,A1,vocabulary
+"to direct (a film), to lead, to manage",dirigere,0.0356,it,A1,vocabulary
+"career, racecourse",carriera,0.0357,it,A1,vocabulary
+million,milione,0.0358,it,A1,vocabulary
+"whole, entire, full, complete",intero,0.0359,it,A1,vocabulary
+"research, search",ricerca,0.036,it,A1,vocabulary
+population,popolazione,0.0361,it,A1,vocabulary
+May,maggio,0.0362,it,A1,vocabulary
+"engine, motor",motore,0.0363,it,A1,vocabulary
+"beautiful, handsome, nice, good",bello,0.0365,it,A1,vocabulary
+young,ti,0.0366,it,A1,vocabulary
+music,musica,0.0367,it,A1,vocabulary
+"member, limb (less common)",membro,0.0368,it,A1,vocabulary
+"earth, land, ground, soil, dirt",terra,0.0369,it,A1,vocabulary
+"region, area",regione,0.037,it,A1,vocabulary
+Milan,Milano,0.0372,it,A1,vocabulary
+school,scuola,0.0373,it,A1,vocabulary
+"similar, alike",simile,0.0374,it,A1,vocabulary
+"previous, preceding, precedent",precedente,0.0375,it,A1,vocabulary
+"to define, to determine, to describe",definire,0.0376,it,A1,vocabulary
+"to discover, to uncover, to reveal",scoprire,0.0377,it,A1,vocabulary
+to receive,ricevere,0.0378,it,A1,vocabulary
+"site, location, place, website",sito,0.0379,it,A1,vocabulary
+"model, pattern, template",modello,0.038,it,A1,vocabulary
+to kill,uccidere,0.0381,it,A1,vocabulary
+"he, him (formal, literary)",egli,0.0382,it,A1,vocabulary
+American,americano,0.0383,it,A1,vocabulary
+"effect, impact, special effect",effetto,0.0384,it,A1,vocabulary
+"to indicate, to point out, to suggest, to signify",indicare,0.0385,it,A1,vocabulary
+"to predict, to foresee, to plan, to expect",prevedere,0.0386,it,A1,vocabulary
+"low (in height, tone, rank), bass (in music)",basso,0.0387,it,A1,vocabulary
+"local, place, premises",locale,0.0388,it,A1,vocabulary
+"report, relationship, connection",rapporto,0.0389,it,A1,vocabulary
+"to show, to display",mostrare,0.039,it,A1,vocabulary
+"to compose, to make up, to constitute",comporre,0.0391,it,A1,vocabulary
+Roman,romano,0.0392,it,A1,vocabulary
+"seat, headquarters, venue, location",sede,0.0393,it,A1,vocabulary
+art,arte,0.0394,it,A1,vocabulary
+states (countries or conditions),Stati,0.0395,it,A1,vocabulary
+to found or establish,fondare,0.0396,it,A1,vocabulary
+battle or struggle,battaglia,0.0397,it,A1,vocabulary
+August ,agosto,0.0398,it,A1,vocabulary
+to open,aprire,0.0399,it,A1,vocabulary
+function or role,funzione,0.04,it,A1,vocabulary
+human or humane,umano,0.0401,it,A1,vocabulary
+"to expand, elaborate, develop, unfold (literary/metaphorical)",sviluppo,0.0402,it,A1,vocabulary
+complete or suit (clothing),completo,0.0403,it,A1,vocabulary
+June,giugno,0.0404,it,A1,vocabulary
+brother,fratello,0.0405,it,A1,vocabulary
+to begin or start,cominciare,0.0406,it,A1,vocabulary
+social,sociale,0.0407,it,A1,vocabulary
+July,luglio,0.0408,it,A1,vocabulary
+to carry out or develop,svolgere,0.0409,it,A1,vocabulary
+necessary,necessario,0.041,it,A1,vocabulary
+ago,fa,0.0411,it,A1,vocabulary
+south,sud,0.0412,it,A1,vocabulary
+maximum or greatest,massimo,0.0413,it,A1,vocabulary
+current or present,attuale,0.0414,it,A1,vocabulary
+movement,movimento,0.0415,it,A1,vocabulary
+idea,idea,0.0416,it,A1,vocabulary
+to finish or end,finire,0.0417,it,A1,vocabulary
+Europe,Europa,0.0418,it,A1,vocabulary
+episode,episodio,0.0419,it,A1,vocabulary
+economic or economical,economico,0.042,it,A1,vocabulary
+October,ottobre,0.0421,it,A1,vocabulary
+central,centrale,0.0422,it,A1,vocabulary
+outside or out,fuori,0.0423,it,A1,vocabulary
+to develop,sviluppare,0.0424,it,A1,vocabulary
+best or better,migliore,0.0425,it,A1,vocabulary
+to contain,contenere,0.0426,it,A1,vocabulary
+action,azione,0.0427,it,A1,vocabulary
+December,dicembre,0.0428,it,A1,vocabulary
+old,vecchio,0.0429,it,A1,vocabulary
+France,Francia,0.043,it,A1,vocabulary
+child,bambino,0.0431,it,A1,vocabulary
+January,gennaio,0.0432,it,A1,vocabulary
+to believe,credere,0.0433,it,A1,vocabulary
+to form or shape,formare,0.0434,it,A1,vocabulary
+the (plural),I,0.0435,it,A1,vocabulary
+age,età ,0.0436,it,A1,vocabulary
+March,marzo,0.0437,it,A1,vocabulary
+immediately or right away,subito,0.0438,it,A1,vocabulary
+famous,famoso,0.0439,it,A1,vocabulary
+element,elemento,0.044,it,A1,vocabulary
+sense or meaning,senso,0.0441,it,A1,vocabulary
+to appear or seem,apparire,0.0442,it,A1,vocabulary
+formula,Formula,0.0443,it,A1,vocabulary
+characteristic or feature,caratteristica,0.0444,it,A1,vocabulary
+to record or register,registrare,0.0445,it,A1,vocabulary
+official,ufficiale,0.0446,it,A1,vocabulary
+product,prodotto,0.0447,it,A1,vocabulary
+airplane or air,aereo,0.0448,it,A1,vocabulary
+April,aprile,0.0449,it,A1,vocabulary
+construction or building,costruzione,0.045,it,A1,vocabulary
+half,metà ,0.0451,it,A1,vocabulary
+greater or major,maggior,0.0452,it,A1,vocabulary
+citizen,cittadino,0.0453,it,A1,vocabulary
+process or trial,processo,0.0454,it,A1,vocabulary
+to occupy,occupare,0.0455,it,A1,vocabulary
+to play,giocare,0.0456,it,A1,vocabulary
+to offer,offrire,0.0457,it,A1,vocabulary
+to tie or bind,legare,0.0458,it,A1,vocabulary
+information,informazione,0.0459,it,A1,vocabulary
+and (in Latin or in artistic contexts),et,0.046,it,A1,vocabulary
+control or check,controllo,0.0461,it,A1,vocabulary
+style,stile,0.0462,it,A1,vocabulary
+space,spazio,0.0463,it,A1,vocabulary
+too much,troppo,0.0464,it,A1,vocabulary
+good,buono,0.0465,it,A1,vocabulary
+set,set,0.0466,it,A1,vocabulary
+situation,situazione,0.0467,it,A1,vocabulary
+line,line,0.0468,it,A1,vocabulary
+victory,vittoria,0.0469,it,A1,vocabulary
+occasion or opportunity,occasione,0.047,it,A1,vocabulary
+we,noi,0.0471,it,A1,vocabulary
+island,isola,0.0472,it,A1,vocabulary
+actor,attore,0.0473,it,A1,vocabulary
+image or picture,immagine,0.0474,it,A1,vocabulary
+to feel or hear,sentire,0.0475,it,A1,vocabulary
+object,oggetto,0.0476,it,A1,vocabulary
+data or given,dato,0.0477,it,A1,vocabulary
+meter or subway,metro,0.0478,it,A1,vocabulary
+condition,condizione,0.0479,it,A1,vocabulary
+text,testo,0.048,it,A1,vocabulary
+"that is, namely",cioà¨,0.0481,it,A1,vocabulary
+to change,cambiare,0.0482,it,A1,vocabulary
+November,novembre,0.0483,it,A1,vocabulary
+president,presidente,0.0484,it,A1,vocabulary
+head or leader,capo,0.0485,it,A1,vocabulary
+edition,edizione,0.0486,it,A1,vocabulary
+united,Uniti,0.0487,it,A1,vocabulary
+to support or sustain,sostenere,0.0488,it,A1,vocabulary
+to concern or regard,riguardare,0.049,it,A1,vocabulary
+rest or remainder,resto,0.0491,it,A1,vocabulary
+interest,interesse,0.0492,it,A1,vocabulary
+scene,scena,0.0493,it,A1,vocabulary
+of or from,De,0.0494,it,A1,vocabulary
+"by now, already, at this point",ormai,0.0495,it,A1,vocabulary
+better (comparative form of 'bene (well/good)),meglio,0.0496,it,A1,vocabulary
+no,no,0.0497,it,A1,vocabulary
+"phase, stage",fase,0.0498,it,A1,vocabulary
+formation,formazione,0.0499,it,A1,vocabulary
+five,cinque,0.05,it,A1,vocabulary
+light,luce,0.0501,it,A1,vocabulary
+to read,leggere,0.0502,it,A1,vocabulary
+star,stella,0.0503,it,A1,vocabulary
+color,colore,0.0504,it,A1,vocabulary
+"to result, to turn out",risultare,0.0506,it,A1,vocabulary
+"to assume, to take on",assumere,0.0507,it,A1,vocabulary
+"to lead, to conduct, to drive",condurre,0.0508,it,A1,vocabulary
+building,edificio,0.0509,it,A1,vocabulary
+"to demonstrate, to show",dimostrare,0.051,it,A1,vocabulary
+musical,musicale,0.0511,it,A1,vocabulary
+"to understand, to comprehend",capire,0.0512,it,A1,vocabulary
+mother,madre,0.0513,it,A1,vocabulary
+at least,almeno,0.0514,it,A1,vocabulary
+"to believe, to consider",ritenere,0.0515,it,A1,vocabulary
+event,evento,0.0516,it,A1,vocabulary
+"race, competition",gara,0.0517,it,A1,vocabulary
+"former, previous",ex,0.0518,it,A1,vocabulary
+"to propose, suggest",proporre,0.0519,it,A1,vocabulary
+probably,probabilmente,0.052,it,A1,vocabulary
+"more, a little (variant of 'più')",pò,0.0521,it,A1,vocabulary
+"front, in front of",fronte,0.0522,it,A1,vocabulary
+"finally, at last",infine,0.0523,it,A1,vocabulary
+"class (classroom, social class, category)",classe,0.0524,it,A1,vocabulary
+"superior, upper",superiore,0.0525,it,A1,vocabulary
+"short, brief",breve,0.0526,it,A1,vocabulary
+"to stay, remain",restare,0.0527,it,A1,vocabulary
+"weapon, armament",arma,0.0528,it,A1,vocabulary
+"source, fountain",fonte,0.0529,it,A1,vocabulary
+river,fiume,0.053,it,A1,vocabulary
+army,esercito,0.0531,it,A1,vocabulary
+Saint (feminine),Santa,0.0532,it,A1,vocabulary
+"free, unoccupied",libero,0.0533,it,A1,vocabulary
+television (adj.) (ex: programma televisivo // television program),televisivo,0.0534,it,A1,vocabulary
+"the (abbreviation of ""il"" or ""la"" before a vowel)",l',0.0535,it,A1,vocabulary
+"to derive, originate",derivare,0.0536,it,A1,vocabulary
+market,mercato,0.0537,it,A1,vocabulary
+"it, she (formal or literary pronoun)",essa,0.0538,it,A1,vocabulary
+"to require, request",richiedere,0.0539,it,A1,vocabulary
+artist,artista,0.054,it,A1,vocabulary
+February,febbraio,0.0541,it,A1,vocabulary
+"inhabitant, resident",abitante,0.0542,it,A1,vocabulary
+"square, plaza",piazza,0.0543,it,A1,vocabulary
+"to maintain, keep, support",mantenere,0.0544,it,A1,vocabulary
+"simple, easy",semplice,0.0545,it,A1,vocabulary
+"to transfer, move",trasferire,0.0546,it,A1,vocabulary
+"to force, compel",costringere,0.0547,it,A1,vocabulary
+week,settimana,0.0548,it,A1,vocabulary
+"to situate, locate",situare,0.0549,it,A1,vocabulary
+"currently, at present",attualmente,0.055,it,A1,vocabulary
+"ship, vessel",nave,0.0551,it,A1,vocabulary
+"to base, groun",basare,0.0552,it,A1,vocabulary
+"channel, canal, TV channel ",canale,0.0553,it,A1,vocabulary
+"to choose, select",scegliere,0.0554,it,A1,vocabulary
+"possibility, opportunity",possibilità ,0.0555,it,A1,vocabulary
+"piece, excerpt, track (piece of music)",brano,0.0556,it,A1,vocabulary
+"reason, motive, pattern",motivo,0.0557,it,A1,vocabulary
+white,bianco,0.0558,it,A1,vocabulary
+"to arrive, reach",giungere,0.0559,it,A1,vocabulary
+"game, match (in sport), departure, batch of goods",partita,0.056,it,A1,vocabulary
+following or next,seguente,0.0561,it,A1,vocabulary
+"advice, council, board (in a corporate context)",consiglio,0.0562,it,A1,vocabulary
+"relative, pertaining to, concerning",relativo,0.0563,it,A1,vocabulary
+original,originale,0.0564,it,A1,vocabulary
+"to declare, to state",dichiarare,0.0565,it,A1,vocabulary
+"direct, straightforward",diretto,0.0566,it,A1,vocabulary
+"dimension, size",dimensione,0.0567,it,A1,vocabulary
+future,futuro,0.0568,it,A1,vocabulary
+"view, sight, perspective",vista,0.0569,it,A1,vocabulary
+to serve,servire,0.057,it,A1,vocabulary
+"act, deed, document, scene (in theatrical terms)",atto,0.0571,it,A1,vocabulary
+novel,romanzo,0.0572,it,A1,vocabulary
+"aspect, look, appearance",aspetto,0.0573,it,A1,vocabulary
+love,amore,0.0574,it,A1,vocabulary
+"to report, to bring back, to carry",riportare,0.0575,it,A1,vocabulary
+"material, substance",materiale,0.0576,it,A1,vocabulary
+"disc, record, disk",disco,0.0577,it,A1,vocabulary
+"usual, customary",solito,0.0578,it,A1,vocabulary
+culture,cultura,0.0579,it,A1,vocabulary
+your,tuo,0.0581,it,A1,vocabulary
+"choice, selection",scelta,0.0582,it,A1,vocabulary
+"relationship, report",relazione,0.0583,it,A1,vocabulary
+side,lato,0.0584,it,A1,vocabulary
+biography,biografia,0.0585,it,A1,vocabulary
+"great, big, grand",gran,0.0586,it,A1,vocabulary
+"work, labor, job",lavorio,0.0587,it,A1,vocabulary
+modern,moderno,0.0588,it,A1,vocabulary
+"to carry out, to perform",effettuare,0.0589,it,A1,vocabulary
+"politics, policy",politica,0.059,it,A1,vocabulary
+"to recognize, to acknowledge",riconoscere,0.0591,it,A1,vocabulary
+"complex, complicated ",complesso,0.0592,it,A1,vocabulary
+"attack, onset",attacco,0.0594,it,A1,vocabulary
+"clear, obvious",chiaro,0.0595,it,A1,vocabulary
+"to resume, to restart, to take back",riprendere,0.0597,it,A1,vocabulary
+head,testa,0.0601,it,A1,vocabulary
+wife,moglie,0.0602,it,A1,vocabulary
+"technical, technician",tecnico,0.0603,it,A1,vocabulary
+"unit, unity",unità ,0.0604,it,A1,vocabulary
+"six, you are",sei,0.0605,it,A1,vocabulary
+"to date back, to climb up",risalire,0.0606,it,A1,vocabulary
+black,nero,0.0607,it,A1,vocabulary
+"prize, award, premium",premio,0.0608,it,A1,vocabulary
+"figure, shape",figura,0.0609,it,A1,vocabulary
+private,privato,0.061,it,A1,vocabulary
+"article, item",articolo,0.0611,it,A1,vocabulary
+"to replace, to substitute",sostituire,0.0612,it,A1,vocabulary
+it,esso,0.0613,it,A1,vocabulary
+"why, because",perchà¨,0.0614,it,A1,vocabulary
+"since, because",poiché,0.0615,it,A1,vocabulary
+"just, as soon as",appena,0.0616,it,A1,vocabulary
+republic,Repubblica,0.0618,it,A1,vocabulary
+to add,aggiungere,0.0619,it,A1,vocabulary
+north,nord,0.062,it,A1,vocabulary
+"request, demand",richiesta,0.0621,it,A1,vocabulary
+sea,mare,0.0622,it,A1,vocabulary
+"speed,velocity",velocità ,0.0623,it,A1,vocabulary
+player,giocatore,0.0624,it,A1,vocabulary
+"tour, lap, round",giro,0.0625,it,A1,vocabulary
+difference,differenza,0.0626,it,A1,vocabulary
+"through, via, by means of",tramite,0.0627,it,A1,vocabulary
+"to assert, to claim, to state",affermare,0.0628,it,A1,vocabulary
+"company, firm, business",azienda,0.0629,it,A1,vocabulary
+experience,esperienza,0.063,it,A1,vocabulary
+"staff, personal",personale,0.0631,it,A1,vocabulary
+club,club,0.0632,it,A1,vocabulary
+"full, complete",pieno,0.0633,it,A1,vocabulary
+"comparison, confrontation",confronto,0.0634,it,A1,vocabulary
+typical,tipico,0.0635,it,A1,vocabulary
+"popular, to populate",popolare,0.0637,it,A1,vocabulary
+Euro,euro,0.0638,it,A1,vocabulary
+"to nominate, to appoint, to name",nominare,0.0639,it,A1,vocabulary
+"people, nation",popolo,0.064,it,A1,vocabulary
+"to allow, to permit",consentire,0.0641,it,A1,vocabulary
+to characterize,caratterizzare,0.0642,it,A1,vocabulary
+"safe, sure, secure",sicuro,0.0643,it,A1,vocabulary
+"to meet, to encounter",incontrare,0.0644,it,A1,vocabulary
+"absolute, total",assoluto,0.0645,it,A1,vocabulary
+"to abandon, to leave, to give up",abbandonare,0.0646,it,A1,vocabulary
+religious,religioso,0.0647,it,A1,vocabulary
+animal,animale,0.0648,it,A1,vocabulary
+"meeting, encounter, match",incontro,0.0649,it,A1,vocabulary
+to interpret,interpretare,0.065,it,A1,vocabulary
+"to insert, enter",inserire,0.0651,it,A1,vocabulary
+eye,occhio,0.0653,it,A1,vocabulary
+return,ritorno,0.0654,it,A1,vocabulary
+to belong,appartenere,0.0658,it,A1,vocabulary
+"to save, to rescue",salvare,0.0659,it,A1,vocabulary
+"environment, atmosphere",ambiente,0.066,it,A1,vocabulary
+to marry,sposare,0.0661,it,A1,vocabulary
+civil,civile,0.0662,it,A1,vocabulary
+"to hit, to strike, to affect",colpire,0.0663,it,A1,vocabulary
+classic,classico,0.0664,it,A1,vocabulary
+to organize,organizzare,0.0665,it,A1,vocabulary
+"or, in other words",ovvero,0.0666,it,A1,vocabulary
+"to provide, supply",fornire,0.0667,it,A1,vocabulary
+"instrument, tool",strumento,0.0668,it,A1,vocabulary
+"purpose, aim",scopo,0.0669,it,A1,vocabulary
+"rather, instead",piuttosto,0.067,it,A1,vocabulary
+gold,oro,0.0671,it,A1,vocabulary
+"total, entire",totale,0.0672,it,A1,vocabulary
+they,essi,0.0673,it,A1,vocabulary
+"test, proof, trial",prova,0.0674,it,A1,vocabulary
+reference,riferimento,0.0675,it,A1,vocabulary
+station,stazione,0.0676,it,A1,vocabulary
+natural,naturale,0.0677,it,A1,vocabulary
+Germany,Germania,0.0678,it,A1,vocabulary
+night,notte,0.0679,it,A1,vocabulary
+Prince,principe,0.068,it,A1,vocabulary
+"above, over",sopra,0.0681,it,A1,vocabulary
+"so, then, therefore",dunque,0.0682,it,A1,vocabulary
+football (soccer); calcium (element),calcio,0.0683,it,A1,vocabulary
+wave,onda,0.0684,it,A1,vocabulary
+"next, nearest",prossimo,0.0685,it,A1,vocabulary
+"quarter, fourth",quarto,0.0686,it,A1,vocabulary
+"countryside, campaign",campagna,0.0687,it,A1,vocabulary
+"to collect, to gather",raccogliere,0.0688,it,A1,vocabulary
+news,notizia,0.0689,it,A1,vocabulary
+"real, royal",reale,0.069,it,A1,vocabulary
+tradition,tradizione,0.0691,it,A1,vocabulary
+"even though, although",pur,0.0692,it,A1,vocabulary
+"protagonist, main character",protagonista,0.0693,it,A1,vocabulary
+to transform,trasformare,0.0695,it,A1,vocabulary
+theory,teoria,0.0696,it,A1,vocabulary
+"operation, surgery",operazione,0.0697,it,A1,vocabulary
+to describe,descrivere,0.0698,it,A1,vocabulary
+to reveal,rivelare,0.07,it,A1,vocabulary
+"to try, to attempt",tentare,0.0701,it,A1,vocabulary
+"wide, broad, extensive",ampio,0.0702,it,A1,vocabulary
+organization,organizzazione,0.0703,it,A1,vocabulary
+"capacity, ability",capacità ,0.0704,it,A1,vocabulary
+"to overcome, to surpass, to exceed",superare,0.0705,it,A1,vocabulary
+"minute, tiny/minute (small)",minuto,0.0706,it,A1,vocabulary
+quality,qualità ,0.0707,it,A1,vocabulary
+"to preserve, to conserve, to keep",conservare,0.0708,it,A1,vocabulary
+"fund, bottom depth",fondo,0.0709,it,A1,vocabulary
+"episode, bet, stake",puntata,0.071,it,A1,vocabulary
+company (both in the send of a business and companionship),compagnia,0.0711,it,A1,vocabulary
+Naples (Italian city),Napoli,0.0712,it,A1,vocabulary
+"physical, physicist",fisico,0.0713,it,A1,vocabulary
+"guide (ex: travel guide, to guide)",guida,0.0714,it,A1,vocabulary
+"past, passed",passato,0.0715,it,A1,vocabulary
+"to establish, to set",stabilire,0.0716,it,A1,vocabulary
+"to drive, lead",guidare,0.0717,it,A1,vocabulary
+"technique, technology",tecnica,0.0718,it,A1,vocabulary
+"to reduce, to cut down",ridurre,0.072,it,A1,vocabulary
+"property, ownership",proprietà ,0.0721,it,A1,vocabulary
+"to accept, to agree",accettare,0.0722,it,A1,vocabulary
+energy,energia,0.0723,it,A1,vocabulary
+"to tell, to narrate",raccontare,0.0724,it,A1,vocabulary
+"content, contents",contenuto,0.0725,it,A1,vocabulary
+to include,includere,0.0726,it,A1,vocabulary
+"average, medium, middle",medio,0.0727,it,A1,vocabulary
+to study ,studiare,0.0728,it,A1,vocabulary
+"around, about",intorno,0.0729,it,A1,vocabulary
+"to execute, perform, carry out",eseguire,0.073,it,A1,vocabulary
+"door, gate",porta,0.0731,it,A1,vocabulary
+"palace, large building",palazzo,0.0733,it,A1,vocabulary
+"doctor, medical",medico,0.0734,it,A1,vocabulary
+"agreement, accord",accordo,0.0735,it,A1,vocabulary
+"he/she/it stays, stands",sta,0.0736,it,A1,vocabulary
+"or, alternatively",oppure,0.0737,it,A1,vocabulary
+"sector, field",settore,0.0738,it,A1,vocabulary
+"to cite, quote",citare,0.0739,it,A1,vocabulary
+to sell,vendere,0.074,it,A1,vocabulary
+red,rosso,0.0741,it,A1,vocabulary
+"subject, individual",soggetto,0.0742,it,A1,vocabulary
+"ranking, chart",classifica,0.0743,it,A1,vocabulary
+"travel, journal, trip",viaggio,0.0744,it,A1,vocabulary
+"to help, assist",aiutare,0.0745,it,A1,vocabulary
+"car, machine",macchina,0.0746,it,A1,vocabulary
+"to close, shut",chiudere,0.0747,it,A1,vocabulary
+"minor, lesser, younger",minore,0.0748,it,A1,vocabulary
+"to explain, unfold",spiegare,0.0749,it,A1,vocabulary
+"director, manager",direttore,0.075,it,A1,vocabulary
+nothing,nulla,0.0751,it,A1,vocabulary
+"nor, neither",né,0.0752,it,A1,vocabulary
+God ,Dio,0.0753,it,A1,vocabulary
+"of the, about the, (contracted form of ""di"" + ""il"")",dell,0.0754,it,A1,vocabulary

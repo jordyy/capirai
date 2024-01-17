@@ -51,16 +51,21 @@ const deckCardIdSchema = z.object({
 export const action = async ({ params, request }: ActionFunctionArgs) => {
   const formData = await request.formData();
   const currentCardId = Number(formData.get("deckCardId"));
-  // const nextCardId = await getNextCardId(currentCardId);
-
   const parsedDeckCardId = deckCardIdSchema.safeParse(params.deckCardId);
+  const deckIdString = z.coerce.number().parse(formData.get("deckId"));
+
+  if (!deckIdString || isNaN(Number(deckIdString))) {
+    return json({ status: "error", error: "Invalid deckId" });
+  }
+
+  const deckId = Number(deckIdString);
 
   if (!parsedDeckCardId.success) {
     return json({ error: "No deck card id provided" }, { status: 400 });
   }
 };
 
-export default function SingleDeckCard(params) {
+export default function SingleDeckCard() {
   const fetcher = useFetcher();
   const [isViewingBack, setIsViewingBack] = useState(false);
   const { singleDeckCard, understandingValues } =
@@ -70,17 +75,30 @@ export default function SingleDeckCard(params) {
     return <div>Card does not exist.</div>;
   }
 
-  const handleCardFlip = (event) => {
-    if (event.target.form) {
+  interface CardType {
+    deckCards: { id: number };
+    userCards?: { id: number; understanding?: string };
+    card: {
+      id: number;
+      back: string;
+      front: string;
+      CEFR_level: string;
+      frequency: number;
+    };
+  }
+
+  const handleCardFlip = (event: React.MouseEvent<HTMLDivElement>) => {
+    const target = event.target as HTMLInputElement;
+    if (target.form) {
       return;
     }
     setIsViewingBack((prevState) => !prevState);
   };
 
-  const handleUnderstandingUpdate = (value, card) => {
+  const handleUnderstandingUpdate = (value: string, card: CardType) => {
     const formData = new FormData();
     formData.append("understanding", value);
-    formData.append("deckCardId", card.deckCards.id);
+    formData.append("deckCardId", card.deckCards.id.toString());
 
     fetcher.submit(formData, {
       method: "post",

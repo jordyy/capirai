@@ -5,7 +5,12 @@ import {
   redirect,
 } from "@remix-run/node";
 import { useLoaderData, Outlet, useActionData } from "@remix-run/react";
-import { decks, userDeckSubscriptions } from "../../db/schema";
+import {
+  decks,
+  userDeckSubscriptions,
+  deckCards,
+  userCards,
+} from "../../db/schema";
 import { db } from "../../db/index";
 import React from "react";
 import { z } from "zod";
@@ -26,7 +31,11 @@ export async function loader({ request }: LoaderFunctionArgs) {
     );
 
   if (!userId) {
-    return json({ allDecks, userSubscriptions: null, isAuth: false } as const);
+    return json({
+      allDecks,
+      userSubscriptions: null,
+      isAuth: false,
+    } as const);
   }
 
   const userSubscriptions = await drizzle
@@ -39,7 +48,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export const action = async ({ request, params }: ActionFunctionArgs) => {
   const userId = await requireAuthCookie(request);
   const formData = await request.formData();
-  // const deckIdString = params.deckId;
   const deckIdString = z.coerce.number().parse(formData.get("deckId"));
   const subscribeString = formData.get("subscribe");
 
@@ -49,6 +57,11 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
 
   const deckId = Number(deckIdString);
   const isSubscribeAction = formData.has("subscribe");
+
+  const cardIds = await drizzle
+    .select({ cardID: deckCards?.cardID })
+    .from(deckCards)
+    .where(eq(deckCards.deckID, deckId));
 
   try {
     if (isSubscribeAction) {
@@ -69,6 +82,12 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
           .update(userDeckSubscriptions)
           .set({ subscribed: subscribe })
           .where(eq(userDeckSubscriptions.id, existingSubscription.id));
+
+        for (const card of cardIds) {
+          await db
+            .insert(userCards)
+            .values({ userID: userId, cardID: card?.cardID });
+        }
       } else {
         await db
           .insert(userDeckSubscriptions)
@@ -80,7 +99,7 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
       return redirect(`/decks`);
     }
   } catch (error) {
-    console.log({ deck_delete_error: params.error });
+    console.log({ deck_delete_error: error });
     return json({ status: "error" });
   }
 };
