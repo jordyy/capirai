@@ -76,14 +76,28 @@ export default function SingleDeckCard() {
   }
 
   interface CardType {
-    deckCards: { id: number };
-    userCards?: { id: number; understanding?: string };
-    card: {
-      id: number;
-      back: string;
-      front: string;
+    cards: {
       CEFR_level: string;
+      back: string;
       frequency: number;
+      front: string;
+      id: number;
+      language: string;
+      type: string;
+    };
+    deckCards: {
+      cardID: number;
+      deckID: number;
+      id: number;
+    };
+    decks: {
+      id: number;
+      isPrivate: boolean;
+      name: string;
+    };
+    userCards?: {
+      id: number;
+      understanding?: string;
     };
   }
 
@@ -135,7 +149,9 @@ export default function SingleDeckCard() {
                           value={card.deckCards.id}
                         />
                         <button
-                          onClick={() => handleUnderstandingUpdate(value, card)}
+                          onClick={() =>
+                            handleUnderstandingUpdate(value, card as CardType)
+                          }
                           name="understanding"
                           className={
                             value === card?.userCards?.understanding
