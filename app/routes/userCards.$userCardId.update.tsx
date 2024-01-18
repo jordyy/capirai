@@ -18,7 +18,8 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   const userCard = await db
     .select()
     .from(userCards)
-    .where(eq(userCards.id, userCardId));
+    .where(eq(userCards.id, userCardId))
+    .orderBy(userCards.id);
 
   if (!userCard) {
     throw new Response("No card found", { status: 404 });
@@ -39,6 +40,7 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
     .select({
       userCardID: userCards.id,
       deckCardID: deckCards.id,
+      cardID: cards.id,
       deckId: deckCards.deckID,
     })
     .from(userCards)
@@ -84,7 +86,7 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
     .where(eq(deckCards.deckID, deckId));
 
   const currentCardIndex = allCardIds.findIndex(
-    (card) => card.cardID === userCardIds[0]?.userCardID
+    (card) => card.cardID === userCardIds[currentIndex]?.cardID
   );
 
   const nextCardId = allCardIds[currentCardIndex + 1]?.cardID;

@@ -20,6 +20,7 @@ li {
 
 .card-container {
   display: flex;
+  flex-direction: column;
 }
 
 body {
@@ -28,6 +29,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #b0a4d8;
 }
 
 code {
@@ -100,17 +102,35 @@ body {
 .button-container {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   align-content: baseline;
-  padding: 0.15%;
+  /* padding: 5%; */
   column-gap: 10%;
+}
+
+.deck-button {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  text-align: center;
+  font-size: 1.25rem;
+  font-family: inherit;
+  border: none;
+  text-decoration: none;
+  border-radius: 100px;
+  /* padding: 0.25rem 0.5rem; */
+  box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.2), 0 1px 2px hsla(0, 0%, 0%, 0.2);
+  height: 70%;
+  min-width: 90px;
+  padding: 15px;
+  margin: 15px;
+  color: #b0a4d8;
+  background-color: #4621aa;
+  font-weight: 500;
 }
 
 .edit-card-input-label {
   margin-right: 2%;
-}
-
-.link-as-button {
-  height: 31.95px;
 }
 
 textarea,
@@ -156,32 +176,49 @@ button:active,
 }
 
 .deck-box {
-  /* border: #121212; */
+  background-color: #a486e3;
   padding: 2%;
   box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.4);
-  border-radius: 8px;
+  border-radius: 18%;
   text-align: center;
-  border-style: solid;
 }
 
-.single-card-container {
+div > h4 {
+  margin-bottom: 0;
+}
+
+div > p {
+  margin-top: 0;
+  text-align: right;
+}
+.single-card-contents {
   display: flex;
   flex-direction: column;
-  align-content: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  /* align-items: center; */
+  justify-content: baseline;
 }
 
-.card-box {
-  padding: 2%;
-  align-self: center;
+.card-box:nth-child(even) {
+  display: flex;
+  background-color: #a486e3;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 2%;
+  padding-right: 2%;
+  margin-bottom: 1%;
   flex-grow: 1;
-  margin: 3%;
-  box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.4);
-  border-radius: 8px;
-  text-align: center;
-  border-style: solid;
+  border-radius: 20px;
+}
+
+.card-box:nth-child(odd) {
+  display: flex;
+  background-color: #866cdc;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 2%;
+  padding-right: 2%;
+  margin-bottom: 1%;
+  flex-grow: 1;
+  border-radius: 20px;
 }
 
 .single-card {
@@ -199,25 +236,4 @@ outlet-container {
   height: 100%;
   width: 100%;
   padding: 10%;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes progress {
-  0% {
-    background: #e3e3e3;
-  }
-  50% {
-    background: hsla(224, 98%, 58%, 0.5);
-  }
-  100% {
-    background: #e3e3e3;
-  }
 }

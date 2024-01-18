@@ -64,36 +64,37 @@ export default function Deck({}) {
   return (
     <div id="deck">
       <h1>{deckData.name}</h1>
-      <div className="single-card-container">
+      <div>
         {thisDeckCard.map((card) => {
           return (
             <div key={card.cards.id} className="card-box">
-              <div className="single-card">
-                <h2>{card.cards.front}</h2>
-                <h2>{card.cards.back}</h2>
-                <h2>{card.cards.CEFR_level}</h2>
-                <h2>{card.cards.frequency}</h2>
-                <div className="data-container">
-                  {/* <div>deckCardID: {card.deckCards.id}</div>
-                  <div>deckID:{card.deckCards.deckID}</div>
-                  <div>userCardID: {card?.userCards?.id}</div>
-                  <div>cardID: {card?.cards?.id}</div> */}
-                </div>
+              <div className="single-card-contents">
+                <h4>{card.cards.front}</h4>
+                <p>{card.cards.back}</p>
               </div>
-              <Link to={`/cards/${card?.cards.id}/edit`}>Edit</Link>
-              <Form
-                method="post"
-                onSubmit={(event) => {
-                  const response = confirm(
-                    "Please confirm you want to delete this record."
-                  );
-                  if (!response) {
-                    event.preventDefault();
-                  }
-                }}
-              >
-                <button type="submit">Delete</button>
-              </Form>
+              <div className="button-container">
+                <Link
+                  className="deck-button"
+                  to={`/cards/${card?.cards.id}/edit`}
+                >
+                  Edit
+                </Link>
+                <Form
+                  method="post"
+                  onSubmit={(event) => {
+                    const response = confirm(
+                      "Please confirm you want to delete this record."
+                    );
+                    if (!response) {
+                      event.preventDefault();
+                    }
+                  }}
+                >
+                  <button className="deck-button" type="submit">
+                    Delete
+                  </button>
+                </Form>
+              </div>
             </div>
           );
         })}

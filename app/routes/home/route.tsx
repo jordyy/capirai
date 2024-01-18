@@ -126,17 +126,36 @@ export default function myDecks() {
                 {isSubscribed ? (
                   <div key={deck.decks.id} className="deck-box">
                     <Link to={`/decks/${deck.decks.id}`}>
-                      <button type="submit" className="deck-name">
-                        {navigation.formAction === `/decks/${deck.decks.id}`
-                          ? "Loading..."
-                          : `${deck.decks.name}`}
-                      </button>
+                      {deck.decks.name}
                     </Link>{" "}
                     <Link to={`/deckcards/${myDeckCardIds[0].cardID}`}>
                       Review
                     </Link>
                     <br />
                     completion - {deck.userDeckSubcriptions.completion} <br />
+                    <div className="button-container">
+                      <Link
+                        className="button"
+                        to={`/decks/${deck.decks.id}/edit`}
+                        reloadDocument
+                      >
+                        Edit
+                      </Link>
+                      <fetcher.Form
+                        method="post"
+                        action={`/decks/${deck.decks.id}/delete`}
+                        onSubmit={(event) => {
+                          const response = confirm(
+                            "Please confirm you want to delete this deck."
+                          );
+                          if (!response) {
+                            event.preventDefault();
+                          }
+                        }}
+                      >
+                        <button type="submit">Delete</button>
+                      </fetcher.Form>
+                    </div>
                     <fetcher.Form method="POST">
                       <input
                         type="hidden"

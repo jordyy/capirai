@@ -150,30 +150,8 @@ export default function Decks() {
               )?.subscribed;
         return (
           <div className="card-container" key={deck.decks.id}>
-            {deck.decks.name}
+            <Link to={`/decks/${deck.decks.id}`}>{deck.decks.name}</Link>
             <div className="button-container">
-              <Link
-                className="button"
-                to={`/decks/${deck.decks.id}/edit`}
-                reloadDocument
-              >
-                Edit
-              </Link>
-              <fetcher.Form
-                method="post"
-                action={`/decks/${deck.decks.id}/delete`}
-                onSubmit={(event) => {
-                  const response = confirm(
-                    "Please confirm you want to delete this deck."
-                  );
-                  if (!response) {
-                    event.preventDefault();
-                  }
-                }}
-              >
-                <button type="submit">Delete</button>
-              </fetcher.Form>
-
               {isAuth ? (
                 <fetcher.Form method="POST">
                   <input type="hidden" name="deckId" value={deck.decks.id} />
