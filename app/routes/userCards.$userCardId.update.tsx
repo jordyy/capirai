@@ -1,11 +1,12 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, useLoaderData, useNavigation } from "@remix-run/react";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { userCards, cards, deckCards } from "../../db/schema";
 import { z } from "zod";
 import React from "react";
 import { db } from "../../db/index";
+import { getAuthCookie, requireAuthCookie } from "../auth";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   if (!params.userCardId || isNaN(Number(params.userCardId))) {
@@ -32,6 +33,8 @@ const cardSchema = z.object({
 });
 
 export const action = async ({ params, request }: ActionFunctionArgs) => {
+  const userId = await getAuthCookie(request);
+
   const userCardIds = await db
     .select({
       userCardID: userCards.id,
@@ -43,6 +46,7 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
     .innerJoin(cards, eq(userCards.cardID, cards.id))
     .orderBy(userCards.id);
 
+  const deckId = userCardIds[0]?.deckId;
   if (!userCardIds) {
     throw new Response("No cards to review", { status: 404 });
   }
@@ -55,8 +59,6 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
   if (nextCard === null) {
     return redirect(`/decks/${userCardIds[0].deckId}`);
   }
-
-  console.log({ userCardIds, nextCard, currentIndex });
 
   if (!params.userCardId || isNaN(Number(params.userCardId))) {
     throw new Response("No user card id provided", { status: 400 });
@@ -74,6 +76,31 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
 
   if (!parsedInput.success) {
     return json({ error: parsedInput.error }, { status: 400 });
+  }
+
+  const allCardIds = await db
+    .select({ cardID: deckCards?.cardID })
+    .from(deckCards)
+    .where(eq(deckCards.deckID, deckId));
+
+  const currentCardIndex = allCardIds.findIndex(
+    (card) => card.cardID === userCardIds[0]?.userCardID
+  );
+
+  const nextCardId = allCardIds[currentCardIndex + 1]?.cardID;
+
+  if (nextCardId) {
+    const nextUserCardExists = await db
+      .select()
+      .from(userCards)
+      .where(eq(userCards.cardID, nextCardId));
+
+    if (nextUserCardExists.length === 0) {
+      await db
+        .insert(userCards)
+        .values({ userID: userId, cardID: nextCardId })
+        .onConflictDoNothing();
+    }
   }
 
   try {

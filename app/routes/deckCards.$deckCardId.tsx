@@ -8,7 +8,6 @@ import { drizzle } from "../utils/db.server";
 import { db } from "../../db/index";
 import { deckCards, decks, cards, userCards } from "../../db/schema";
 import { z } from "zod";
-import { getAuthCookie, requireAuthCookie } from "../auth";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const parsedDeckCardId = z.coerce.number().parse(params.deckCardId);
@@ -50,7 +49,6 @@ const deckCardIdSchema = z.object({
 });
 
 export const action = async ({ params, request }: ActionFunctionArgs) => {
-  const userId = await requireAuthCookie(request);
   const formData = await request.formData();
   const currentDeckCardId = Number(formData.get("deckCardId"));
   const currentCardId = Number(formData.get("cardId"));
@@ -60,16 +58,34 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
   if (!deckIdString || isNaN(Number(deckIdString))) {
     return json({ status: "error", error: "Invalid deckId" });
   }
-
   const deckId = Number(deckIdString);
 
-  const userCardExists = await drizzle
-    .select()
-    .from(userCards)
-    .where(
-      and(eq(userCards.userID, userId), eq(userCards.cardID, currentCardId))
-    );
+  const allCardIds = await drizzle
+    .select({ cardID: deckCards?.cardID })
+    .from(deckCards)
+    .where(eq(deckCards.deckID, deckId));
 
+  const currentCardIndex = allCardIds.findIndex(
+    (card) => card.cardID === currentCardId
+  );
+
+  const nextCardId = allCardIds[currentCardIndex + 1]?.cardID;
+
+  if (nextCardId) {
+    const nextUserCardExists = await drizzle
+      .select()
+      .from(userCards)
+      .where(
+        and(eq(userCards.userID, userId), eq(userCards.cardID, nextCardId))
+      );
+
+    if (nextUserCardExists.length === 0) {
+      await db
+        .insert(userCards)
+        .values({ userID: userId, cardID: nextCardId })
+        .onConflictDoNothing();
+    }
+  }
   if (!parsedDeckCardId.success) {
     return json({ error: "No deck card id provided" }, { status: 400 });
   }

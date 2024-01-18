@@ -14,7 +14,7 @@ import {
 import { db } from "../../db/index";
 import React from "react";
 import { z } from "zod";
-import { eq, and } from "drizzle-orm";
+import { eq, and, asc } from "drizzle-orm";
 import { drizzle } from "../utils/db.server";
 import { Link, Form } from "@remix-run/react";
 import { useFetcher } from "@remix-run/react";
@@ -58,10 +58,12 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
   const deckId = Number(deckIdString);
   const isSubscribeAction = formData.has("subscribe");
 
-  const cardIds = await drizzle
-    .select({ cardID: deckCards?.cardID })
+  const firstCard = await drizzle
+    .select({ cardID: deckCards.cardID })
     .from(deckCards)
-    .where(eq(deckCards.deckID, deckId));
+    .where(eq(deckCards.deckID, deckId))
+    .orderBy(asc(deckCards.cardID))
+    .limit(1);
 
   try {
     if (isSubscribeAction) {
@@ -77,17 +79,27 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
         )
         .limit(1);
 
+      const userCardExists = await db
+        .select()
+        .from(userCards)
+        .where(
+          and(
+            eq(userCards.userID, userId),
+            eq(userCards.cardID, firstCard[0]?.cardID)
+          )
+        );
+
+      if (userCardExists.length === 0 && firstCard[0]?.cardID) {
+        await db
+          .insert(userCards)
+          .values({ userID: userId, cardID: firstCard[0]?.cardID });
+      }
+
       if (existingSubscription) {
         await db
           .update(userDeckSubscriptions)
           .set({ subscribed: subscribe })
           .where(eq(userDeckSubscriptions.id, existingSubscription.id));
-
-        if (cardIds.length > 0) {
-          await db
-            .insert(userCards)
-            .values({ userID: userId, cardID: cardIds[0]?.cardID });
-        }
       } else {
         await db
           .insert(userDeckSubscriptions)
