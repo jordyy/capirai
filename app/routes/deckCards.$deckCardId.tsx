@@ -51,49 +51,49 @@ export async function loader({ params }: LoaderFunctionArgs) {
   }
 }
 
-// export const action = async ({ params, request }: ActionFunctionArgs) => {
-//   const userId = await requireAuthCookie(request);
-//   const formData = await request.formData();
-//   const currentDeckCardId = Number(formData.get("deckCardId"));
-//   const parsedDeckCardId = z.coerce.number().parse(params.deckCardId);
-//   const deckIdString = z.coerce.number().parse(formData.get("deckId"));
+export const action = async ({ params, request }: ActionFunctionArgs) => {
+  const userId = await requireAuthCookie(request);
+  const formData = await request.formData();
+  const currentDeckCardId = Number(formData.get("deckCardId"));
+  const parsedDeckCardId = z.coerce.number().parse(params.deckCardId);
+  const deckIdString = z.coerce.number().parse(formData.get("deckId"));
 
-//   const currentCard = await drizzle
-//     .select({ cardID: deckCards.cardID, deckCardId: deckCards.id })
-//     .from(deckCards)
-//     .innerJoin(decks, eq(deckCards.deckID, decks.id))
-//     .innerJoin(cards, eq(deckCards.cardID, cards.id))
-//     .where(eq(deckCards.id, parsedDeckCardId))
-//     .orderBy(deckCards.cardID);
+  const currentCard = await drizzle
+    .select({ cardID: deckCards.cardID, deckCardId: deckCards.id })
+    .from(deckCards)
+    .innerJoin(decks, eq(deckCards.deckID, decks.id))
+    .innerJoin(cards, eq(deckCards.cardID, cards.id))
+    .where(eq(deckCards.id, parsedDeckCardId))
+    .orderBy(deckCards.cardID);
 
-//   if (!deckIdString || isNaN(Number(deckIdString))) {
-//     return json({ status: "error", error: "Invalid deckId" });
-//   }
+  if (!deckIdString || isNaN(Number(deckIdString))) {
+    return json({ status: "error", error: "Invalid deckId" });
+  }
 
-//   const deckId = Number(deckIdString);
+  const deckId = Number(deckIdString);
 
-//   const currentCardIndex = currentCard.findIndex(
-//     (card) => card.deckCardId === currentDeckCardId
-//   );
+  const currentCardIndex = currentCard.findIndex(
+    (card) => card.deckCardId === currentDeckCardId
+  );
 
-//   const nextCardId = currentCard[currentCardIndex + 1]?.cardID;
+  const nextCardId = currentCard[currentCardIndex + 1]?.cardID;
 
-//   if (nextCardId) {
-//     const nextUserCardExists = await drizzle
-//       .select()
-//       .from(userCards)
-//       .where(
-//         and(eq(userCards.userID, userId), eq(userCards.cardID, nextCardId))
-//       );
+  if (nextCardId) {
+    const nextUserCardExists = await drizzle
+      .select()
+      .from(userCards)
+      .where(
+        and(eq(userCards.userID, userId), eq(userCards.cardID, nextCardId))
+      );
 
-//     if (nextUserCardExists.length === 0) {
-//       await db
-//         .insert(userCards)
-//         .values({ userID: userId, cardID: nextCardId })
-//         .onConflictDoNothing();
-//     }
-//   }
-// };
+    if (nextUserCardExists.length === 0) {
+      await db
+        .insert(userCards)
+        .values({ userID: userId, cardID: nextCardId })
+        .onConflictDoNothing();
+    }
+  }
+};
 
 export default function SingleDeckCard() {
   const fetcher = useFetcher();
@@ -177,6 +177,11 @@ export default function SingleDeckCard() {
                           type="hidden"
                           name="deckCardId"
                           value={card.deckCards.id}
+                        />
+                        <input
+                          type="hidden"
+                          name="deckId"
+                          value={card.deckCards.deckID}
                         />
                         <button
                           onClick={() =>

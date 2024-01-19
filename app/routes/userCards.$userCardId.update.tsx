@@ -35,20 +35,31 @@ const cardSchema = z.object({
 
 export const action = async ({ params, request }: ActionFunctionArgs) => {
   const userId = await getAuthCookie(request);
+  const formData = await request.formData();
+  const deckId = formData.get("deckId");
+  const deckCardId = formData.get("deckCardId");
+
+  if (!deckId || isNaN(Number(deckId))) {
+    throw new Error("Invalid or missing DeckID");
+  }
+
+  if (!deckCardId || isNaN(Number(deckCardId))) {
+    throw new Error("Invalid or missing DeckCardID");
+  }
 
   const userCardIds = await db
     .select({
       userCardID: userCards.id,
       deckCardID: deckCards.id,
-      cardID: cards.id,
+      cardID: deckCards.cardID,
       deckId: deckCards.deckID,
     })
     .from(userCards)
     .innerJoin(deckCards, eq(userCards.cardID, deckCards.cardID))
-    .innerJoin(cards, eq(userCards.cardID, cards.id))
+    // .innerJoin(cards, eq(userCards.cardID, cards.id))
+    .where(eq(deckCards.deckID, Number(deckId)))
     .orderBy(userCards.id);
 
-  const deckId = userCardIds[0]?.deckId;
   if (!userCardIds) {
     throw new Response("No cards to review", { status: 404 });
   }
@@ -56,11 +67,6 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
   const currentIndex = userCardIds.findIndex(
     (card) => card.userCardID === Number(params.userCardId)
   );
-  const nextCard = userCardIds[currentIndex + 1] || null;
-
-  if (nextCard === null) {
-    return redirect(`/decks/${userCardIds[0].deckId}`);
-  }
 
   if (!params.userCardId || isNaN(Number(params.userCardId))) {
     throw new Response("No user card id provided", { status: 400 });
@@ -69,7 +75,7 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
   if (!params.userCardId || isNaN(Number(params.userCardId))) {
     throw new Response("No user card id provided", { status: 400 });
   }
-  const formData = await request.formData();
+
   const understanding = formData.get("understanding");
 
   const parsedInput = cardSchema.safeParse({
@@ -81,27 +87,42 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
   }
 
   const allCardIds = await db
-    .select({ cardID: deckCards?.cardID })
+    .select({ deckCardID: deckCards?.id, cardID: deckCards?.cardID })
     .from(deckCards)
-    .where(eq(deckCards.deckID, deckId));
+    .where(eq(deckCards.deckID, Number(deckId)));
+
+  console.log({ allCardIds });
+  console.log({ userCardIds });
+
+  console.log({ deckId });
 
   const currentCardIndex = allCardIds.findIndex(
-    (card) => card.cardID === userCardIds[currentIndex]?.cardID
+    (card) => card.deckCardID === Number(deckCardId)
   );
 
+  console.log({ currentCardIndex });
+
+  const nextDeckCardId = allCardIds[currentCardIndex + 1]?.deckCardID;
   const nextCardId = allCardIds[currentCardIndex + 1]?.cardID;
 
-  if (nextCardId) {
+  console.log({ nextCardId });
+
+  console.log({ nextDeckCardId });
+
+  if (nextDeckCardId) {
     const nextUserCardExists = await db
       .select()
       .from(userCards)
-      .where(eq(userCards.cardID, nextCardId));
+      .where(eq(userCards.cardID, nextDeckCardId));
 
     if (nextUserCardExists.length === 0) {
       await db
         .insert(userCards)
         .values({ userID: userId, cardID: nextCardId })
         .onConflictDoNothing();
+    }
+    if (nextDeckCardId === null) {
+      return redirect(`/decks/${deckId}`);
     }
   }
 
@@ -119,7 +140,7 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
       })
       .where(eq(userCards.id, Number(params.userCardId)));
 
-    return redirect(`/deckCards/${nextCard?.deckCardID}`);
+    return redirect(`/deckCards/${nextDeckCardId}`);
   } catch (error) {
     console.log({ card_edit_error: error });
     return json({ status: "error" });
@@ -130,7 +151,6 @@ export default function UpdateUserCard({}) {
   const { understanding, userCardId, userCard } =
     useLoaderData<typeof loader>();
 
-  console.log({ understanding, userCardId, userCard });
   return (
     <Form method="post">
       <p>
@@ -139,7 +159,7 @@ export default function UpdateUserCard({}) {
           defaultValue={`${understanding}`}
           aria-label="understanding"
           name="understanding"
-          type="text"
+          type="submit"
           placeholder="understanding"
           id="understanding"
         />

@@ -109,11 +109,8 @@ body {
 }
 
 .deck-button {
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  text-align: center;
   font-size: 1.25rem;
+  text-align: center;
   font-family: inherit;
   border: none;
   text-decoration: none;
@@ -124,7 +121,7 @@ body {
   min-width: 90px;
   padding: 15px;
   margin: 15px;
-  color: #b0a4d8;
+  color: #ffffff;
   background-color: #4621aa;
   font-weight: 500;
 }
