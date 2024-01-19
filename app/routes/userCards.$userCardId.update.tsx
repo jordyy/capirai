@@ -39,6 +39,8 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
   const deckId = formData.get("deckId");
   const deckCardId = formData.get("deckCardId");
 
+  console.log({ deckId, deckCardId });
+
   if (!deckId || isNaN(Number(deckId))) {
     throw new Error("Invalid or missing DeckID");
   }

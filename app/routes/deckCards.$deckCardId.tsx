@@ -139,17 +139,6 @@ export default function SingleDeckCard() {
     setIsViewingBack((prevState) => !prevState);
   };
 
-  const handleUnderstandingUpdate = (value: string, card: CardType) => {
-    const formData = new FormData();
-    formData.append("understanding", value);
-    formData.append("deckCardId", card.deckCards.id.toString());
-
-    fetcher.submit(formData, {
-      method: "post",
-      action: `/userCards/${card?.userCards?.id}/update`,
-    });
-  };
-
   return (
     <div id="deck">
       <h1 className="single-card-container">Single Card View</h1>
@@ -183,17 +172,18 @@ export default function SingleDeckCard() {
                           name="deckId"
                           value={card.deckCards.deckID}
                         />
+                        <input
+                          type="hidden"
+                          name="understanding"
+                          value={value}
+                        />
                         <button
-                          onClick={() =>
-                            handleUnderstandingUpdate(value, card as CardType)
-                          }
                           name="understanding"
                           className={
                             value === card?.userCards?.understanding
                               ? "current-understanding-button"
                               : "understanding-buttons"
                           }
-                          value={value}
                           type="submit"
                         >
                           {value}
