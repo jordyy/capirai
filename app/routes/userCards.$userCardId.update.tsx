@@ -91,29 +91,18 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
     .from(deckCards)
     .where(eq(deckCards.deckID, Number(deckId)));
 
-  console.log({ allCardIds });
-  console.log({ userCardIds });
-
-  console.log({ deckId });
-
   const currentCardIndex = allCardIds.findIndex(
     (card) => card.deckCardID === Number(deckCardId)
   );
 
-  console.log({ currentCardIndex });
-
   const nextDeckCardId = allCardIds[currentCardIndex + 1]?.deckCardID;
   const nextCardId = allCardIds[currentCardIndex + 1]?.cardID;
-
-  console.log({ nextCardId });
-
-  console.log({ nextDeckCardId });
 
   if (nextDeckCardId) {
     const nextUserCardExists = await db
       .select()
       .from(userCards)
-      .where(eq(userCards.cardID, nextDeckCardId));
+      .where(eq(userCards.cardID, nextCardId));
 
     if (nextUserCardExists.length === 0) {
       await db
