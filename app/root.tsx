@@ -41,7 +41,7 @@ export default function App() {
   return (
     <html lang="en">
       <head>
-        <title>Flashcards</title>
+        <title>Learn Italian</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
@@ -53,18 +53,17 @@ export default function App() {
             <Link to={`/home`}>
               <button type="submit">My Decks</button>
             </Link>
-            <Link className="link-as-button button" to={`/users/${userID}`}>
-              Profile
-            </Link>
             <Link className="link-as-button button" to={`/decks`}>
               Deck Library
             </Link>
-            {/* add feedback for loading state */}
-            <div>
+            <div className="profile-logout-button-group">
+              <Link className="profile-button" to={`/users/${userID}`}>
+                Profile
+              </Link>
               <Form method="post" action="/logout">
                 <button>Logout</button>
               </Form>
-            </div>{" "}
+            </div>
           </div>
         ) : (
           <Link to="/signup"></Link>

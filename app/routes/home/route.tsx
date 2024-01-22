@@ -14,6 +14,8 @@ import { Link } from "@remix-run/react";
 import { useFetcher } from "@remix-run/react";
 import { userDeckSubscriptions } from "../../../db/schema";
 import { getAuthCookie, requireAuthCookie } from "../../auth";
+import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
+import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const userId = await getAuthCookie(request);
@@ -139,7 +141,7 @@ export default function myDecks() {
                         to={`/decks/${deck.decks.id}/edit`}
                         reloadDocument
                       >
-                        Edit
+                        <BorderColorRoundedIcon sx={{ fontSize: 15 }} />
                       </Link>
                       <fetcher.Form
                         method="post"

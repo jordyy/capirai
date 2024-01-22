@@ -1,12 +1,14 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, useLoaderData, useNavigation } from "@remix-run/react";
-import { eq, and } from "drizzle-orm";
+import { eq, and, sql } from "drizzle-orm";
 import { userCards, cards, deckCards } from "../../db/schema";
 import { z } from "zod";
 import React from "react";
 import { db } from "../../db/index";
 import { getAuthCookie, requireAuthCookie } from "../auth";
+import { drizzle } from "../utils/db.server";
+import { timestamp } from "drizzle-orm/mysql-core";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   if (!params.userCardId || isNaN(Number(params.userCardId))) {
@@ -118,7 +120,7 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
   }
 
   try {
-    await db
+    await drizzle
       .update(userCards)
       .set({
         understanding: parsedInput.data.understanding as
@@ -128,6 +130,8 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
           | "I can use it"
           | null
           | undefined,
+        timesReviewed: sql.raw("times_reviewed + 1"),
+        lastReviewed: sql.raw("CURRENT_TIMESTAMP"),
       })
       .where(eq(userCards.id, Number(params.userCardId)));
 

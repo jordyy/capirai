@@ -126,6 +126,20 @@ body {
   font-weight: 500;
 }
 
+.profile-button {
+  background-color: #acbc21;
+  padding: 10px;
+  color: #ffffff;
+  border-radius: 100px;
+  text-decoration: none;
+}
+
+.profile-logout-button-group {
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+}
+
 .edit-card-input-label {
   margin-right: 2%;
 }
