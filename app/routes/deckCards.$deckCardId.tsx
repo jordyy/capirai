@@ -141,17 +141,21 @@ export default function SingleDeckCard() {
 
   return (
     <div id="deck">
-      <h1 className="single-card-container">Single Card View</h1>
+      <h1>{singleDeckCard[0].decks.name}</h1>
       {singleDeckCard.map((card) => {
         return (
           <div key={card.cards.id} onClick={handleCardFlip}>
-            <div className="card-box">
-              <div className="single-card">
-                <h2 className="single-card-text">
-                  {isViewingBack ? card.cards.back : card.cards.front}
-                </h2>
-                <h2>{card.cards.CEFR_level}</h2>
-                <h2>{card.cards.frequency}</h2>
+            <div className="card-review-container">
+              <div>
+                {isViewingBack ? (
+                  <h2 className="card-review-text card-back">
+                    {card.cards.back}
+                  </h2>
+                ) : (
+                  <h2 className="card-review-text card-front">
+                    {card.cards.front}
+                  </h2>
+                )}
               </div>
 
               <ul className="understanding-container">

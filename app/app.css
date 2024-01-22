@@ -232,6 +232,28 @@ div > p {
   border-radius: 20px;
 }
 
+.card-review-container {
+  background-color: #ffffff;
+  border-radius: 100px;
+  padding: 10px;
+  margin: 10px;
+  min-height: 500px;
+}
+
+.card-review-text {
+  text-align: center;
+  margin-top: 15%;
+  font-size: 50px;
+}
+
+.card-front {
+  color: black;
+}
+
+.card-back {
+  color: #ff7455;
+}
+
 .single-card {
   display: flex;
   flex-direction: column;

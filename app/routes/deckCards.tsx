@@ -50,7 +50,6 @@ export default function DeckCards() {
 
   return (
     <div id="all-decks">
-      <h1>All Deck Cards</h1>
       <Outlet />
       {allDeckCards.map((card) => (
         <div className="card-container" key={card.cards.id}>
