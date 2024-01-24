@@ -251,7 +251,11 @@ div > p {
 }
 
 .card-back {
-  color: #ff7455;
+  background-color: #d1e23c;
+  border-radius: 100px;
+  object-fit: cover;
+  /* padding: 150px;
+  margin: 50px; */
 }
 
 .single-card {

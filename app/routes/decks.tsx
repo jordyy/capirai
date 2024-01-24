@@ -128,6 +128,7 @@ export default function Decks() {
 
   return (
     <div id="all-decks">
+      <h1>All Decks</h1>
       {!isAuth ? (
         <>
           <Form method="post" action="/login">
@@ -137,9 +138,10 @@ export default function Decks() {
             <button>Signup</button>
           </Form>
         </>
-      ) : null}
+      ) : (
+        <Link to="/decks/createNewDeck">Create New Deck</Link>
+      )}
 
-      <h1>All Decks</h1>
       <Outlet />
       {allDecks.map((deck) => {
         const isSubscribed =
