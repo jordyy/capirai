@@ -109,6 +109,8 @@ export default function myDecks() {
   const fetcher = useFetcher();
   const navigation = useNavigation();
 
+  console.log({ myDecks, myDeckCardIds });
+
   return (
     <>
       <h1>{isAuth ? "My Decks" : "Deck Library"}</h1>
@@ -134,37 +136,18 @@ export default function myDecks() {
                       >
                         {deck.decks.name}
                       </Link>{" "}
-                      <Link
-                        to={`/deckcards/${myDeckCardIds[0].cardID}`}
-                        className="deck-text"
-                      >
-                        Study deck
-                      </Link>
+                      {myDeckCardIds[0] ? (
+                        <Link
+                          to={`/deckcards/${myDeckCardIds[0].cardID}`}
+                          className="deck-text"
+                        >
+                          Study deck
+                        </Link>
+                      ) : (
+                        <div>This deck has no cards.</div>
+                      )}
                       <br />
                       completion - {deck.userDeckSubcriptions.completion} <br />
-                      <div className="button-container">
-                        <Link
-                          className="button"
-                          to={`/decks/${deck.decks.id}/edit`}
-                          reloadDocument
-                        >
-                          <BorderColorRoundedIcon sx={{ fontSize: 15 }} />
-                        </Link>
-                        <fetcher.Form
-                          method="post"
-                          action={`/decks/${deck.decks.id}/delete`}
-                          onSubmit={(event) => {
-                            const response = confirm(
-                              "Please confirm you want to delete this deck."
-                            );
-                            if (!response) {
-                              event.preventDefault();
-                            }
-                          }}
-                        >
-                          <button type="submit">Delete</button>
-                        </fetcher.Form>
-                      </div>
                       <fetcher.Form method="POST">
                         <input
                           type="hidden"

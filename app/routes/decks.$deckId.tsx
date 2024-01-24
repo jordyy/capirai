@@ -9,6 +9,7 @@ import { decks, deckCards, cards, userCards } from "../../db/schema";
 import { z } from "zod";
 import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
+import { useFetcher } from "@remix-run/react";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const deck = await drizzle
@@ -55,8 +56,8 @@ export const action = async ({ params }: ActionFunctionArgs) => {
 export default function Deck({}) {
   const { deck, thisDeckCard } = useLoaderData<typeof loader>();
   const deckData = deck[0];
+  const fetcher = useFetcher();
 
-  console.log({ thisDeckCard: thisDeckCard[0].deckCards.id });
   if (!deckData) {
     return <div>Deck not found.</div>;
   }
@@ -66,7 +67,32 @@ export default function Deck({}) {
 
   return (
     <div id="deck">
-      <h1>{deckData.name}</h1>
+      <h1>
+        {deckData.name}{" "}
+        <Link
+          className="button"
+          to={`/decks/${deckData.id}/edit`}
+          reloadDocument
+        >
+          <BorderColorRoundedIcon sx={{ fontSize: 15 }} />
+        </Link>
+      </h1>
+      <div className="button-container">
+        <fetcher.Form
+          method="post"
+          action={`/decks/${deckData.id}/delete`}
+          onSubmit={(event) => {
+            const response = confirm(
+              "Please confirm you want to delete this deck."
+            );
+            if (!response) {
+              event.preventDefault();
+            }
+          }}
+        >
+          <button type="submit">Delete</button>
+        </fetcher.Form>
+      </div>
       <Link
         to={`/deckcards/${thisDeckCard[0].deckCards.id}`}
         className="button"
