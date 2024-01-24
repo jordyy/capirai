@@ -138,7 +138,7 @@ export default function myDecks() {
                       </Link>{" "}
                       {myDeckCardIds[0] ? (
                         <Link
-                          to={`/deckcards/${myDeckCardIds[0].cardID}`}
+                          to={`/deckcards/${deck.decks.id}/${myDeckCardIds[0].cardID}`}
                           className="deck-text"
                         >
                           Study deck

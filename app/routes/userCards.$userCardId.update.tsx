@@ -135,7 +135,7 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
       })
       .where(eq(userCards.id, Number(params.userCardId)));
 
-    return redirect(`/deckCards/${nextDeckCardId}`);
+    return redirect(`/deckCards/${deckId}/${nextDeckCardId}`);
   } catch (error) {
     console.log({ card_edit_error: error });
     return json({ status: "error" });

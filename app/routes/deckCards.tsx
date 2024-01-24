@@ -66,7 +66,7 @@ export default function DeckCards() {
             </Link>
             <fetcher.Form
               method="post"
-              action={`/deckCards/${deckCards.cardID}/remove`}
+              action={`/deckCards/${deckCards.deckID}/${deckCards.cardID}/remove`}
             >
               <button type="submit">Remove</button>
             </fetcher.Form>
