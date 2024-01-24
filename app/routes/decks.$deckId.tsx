@@ -7,6 +7,8 @@ import React from "react";
 import { drizzle } from "../utils/db.server";
 import { decks, deckCards, cards, userCards } from "../../db/schema";
 import { z } from "zod";
+import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
+import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const deck = await drizzle
@@ -54,6 +56,7 @@ export default function Deck({}) {
   const { deck, thisDeckCard } = useLoaderData<typeof loader>();
   const deckData = deck[0];
 
+  console.log({ thisDeckCard: thisDeckCard[0].deckCards.id });
   if (!deckData) {
     return <div>Deck not found.</div>;
   }
@@ -64,20 +67,26 @@ export default function Deck({}) {
   return (
     <div id="deck">
       <h1>{deckData.name}</h1>
+      <Link
+        to={`/deckcards/${thisDeckCard[0].deckCards.id}`}
+        className="button"
+      >
+        Study deck
+      </Link>
       <div>
         {thisDeckCard.map((card) => {
           return (
             <div key={card.cards.id} className="card-box">
               <div className="single-card-contents">
                 <h4>{card.cards.front}</h4>
-                <p>{card.cards.back}</p>
+                <p className="card-back-text">{card.cards.back}</p>
               </div>
-              <div className="button-container">
+              <div className="deck-button-container">
                 <Link
                   className="deck-button"
                   to={`/cards/${card?.cards.id}/edit`}
                 >
-                  Edit
+                  <BorderColorRoundedIcon sx={{ fontSize: 20 }} />
                 </Link>
                 <Form
                   method="post"
@@ -91,7 +100,7 @@ export default function Deck({}) {
                   }}
                 >
                   <button className="deck-button" type="submit">
-                    Delete
+                    <DeleteRoundedIcon sx={{ fontSize: 20 }} />
                   </button>
                 </Form>
               </div>

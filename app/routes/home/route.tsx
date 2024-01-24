@@ -126,53 +126,61 @@ export default function myDecks() {
             return (
               <div key={deck.decks.id}>
                 {isSubscribed ? (
-                  <div key={deck.decks.id} className="deck-box">
-                    <Link to={`/decks/${deck.decks.id}`}>
-                      {deck.decks.name}
-                    </Link>{" "}
-                    <Link to={`/deckcards/${myDeckCardIds[0].cardID}`}>
-                      Review
-                    </Link>
-                    <br />
-                    completion - {deck.userDeckSubcriptions.completion} <br />
-                    <div className="button-container">
+                  <div className="deck-box-container">
+                    <div key={deck.decks.id} className="deck-box">
                       <Link
-                        className="button"
-                        to={`/decks/${deck.decks.id}/edit`}
-                        reloadDocument
+                        to={`/decks/${deck.decks.id}`}
+                        className="deck-text deck-header"
                       >
-                        <BorderColorRoundedIcon sx={{ fontSize: 15 }} />
+                        {deck.decks.name}
+                      </Link>{" "}
+                      <Link
+                        to={`/deckcards/${myDeckCardIds[0].cardID}`}
+                        className="deck-text"
+                      >
+                        Study deck
                       </Link>
-                      <fetcher.Form
-                        method="post"
-                        action={`/decks/${deck.decks.id}/delete`}
-                        onSubmit={(event) => {
-                          const response = confirm(
-                            "Please confirm you want to delete this deck."
-                          );
-                          if (!response) {
-                            event.preventDefault();
-                          }
-                        }}
-                      >
-                        <button type="submit">Delete</button>
+                      <br />
+                      completion - {deck.userDeckSubcriptions.completion} <br />
+                      <div className="button-container">
+                        <Link
+                          className="button"
+                          to={`/decks/${deck.decks.id}/edit`}
+                          reloadDocument
+                        >
+                          <BorderColorRoundedIcon sx={{ fontSize: 15 }} />
+                        </Link>
+                        <fetcher.Form
+                          method="post"
+                          action={`/decks/${deck.decks.id}/delete`}
+                          onSubmit={(event) => {
+                            const response = confirm(
+                              "Please confirm you want to delete this deck."
+                            );
+                            if (!response) {
+                              event.preventDefault();
+                            }
+                          }}
+                        >
+                          <button type="submit">Delete</button>
+                        </fetcher.Form>
+                      </div>
+                      <fetcher.Form method="POST">
+                        <input
+                          type="hidden"
+                          name="deckId"
+                          value={deck.decks.id}
+                        />
+                        <button
+                          aria-label="Toggle Subscription"
+                          className="subscribed"
+                          name="subscribe"
+                          value={isSubscribed ? 0 : 1}
+                        >
+                          {isSubscribed ? "Unsubscribe" : "Subscribe"}
+                        </button>
                       </fetcher.Form>
                     </div>
-                    <fetcher.Form method="POST">
-                      <input
-                        type="hidden"
-                        name="deckId"
-                        value={deck.decks.id}
-                      />
-                      <button
-                        aria-label="Toggle Subscription"
-                        className="subscribed"
-                        name="subscribe"
-                        value={isSubscribed ? 0 : 1}
-                      >
-                        {isSubscribed ? "Unsubscribe" : "Subscribe"}
-                      </button>
-                    </fetcher.Form>
                   </div>
                 ) : null}
               </div>
