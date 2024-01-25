@@ -9,7 +9,7 @@ import { decks, deckCards, cards, userCards } from "../../db/schema";
 import { z } from "zod";
 import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import { useFetcher } from "@remix-run/react";
+import { useFetcher, Outlet } from "@remix-run/react";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const deck = await drizzle
@@ -67,14 +67,11 @@ export default function Deck({}) {
 
   return (
     <div id="deck">
-      <h1>
+      <Outlet />
+      <h1 className="deck-name-edit">
         {deckData.name}{" "}
-        <Link
-          className="button"
-          to={`/decks/${deckData.id}/edit`}
-          reloadDocument
-        >
-          <BorderColorRoundedIcon sx={{ fontSize: 15 }} />
+        <Link to={`/decks/${deckData.id}/edit`} reloadDocument>
+          <BorderColorRoundedIcon />
         </Link>
       </h1>
       <div className="button-container">
@@ -90,11 +87,14 @@ export default function Deck({}) {
             }
           }}
         >
-          <button type="submit">Delete</button>
+          <button type="submit">Delete Deck</button>
         </fetcher.Form>
       </div>
+      <Link to={`/decks/${deckData.id}/createNewCard`} className="button">
+        Add Card to Deck
+      </Link>
       <Link
-        to={`/deckcards/${thisDeckCard[0].deckCards.id}`}
+        to={`/deckcards/${deckData.id}/${thisDeckCard[0].deckCards.id}`}
         className="button"
       >
         Study deck
@@ -112,7 +112,7 @@ export default function Deck({}) {
                   className="deck-button"
                   to={`/cards/${card?.cards.id}/edit`}
                 >
-                  <BorderColorRoundedIcon sx={{ fontSize: 20 }} />
+                  <BorderColorRoundedIcon />
                 </Link>
                 <Form
                   method="post"
@@ -126,7 +126,7 @@ export default function Deck({}) {
                   }}
                 >
                   <button className="deck-button" type="submit">
-                    <DeleteRoundedIcon sx={{ fontSize: 20 }} />
+                    <DeleteRoundedIcon />
                   </button>
                 </Form>
               </div>

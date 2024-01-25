@@ -84,6 +84,16 @@ body {
   font-weight: 650;
 }
 
+.deck-name-edit {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: baseline;
+  padding: 10px;
+  column-gap: 5px;
+  margin: 10px;
+}
+
 .single-card-text {
   align-self: center;
 }
