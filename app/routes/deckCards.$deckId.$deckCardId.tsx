@@ -56,7 +56,7 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
   const formData = await request.formData();
   const currentDeckCardId = Number(formData.get("deckCardId"));
   const parsedDeckCardId = z.coerce.number().parse(params.deckCardId);
-  const deckIdString = z.coerce.number().parse(formData.get("deckId"));
+  const deckId = z.coerce.number().parse(params.deckId);
 
   const currentCard = await drizzle
     .select({ cardID: deckCards.cardID, deckCardId: deckCards.id })
@@ -66,11 +66,9 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
     .where(eq(deckCards.id, parsedDeckCardId))
     .orderBy(deckCards.cardID);
 
-  if (!deckIdString || isNaN(Number(deckIdString))) {
+  if (!deckId || isNaN(Number(deckId))) {
     return json({ status: "error", error: "Invalid deckId" });
   }
-
-  const deckId = Number(deckIdString);
 
   const currentCardIndex = currentCard.findIndex(
     (card) => card.deckCardId === currentDeckCardId

@@ -17,8 +17,14 @@ import { getAuthCookie, requireAuthCookie } from "../../auth";
 import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
 import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 
-export async function loader({ request }: LoaderFunctionArgs) {
+export async function loader({ request, params }: LoaderFunctionArgs) {
   const userId = await getAuthCookie(request);
+  // const deckId = z.coerce.number().parse(params.deckId);
+
+  // if (!deckId) {
+  //   throw new Response("Not Found", { status: 404 });
+  // }
+
   const myDecks = await drizzle
     .select()
     .from(decks)
@@ -28,13 +34,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
     );
 
   const myDeckCardIds = await drizzle
-    .select({ cardID: deckCards.id })
+    .select({ deckCardID: deckCards.id, deckId: deckCards.deckID })
     .from(deckCards)
     .innerJoin(decks, eq(deckCards.deckID, decks.id))
     .innerJoin(
       userDeckSubscriptions,
       eq(decks.id, userDeckSubscriptions.deckID)
     )
+    .where(eq(deckCards.deckID, decks.id))
     .orderBy(deckCards.id)
     .limit(1);
 
@@ -64,6 +71,8 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
   const formData = await request.formData();
   const deckId = z.coerce.number().parse(formData.get("deckId"));
   const isSubscribeAction = formData.has("subscribe");
+
+  console.log({ deckId, isSubscribeAction });
 
   try {
     if (isSubscribeAction) {
@@ -109,7 +118,7 @@ export default function myDecks() {
   const fetcher = useFetcher();
   const navigation = useNavigation();
 
-  console.log({ myDecks, myDeckCardIds });
+  console.log({ myDeckCardIds });
 
   return (
     <>
@@ -136,9 +145,9 @@ export default function myDecks() {
                       >
                         {deck.decks.name}
                       </Link>{" "}
-                      {myDeckCardIds[0] ? (
+                      {deck.decks.id === myDeckCardIds[0].deckId ? (
                         <Link
-                          to={`/deckcards/${deck.decks.id}/${myDeckCardIds[0].cardID}`}
+                          to={`/deckcards/${deck.decks.id}/${myDeckCardIds[0].deckCardID}`}
                           className="deck-text"
                         >
                           Study deck
