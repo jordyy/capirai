@@ -93,46 +93,53 @@ export default function Deck({}) {
       <Link to={`/decks/${deckData.id}/createNewCard`} className="button">
         Add Card to Deck
       </Link>
-      <Link
-        to={`/deckcards/${deckData.id}/${thisDeckCard[0].deckCards.id}`}
-        className="button"
-      >
-        Study deck
-      </Link>
+
+      {thisDeckCard.length > 0 && (
+        <Link
+          to={`/deckcards/${deckData.id}/${thisDeckCard[0].deckCards.id}`}
+          className="button"
+        >
+          Study deck
+        </Link>
+      )}
       <div>
-        {thisDeckCard.map((card) => {
-          return (
-            <div key={card.cards.id} className="card-box">
-              <div className="single-card-contents">
-                <h4>{card.cards.front}</h4>
-                <p className="card-back-text">{card.cards.back}</p>
+        {thisDeckCard.length === 0 ? (
+          <div>This deck has no cards.</div>
+        ) : (
+          thisDeckCard.map((card) => {
+            return (
+              <div key={card.cards.id} className="card-box">
+                <div className="single-card-contents">
+                  <h4>{card.cards.front}</h4>
+                  <p className="card-back-text">{card.cards.back}</p>
+                </div>
+                <div className="deck-button-container">
+                  <Link
+                    className="deck-button"
+                    to={`/cards/${card?.cards.id}/edit`}
+                  >
+                    <BorderColorRoundedIcon />
+                  </Link>
+                  <Form
+                    method="post"
+                    onSubmit={(event) => {
+                      const response = confirm(
+                        "Please confirm you want to delete this record."
+                      );
+                      if (!response) {
+                        event.preventDefault();
+                      }
+                    }}
+                  >
+                    <button className="deck-button" type="submit">
+                      <DeleteRoundedIcon />
+                    </button>
+                  </Form>
+                </div>
               </div>
-              <div className="deck-button-container">
-                <Link
-                  className="deck-button"
-                  to={`/cards/${card?.cards.id}/edit`}
-                >
-                  <BorderColorRoundedIcon />
-                </Link>
-                <Form
-                  method="post"
-                  onSubmit={(event) => {
-                    const response = confirm(
-                      "Please confirm you want to delete this record."
-                    );
-                    if (!response) {
-                      event.preventDefault();
-                    }
-                  }}
-                >
-                  <button className="deck-button" type="submit">
-                    <DeleteRoundedIcon />
-                  </button>
-                </Form>
-              </div>
-            </div>
-          );
-        })}
+            );
+          })
+        )}
       </div>
     </div>
   );

@@ -66,7 +66,7 @@ export default function CreateNewCard() {
   const data = useActionData<typeof action>();
   const decks = useLoaderData<typeof loader>();
   const navigation = useNavigation();
-  const isSubmitting = navigation.formAction === "/cards/createNewCard";
+  const isSubmitting = navigation.formData?.get("intent") === "createCard";
   const errorMessage = data?.status === "error" ? data.message : null;
 
   return (
@@ -78,18 +78,8 @@ export default function CreateNewCard() {
       <label>
         back: <input name="back" />
       </label>
-      {/* <label>deck:</label> */}
-
-      {/* <select name="deck">
-        <option value="">--Assign a deck--</option>
-        {decks.map((deck) => (
-          <option value={deck.id} key={deck.id}>
-            {deck.name}
-          </option>
-        ))}
-      </select> */}
-
       <button type="submit">
+        <input type="hidden" name="intent" value="createCard" />
         {isSubmitting ? "Saving new card..." : "Add card"}
       </button>
     </Form>
