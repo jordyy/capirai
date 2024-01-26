@@ -128,18 +128,18 @@ export default function myDecks() {
       {!isAuth ? (
         redirect("/decks")
       ) : (
-        <div className="deck-container">
-          {myDecks.map((deck) => {
-            const isSubscribed =
-              Number(fetcher.formData?.get("deckId")) === deck.decks.id
-                ? Boolean(fetcher.formData?.get("subscribe"))
-                : userSubscriptions?.find(
-                    (subscription) => subscription.deckID === deck.decks.id
-                  )?.subscribed;
-            return (
-              <div key={deck.decks.id}>
-                {isSubscribed ? (
-                  <div className="deck-box-container">
+        <div>
+          <div className="deck-container">
+            {myDecks.map((deck) => {
+              const isSubscribed =
+                Number(fetcher.formData?.get("deckId")) === deck.decks.id
+                  ? Boolean(fetcher.formData?.get("subscribe"))
+                  : userSubscriptions?.find(
+                      (subscription) => subscription.deckID === deck.decks.id
+                    )?.subscribed;
+              return (
+                <div key={deck.decks.id}>
+                  {isSubscribed ? (
                     <div key={deck.decks.id} className="deck-box">
                       <Link
                         to={`/decks/${deck.decks.id}`}
@@ -175,11 +175,11 @@ export default function myDecks() {
                         </button>
                       </fetcher.Form>
                     </div>
-                  </div>
-                ) : null}
-              </div>
-            );
-          })}
+                  ) : null}
+                </div>
+              );
+            })}
+          </div>
         </div>
       )}
     </>

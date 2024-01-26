@@ -56,15 +56,13 @@ export default function App() {
             <Link className="button" to={`/decks`}>
               Library
             </Link>
-            <div className="nav-container">
-              <div className="profile-logout-button-group">
-                <Link className="profile-button" to={`/users/${userID}`}>
-                  Profile
-                </Link>
-                <Form method="post" action="/logout">
-                  <button>Logout</button>
-                </Form>
-              </div>
+            <div className="profile-logout-button-group">
+              <Link className="profile-button" to={`/users/${userID}`}>
+                Profile
+              </Link>
+              <Form method="post" action="/logout">
+                <button>Logout</button>
+              </Form>
             </div>
           </div>
         ) : (
