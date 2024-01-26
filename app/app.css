@@ -74,7 +74,7 @@ body {
 }
 
 .understanding-buttons {
-  font-size: small;
+  font-size: 20px;
   min-width: 150px;
 }
 
@@ -194,6 +194,23 @@ button:hover,
   text-decoration: none;
 }
 
+.deck-setting-section {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 5%;
+  margin-bottom: 1%;
+}
+
+.delete-button {
+  background-color: #be3144;
+}
+
+.add-button {
+  background-color: #acbc21;
+}
+
 .deck-button:hover,
 button:active,
 .button:hover {
@@ -268,7 +285,7 @@ div > h4 {
 
 div > p {
   margin-top: 0;
-  text-align: right;
+  text-align: center;
 }
 .single-card-contents {
   display: flex;
@@ -288,6 +305,7 @@ div > p {
   justify-content: space-between;
   padding-left: 2%;
   padding-right: 2%;
+  margin-top: 3%;
   margin-bottom: 1%;
   flex-grow: 1;
   border-radius: 20px;

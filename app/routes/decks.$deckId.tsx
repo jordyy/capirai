@@ -60,6 +60,17 @@ export default function Deck({}) {
 
   console.log({ deck, deckData, thisDeckCard });
 
+  const userCardData = thisDeckCard.map((data) => data.userCards);
+
+  const userReviewed = userCardData.map((data) => Boolean(data?.timesReviewed));
+
+  let numReviewed = 0;
+  for (let i = 0; i < userReviewed.length; i++) {
+    if (userReviewed[i] === true) {
+      numReviewed++;
+    }
+  }
+
   if (!deckData) {
     return <div>Deck not found.</div>;
   }
@@ -76,8 +87,10 @@ export default function Deck({}) {
           <BorderColorRoundedIcon />
         </Link>
       </h1>
-      <p>{`This deck has ${thisDeckCard.length} cards`}</p>
-      <div className="button-container">
+      <p>
+        {`This deck has ${thisDeckCard.length} cards. You have reviewed ${numReviewed}/${thisDeckCard.length} cards.`}
+      </p>
+      <div className="deck-setting-section">
         <fetcher.Form
           method="post"
           action={`/decks/${deckData.id}/delete`}
@@ -90,21 +103,26 @@ export default function Deck({}) {
             }
           }}
         >
-          <button type="submit">Delete Deck</button>
+          <button type="submit" className="delete-button">
+            Delete Deck
+          </button>
         </fetcher.Form>
-      </div>
-      <Link to={`/decks/${deckData.id}/createNewCard`} className="button">
-        Add Card to Deck
-      </Link>
-
-      {thisDeckCard.length > 0 && (
         <Link
-          to={`/deckcards/${deckData.id}/${thisDeckCard[0].deckCards.id}`}
-          className="button"
+          to={`/decks/${deckData.id}/createNewCard`}
+          className="button add-button"
         >
-          Study deck
+          Add Card to Deck
         </Link>
-      )}
+
+        {thisDeckCard.length > 0 && (
+          <Link
+            to={`/deckcards/${deckData.id}/${thisDeckCard[0].deckCards.id}`}
+            className="button"
+          >
+            Study deck
+          </Link>
+        )}
+      </div>
       <div>
         {thisDeckCard.length === 0 ? (
           <div>This deck has no cards.</div>
