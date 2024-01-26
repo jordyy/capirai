@@ -58,6 +58,8 @@ export default function Deck({}) {
   const deckData = deck[0];
   const fetcher = useFetcher();
 
+  console.log({ deck, deckData, thisDeckCard });
+
   if (!deckData) {
     return <div>Deck not found.</div>;
   }

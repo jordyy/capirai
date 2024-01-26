@@ -118,7 +118,7 @@ export default function myDecks() {
   const fetcher = useFetcher();
   const navigation = useNavigation();
 
-  console.log({ myDeckCardIds });
+  console.log({ myDeckCardIds, myDecks });
 
   return (
     <>
