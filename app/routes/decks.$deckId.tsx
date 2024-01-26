@@ -76,6 +76,7 @@ export default function Deck({}) {
           <BorderColorRoundedIcon />
         </Link>
       </h1>
+      <p>{`This deck has ${thisDeckCard.length} cards`}</p>
       <div className="button-container">
         <fetcher.Form
           method="post"

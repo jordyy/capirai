@@ -70,7 +70,7 @@ export default function CreateNewCard() {
   const errorMessage = data?.status === "error" ? data.message : null;
 
   return (
-    <Form method="post">
+    <Form method="post" className="create-form">
       {errorMessage ? errorMessage : null}
       <label>
         front: <input name="front" />

@@ -39,7 +39,7 @@ export default function App() {
   const { userID } = useLoaderData<typeof loader>();
 
   return (
-    <html lang="en">
+    <html lang="en" className="container">
       <head>
         <title>Learn Italian</title>
         <meta charSet="utf-8" />
@@ -53,16 +53,18 @@ export default function App() {
             <Link to={`/home`}>
               <button type="submit">My Decks</button>
             </Link>
-            <Link className="link-as-button button" to={`/decks`}>
-              Deck Library
+            <Link className="button" to={`/decks`}>
+              Library
             </Link>
-            <div className="profile-logout-button-group">
-              <Link className="profile-button" to={`/users/${userID}`}>
-                Profile
-              </Link>
-              <Form method="post" action="/logout">
-                <button>Logout</button>
-              </Form>
+            <div className="nav-container">
+              <div className="profile-logout-button-group">
+                <Link className="profile-button" to={`/users/${userID}`}>
+                  Profile
+                </Link>
+                <Form method="post" action="/logout">
+                  <button>Logout</button>
+                </Form>
+              </div>
             </div>
           </div>
         ) : (
