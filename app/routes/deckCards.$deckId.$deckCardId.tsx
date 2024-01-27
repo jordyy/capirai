@@ -147,7 +147,7 @@ export default function SingleDeckCard() {
               <ul className="understanding-container">
                 {isViewingBack &&
                   understandingValues.map((value) => (
-                    <li key={value}>
+                    <div key={value}>
                       <Form
                         method="post"
                         action={`/userCards/${card?.userCards?.id}/update`}
@@ -171,7 +171,7 @@ export default function SingleDeckCard() {
                           name="understanding"
                           className={
                             value === card?.userCards?.understanding
-                              ? "current-understanding-button"
+                              ? "understanding-buttons current-understanding-button"
                               : "understanding-buttons"
                           }
                           type="submit"
@@ -179,7 +179,7 @@ export default function SingleDeckCard() {
                           {value}
                         </button>
                       </Form>
-                    </li>
+                    </div>
                   ))}
               </ul>
             </div>

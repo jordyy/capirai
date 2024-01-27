@@ -66,25 +66,17 @@ body {
 .understanding-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
   margin-top: 20%;
-  align-content: baseline;
-  column-gap: 10px;
-  align-self: center;
+  column-gap: 5px;
 }
 
 .understanding-buttons {
-  font-size: 20px;
+  font-size: 50px;
   min-width: 150px;
 }
 
 .current-understanding-button {
-  font-size: 1rem;
-  color: white;
-  box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.2), 0 1px 2px hsla(0, 0%, 0%, 0.2);
-  line-height: 1.5;
-  /* margin: 0; */
-  font-weight: 650;
+  min-width: 150px;
 }
 
 .deck-name-edit {
@@ -305,7 +297,7 @@ div > p {
   justify-content: space-between;
   padding-left: 2%;
   padding-right: 2%;
-  margin-top: 3%;
+  margin-top: 1%;
   margin-bottom: 1%;
   flex-grow: 1;
   border-radius: 20px;
