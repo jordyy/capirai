@@ -11,7 +11,6 @@ import {
 import React, { useState } from "react";
 
 import { drizzle } from "../utils/db.server";
-import { db } from "../../db/index";
 import { deckCards, decks, cards, userCards } from "../../db/schema";
 import { z } from "zod";
 import { getAuthCookie, requireAuthCookie } from "../auth";
@@ -29,20 +28,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
       .where(eq(deckCards.id, parsedDeckCardId))
       .orderBy(deckCards.cardID);
 
-    const understandingEnumValues = await db.execute(
-      sql.raw(`
-        SELECT enumlabel
-        FROM pg_enum
-        WHERE enumtypid = (
-          SELECT oid
-          FROM pg_type
-          WHERE typname = 'understanding'
-        )
-      `)
-    );
-    const understandingValues = understandingEnumValues.rows.map(
-      (row: any) => row.enumlabel
-    );
+    const understandingValues = userCards.understanding.enumValues;
 
     return json({ singleDeckCard, understandingValues });
   } catch (error) {
@@ -85,7 +71,7 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
       );
 
     if (nextUserCardExists.length === 0) {
-      await db
+      await drizzle
         .insert(userCards)
         .values({ userID: userId, cardID: nextCardId })
         .onConflictDoNothing();
@@ -98,6 +84,8 @@ export default function SingleDeckCard() {
   const [isViewingBack, setIsViewingBack] = useState(false);
   const { singleDeckCard, understandingValues } =
     useLoaderData<typeof loader>();
+
+  console.log({ understandingValues });
 
   if (!singleDeckCard || singleDeckCard.length === 0) {
     return <div>Card does not exist.</div>;
