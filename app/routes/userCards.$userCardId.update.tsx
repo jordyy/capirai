@@ -124,10 +124,10 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
       .update(userCards)
       .set({
         understanding: parsedInput.data.understanding as
-          | "I have never seen it"
-          | "I have seen it, but not sure what it means"
-          | "I know what it means"
-          | "I can use it"
+          | "☁️"
+          | "🌥️"
+          | "🌤️"
+          | "☀️"
           | null
           | undefined,
         timesReviewed: sql.raw("times_reviewed + 1"),
