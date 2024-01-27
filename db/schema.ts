@@ -68,10 +68,10 @@ export const cardsRelations = relations(cards, ({ many }) => ({
 }));
 
 export const understandingEnum = pgEnum("understanding", [
-  "I have never seen it",
-  "I have seen it, but not sure what it means",
-  "I know what it means",
-  "I can use it",
+  "☁️",
+  "🌥️",
+  "🌤️",
+  "☀️",
 ]);
 export const userCards = pgTable("userCards", {
   id: serial("id").primaryKey(),
@@ -79,9 +79,7 @@ export const userCards = pgTable("userCards", {
   cardID: integer("card_ID").references(() => cards.id),
   timesReviewed: integer("times_reviewed").default(0),
   lastReviewed: timestamp("last_reviewed").defaultNow(),
-  understanding: understandingEnum("understanding").default(
-    "I have never seen it"
-  ),
+  understanding: understandingEnum("understanding").default("☁️"),
 });
 
 export const userCardsRelations = relations(userCards, ({ one }) => ({
