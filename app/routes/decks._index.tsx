@@ -11,8 +11,6 @@ import {
   deckCards,
   userCards,
 } from "../../db/schema";
-import { db } from "../../db/index";
-import React from "react";
 import { z } from "zod";
 import { eq, and, asc } from "drizzle-orm";
 import { drizzle } from "../utils/db.server";
@@ -33,8 +31,24 @@ export async function loader({ request }: LoaderFunctionArgs) {
   if (!userId) {
     return json({
       allDecks,
+      cardQuantity: null,
       userSubscriptions: null,
       isAuth: false,
+    } as const);
+  }
+
+  const cardQuantity = await drizzle
+    .select()
+    .from(deckCards)
+    .innerJoin(decks, eq(deckCards.deckID, decks.id))
+    .where(eq(deckCards.deckID, decks.id));
+
+  if (cardQuantity.length === 0) {
+    return json({
+      allDecks,
+      userSubscriptions: null,
+      isAuth: false,
+      cardQuantity: null,
     } as const);
   }
 
@@ -42,7 +56,13 @@ export async function loader({ request }: LoaderFunctionArgs) {
     .select()
     .from(userDeckSubscriptions)
     .where(eq(userDeckSubscriptions.userID, userId));
-  return json({ allDecks, isAuth: true, userSubscriptions } as const);
+
+  return json({
+    allDecks,
+    cardQuantity,
+    isAuth: true,
+    userSubscriptions,
+  } as const);
 }
 
 export const action = async ({ request, params }: ActionFunctionArgs) => {
@@ -68,7 +88,7 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
   try {
     if (isSubscribeAction) {
       const subscribe = Boolean(z.coerce.number().parse(subscribeString));
-      const [existingSubscription] = await db
+      const [existingSubscription] = await drizzle
         .select()
         .from(userDeckSubscriptions)
         .where(
@@ -79,7 +99,7 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
         )
         .limit(1);
 
-      const userCardExists = await db
+      const userCardExists = await drizzle
         .select()
         .from(userCards)
         .where(
@@ -90,24 +110,24 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
         );
 
       if (userCardExists.length === 0 && firstCard[0]?.cardID) {
-        await db
+        await drizzle
           .insert(userCards)
           .values({ userID: userId, cardID: firstCard[0]?.cardID });
       }
 
       if (existingSubscription) {
-        await db
+        await drizzle
           .update(userDeckSubscriptions)
           .set({ subscribed: subscribe })
           .where(eq(userDeckSubscriptions.id, existingSubscription.id));
       } else {
-        await db
+        await drizzle
           .insert(userDeckSubscriptions)
           .values({ userID: userId, deckID: deckId, subscribed: subscribe });
       }
       return null;
     } else if (!isSubscribeAction) {
-      await db.delete(decks).where(eq(decks.id, deckId));
+      await drizzle.delete(decks).where(eq(decks.id, deckId));
       return redirect(`/decks`);
     }
   } catch (error) {
@@ -117,10 +137,11 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
 };
 
 export default function DeckIndex() {
-  const { allDecks, userSubscriptions, isAuth } =
+  const { allDecks, cardQuantity, userSubscriptions, isAuth } =
     useLoaderData<typeof loader>();
   const subscribe = useActionData<typeof loader>();
   const fetcher = useFetcher();
+  const cardsInDeck = cardQuantity?.length;
 
   if (!allDecks) {
     return <div>Decks not found.</div>;
@@ -141,33 +162,48 @@ export default function DeckIndex() {
       ) : (
         <Link to="/decks/createNewDeck">Create New Deck</Link>
       )}
-      {allDecks.map((deck) => {
-        const isSubscribed =
-          Number(fetcher.formData?.get("deckId")) === deck.decks.id
-            ? Boolean(fetcher.formData?.get("subscribe"))
-            : userSubscriptions?.find(
-                (subscription) => subscription.deckID === deck.decks.id
-              )?.subscribed;
-        return (
-          <div className="card-container" key={deck.decks.id}>
-            <Link to={`/decks/${deck.decks.id}`}>{deck.decks.name}</Link>
-            <div className="button-container">
-              {isAuth ? (
-                <fetcher.Form method="POST">
-                  <input type="hidden" name="deckId" value={deck.decks.id} />
-                  <button
-                    aria-label="Toggle Subscription"
-                    name="subscribe"
-                    value={isSubscribed ? 0 : 1}
-                  >
-                    {isSubscribed ? "Unsubscribe" : "Subscribe"}
-                  </button>
-                </fetcher.Form>
-              ) : null}
+      <div className="deck-container">
+        {allDecks.map((deck) => {
+          const isSubscribed =
+            Number(fetcher.formData?.get("deckId")) === deck.decks.id
+              ? Boolean(fetcher.formData?.get("subscribe"))
+              : userSubscriptions?.find(
+                  (subscription) => subscription.deckID === deck.decks.id
+                )?.subscribed;
+          return (
+            <div className="deck-box" key={deck.decks.id}>
+              <Link
+                to={`/decks/${deck.decks.id}`}
+                className="deck-text deck-header"
+              >
+                {deck.decks.name}
+              </Link>
+              <div className="deck-text">
+                {cardsInDeck
+                  ? `${cardsInDeck} cards`
+                  : "No cards in this deck."}
+              </div>
+              <div className="button-container">
+                {isAuth ? (
+                  <fetcher.Form method="POST">
+                    <input type="hidden" name="deckId" value={deck.decks.id} />
+                    <button
+                      aria-label="Toggle Subscription"
+                      className={
+                        isSubscribed ? "unsubscribe-button" : "subscribe-button"
+                      }
+                      name="subscribe"
+                      value={isSubscribed ? 0 : 1}
+                    >
+                      {isSubscribed ? "Unsubscribe" : "Subscribe"}
+                    </button>
+                  </fetcher.Form>
+                ) : null}
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 }

@@ -167,7 +167,7 @@ export default function myDecks() {
                         />
                         <button
                           aria-label="Toggle Subscription"
-                          className="subscribed"
+                          className="subscribe-button"
                           name="subscribe"
                           value={isSubscribed ? 0 : 1}
                         >
