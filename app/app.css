@@ -1,12 +1,3 @@
-html {
-  box-sizing: border-box;
-}
-/* *,
-*:before,
-*:after {
-  box-sizing: inherit;
-} */
-
 .container {
   width: 100%;
   max-width: 1024px;
@@ -23,6 +14,10 @@ html {
 
 li {
   list-style: none;
+}
+
+ul {
+  padding: 0;
 }
 
 .card-container {
@@ -66,17 +61,24 @@ body {
 .understanding-container {
   display: flex;
   flex-direction: row;
-  margin-top: 20%;
+  justify-content: center;
+  margin-top: 5%;
+  margin-bottom: 1%;
   column-gap: 5px;
 }
 
 .understanding-buttons {
-  font-size: 50px;
-  min-width: 150px;
+  min-width: 100px;
+  font-size: 35px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 5px #0a6669;
 }
 
 .current-understanding-button {
-  min-width: 150px;
+  min-width: 100px;
+  transform: scale(0.98);
+  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
 }
 
 .deck-name-edit {
@@ -286,10 +288,6 @@ div > p {
   justify-content: center;
 }
 
-.card-back-text {
-  text-align: left;
-}
-
 .card-box {
   display: flex;
   flex-direction: row;
@@ -312,16 +310,19 @@ div > p {
 }
 
 .card-review-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-color: #ffffff;
   border-radius: 100px;
-  padding: 10px;
-  margin: 10px;
-  min-height: 500px;
+  min-height: 400px;
+  min-width: 500px;
+  justify-self: center;
 }
 
 .card-review-text {
   text-align: center;
-  margin-top: 15%;
+  margin-top: 7%;
   color: black;
   font-size: 50px;
 }
@@ -331,12 +332,16 @@ a {
   color: #fff;
 }
 
+.card-front {
+  align-self: center;
+}
+
 .card-back {
-  background-color: #d1e23c;
+  background-color: #d1e23cb5;
   border-radius: 100px;
-  object-fit: cover;
-  /* padding: 150px;
-  margin: 50px; */
+  width: fit-content;
+  padding: 7px 30px 10px 30px;
+  align-self: center;
 }
 
 .single-card {

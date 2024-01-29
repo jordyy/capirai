@@ -41,14 +41,16 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
   const deckId = formData.get("deckId");
   const deckCardId = formData.get("deckCardId");
 
-  console.log({ deckId, deckCardId });
-
   if (!deckId || isNaN(Number(deckId))) {
     throw new Error("Invalid or missing DeckID");
   }
 
   if (!deckCardId || isNaN(Number(deckCardId))) {
     throw new Error("Invalid or missing DeckCardID");
+  }
+
+  if (typeof userId !== "number") {
+    throw new Error("Invalid or missing userId");
   }
 
   const userCardIds = await db
@@ -103,12 +105,22 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
   const nextCardId = allCardIds[currentCardIndex + 1]?.cardID;
 
   if (nextDeckCardId) {
-    const nextUserCardExists = await db
+    const userCardExists = await drizzle
       .select()
       .from(userCards)
-      .where(eq(userCards.cardID, nextCardId));
+      .where(
+        and(eq(userCards.userID, userId), eq(userCards.cardID, nextCardId))
+      )
+      .limit(1);
 
-    if (nextUserCardExists.length === 0) {
+    if (userCardExists.length === 0) {
+      await db
+        .insert(userCards)
+        .values({ userID: userId, cardID: nextCardId })
+        .onConflictDoNothing();
+    }
+
+    if (userCardExists.length === 0) {
       await db
         .insert(userCards)
         .values({ userID: userId, cardID: nextCardId })

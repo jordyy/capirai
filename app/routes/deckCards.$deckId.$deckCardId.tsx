@@ -131,8 +131,8 @@ export default function SingleDeckCard() {
       {singleDeckCard.map((card) => {
         return (
           <div key={card.cards.id} onClick={handleCardFlip}>
-            <div className="card-review-container">
-              <div>
+            <div>
+              <div className="card-review-container">
                 {isViewingBack ? (
                   <h2 className="card-review-text card-back">
                     {card.cards.back}
@@ -142,46 +142,46 @@ export default function SingleDeckCard() {
                     {card.cards.front}
                   </h2>
                 )}
-              </div>
 
-              <ul className="understanding-container">
-                {isViewingBack &&
-                  understandingValues.map((value) => (
-                    <div key={value}>
-                      <Form
-                        method="post"
-                        action={`/userCards/${card?.userCards?.id}/update`}
-                      >
-                        <input
-                          type="hidden"
-                          name="deckCardId"
-                          value={card.deckCards.id}
-                        />
-                        <input
-                          type="hidden"
-                          name="deckId"
-                          value={card.deckCards.deckID}
-                        />
-                        <input
-                          type="hidden"
-                          name="understanding"
-                          value={value}
-                        />
-                        <button
-                          name="understanding"
-                          className={
-                            value === card?.userCards?.understanding
-                              ? "understanding-buttons current-understanding-button"
-                              : "understanding-buttons"
-                          }
-                          type="submit"
+                <ul className="understanding-container">
+                  {isViewingBack &&
+                    understandingValues.map((value) => (
+                      <div key={value}>
+                        <Form
+                          method="post"
+                          action={`/userCards/${card?.userCards?.id}/update`}
                         >
-                          {value}
-                        </button>
-                      </Form>
-                    </div>
-                  ))}
-              </ul>
+                          <input
+                            type="hidden"
+                            name="deckCardId"
+                            value={card.deckCards.id}
+                          />
+                          <input
+                            type="hidden"
+                            name="deckId"
+                            value={card.deckCards.deckID}
+                          />
+                          <input
+                            type="hidden"
+                            name="understanding"
+                            value={value}
+                          />
+                          <button
+                            name="understanding"
+                            className={
+                              value === card?.userCards?.understanding
+                                ? "understanding-buttons current-understanding-button"
+                                : "understanding-buttons"
+                            }
+                            type="submit"
+                          >
+                            {value}
+                          </button>
+                        </Form>
+                      </div>
+                    ))}
+                </ul>
+              </div>
             </div>
           </div>
         );
