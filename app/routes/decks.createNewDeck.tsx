@@ -1,8 +1,7 @@
 import { json, redirect } from "@remix-run/node";
 import type { ActionFunctionArgs } from "@remix-run/node";
-import { Form, useActionData, useNavigation } from "@remix-run/react";
+import { Form, useNavigation } from "@remix-run/react";
 import { db } from "../../db/index";
-import React from "react";
 import { z } from "zod";
 import { decks } from "../../db/schema";
 
@@ -38,7 +37,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
 export default function CreateNewDeck() {
   const navigation = useNavigation();
-  const isSubmitting = navigation.formAction === "/decks/createNewdeck";
+  const isSubmitting = navigation.formData?.get("intent") === "createNewdeck";
 
   return (
     <Form method="post">
@@ -46,6 +45,7 @@ export default function CreateNewDeck() {
         deckName: <input name="deckName" />
       </label>
       <button type="submit">
+        <input type="hidden" name="intent" value="createNewDeck" />
         {isSubmitting ? "Saving new deck..." : "Create new deck"}
       </button>
     </Form>

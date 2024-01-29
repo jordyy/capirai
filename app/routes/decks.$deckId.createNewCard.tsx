@@ -1,13 +1,11 @@
-import { json, redirect } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import type { LoaderFunctionArgs, ActionFunctionArgs } from "@remix-run/node";
-import React from "react";
 import {
   Form,
   useActionData,
   useNavigation,
   useLoaderData,
 } from "@remix-run/react";
-import { eq } from "drizzle-orm";
 import { db } from "../../db/index";
 import { drizzle } from "../utils/db.server";
 import { z } from "zod";
@@ -15,7 +13,7 @@ import { deckCards, decks } from "../../db/schema";
 import { cards, userCards } from "../../db/schema";
 import { authCookie } from "../auth";
 
-export async function loader({ request }: LoaderFunctionArgs) {
+export async function loader({}: LoaderFunctionArgs) {
   const allDecks = await drizzle.select().from(decks);
   return json(allDecks);
 }
@@ -49,7 +47,6 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
       .returning();
 
     await db.insert(deckCards).values({ deckID: deckId, cardID: card.id });
-
     await db.insert(userCards).values({ userID: userID, cardID: card.id });
 
     return null;
@@ -64,7 +61,6 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
 
 export default function CreateNewCard() {
   const data = useActionData<typeof action>();
-  const decks = useLoaderData<typeof loader>();
   const navigation = useNavigation();
   const isSubmitting = navigation.formData?.get("intent") === "createCard";
   const errorMessage = data?.status === "error" ? data.message : null;

@@ -57,10 +57,7 @@ export default function Deck({}) {
   const deckData = deck[0];
   const fetcher = useFetcher();
 
-  console.log({ deck, deckData, thisDeckCard });
-
   const userCardData = thisDeckCard.map((data) => data.userCards);
-
   const userReviewed = userCardData.map((data) => Boolean(data?.timesReviewed));
 
   let numReviewed = 0;

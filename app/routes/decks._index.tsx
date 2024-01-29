@@ -139,7 +139,6 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
 export default function DeckIndex() {
   const { allDecks, cardQuantity, userSubscriptions, isAuth } =
     useLoaderData<typeof loader>();
-  const subscribe = useActionData<typeof loader>();
   const fetcher = useFetcher();
   const cardsInDeck = cardQuantity?.length;
 
