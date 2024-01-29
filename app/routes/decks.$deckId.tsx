@@ -1,6 +1,6 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import { eq } from "drizzle-orm";
+import { eq, orderBy } from "drizzle-orm";
 import { Form, useLoaderData, Link } from "@remix-run/react";
 import React from "react";
 
@@ -20,14 +20,16 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   const allDeckCards = await drizzle
     .select()
     .from(deckCards)
-    .innerJoin(decks, eq(deckCards.deckID, decks.id));
+    .innerJoin(decks, eq(deckCards.deckID, decks.id))
+    .orderBy(deckCards.id);
 
   const thisDeckCard = await drizzle
     .select()
     .from(cards)
     .innerJoin(deckCards, eq(cards.id, deckCards.cardID))
     .leftJoin(userCards, eq(cards.id, userCards.cardID))
-    .where(eq(deckCards.deckID, Number(params.deckId)));
+    .where(eq(deckCards.deckID, Number(params.deckId)))
+    .orderBy(deckCards.id);
 
   if (!deck || deck.length === 0) {
     throw new Response("Not Found", { status: 404 });

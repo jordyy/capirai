@@ -77,10 +77,6 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
     throw new Response("No user card id provided", { status: 400 });
   }
 
-  if (!params.userCardId || isNaN(Number(params.userCardId))) {
-    throw new Response("No user card id provided", { status: 400 });
-  }
-
   const understanding = formData.get("understanding");
 
   const parsedInput = cardSchema.safeParse({
@@ -94,14 +90,25 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
   const allCardIds = await db
     .select({ deckCardID: deckCards?.id, cardID: deckCards?.cardID })
     .from(deckCards)
-    .where(eq(deckCards.deckID, Number(deckId)));
+    .where(eq(deckCards.deckID, Number(deckId)))
+    .orderBy(deckCards.id);
 
   const currentCardIndex = allCardIds.findIndex(
     (card) => card.deckCardID === Number(deckCardId)
   );
 
-  const nextDeckCardId = allCardIds[currentCardIndex + 1]?.deckCardID;
-  const nextCardId = allCardIds[currentCardIndex + 1]?.cardID;
+  console.log({ currentCardIndex });
+
+  const nextCardIndex = currentCardIndex + 1;
+
+  if (nextCardIndex >= allCardIds.length) {
+    return redirect(`/decks/${deckId}`);
+  }
+
+  const nextDeckCardId = allCardIds[nextCardIndex]?.deckCardID;
+  const nextCardId = allCardIds[nextCardIndex]?.cardID;
+
+  console.log({ nextCardIndex, nextDeckCardId, nextCardId });
 
   if (nextDeckCardId === null || nextDeckCardId === undefined) {
     return redirect(`/decks/${deckId}`);
@@ -115,13 +122,6 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
         and(eq(userCards.userID, userId), eq(userCards.cardID, nextCardId))
       )
       .limit(1);
-
-    if (userCardExists.length === 0) {
-      await db
-        .insert(userCards)
-        .values({ userID: userId, cardID: nextCardId })
-        .onConflictDoNothing();
-    }
 
     if (userCardExists.length === 0) {
       await db
