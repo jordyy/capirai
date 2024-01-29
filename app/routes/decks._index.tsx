@@ -148,8 +148,10 @@ export default function DeckIndex() {
   }
 
   return (
-    <div id="all-decks">
-      <h1>All Decks</h1>
+    <div>
+      <div className="nav-container">
+        <h1>Deck Library</h1>
+      </div>
       {!isAuth ? (
         <>
           <Form method="post" action="/login">
@@ -160,7 +162,11 @@ export default function DeckIndex() {
           </Form>
         </>
       ) : (
-        <Link to="/decks/createNewDeck">Create New Deck</Link>
+        <div>
+          <Link to="/decks/createNewDeck" className="button create-deck">
+            Create New Deck
+          </Link>
+        </div>
       )}
       <div className="deck-container">
         {allDecks.map((deck) => {

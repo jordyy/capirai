@@ -114,11 +114,7 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
 export default function myDecks() {
   const { myDecks, userSubscriptions, isAuth, myDeckCardIds } =
     useLoaderData<typeof loader>();
-  const subscribe = useActionData<typeof loader>();
   const fetcher = useFetcher();
-  const navigation = useNavigation();
-
-  console.log({ myDeckCardIds, myDecks });
 
   return (
     <>

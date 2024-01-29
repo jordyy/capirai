@@ -80,12 +80,9 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
 };
 
 export default function SingleDeckCard() {
-  const fetcher = useFetcher();
   const [isViewingBack, setIsViewingBack] = useState(false);
   const { singleDeckCard, understandingValues } =
     useLoaderData<typeof loader>();
-
-  console.log({ understandingValues });
 
   if (!singleDeckCard || singleDeckCard.length === 0) {
     return <div>Card does not exist.</div>;
@@ -127,7 +124,7 @@ export default function SingleDeckCard() {
 
   return (
     <div id="deck">
-      <h1>{singleDeckCard[0].decks.name}</h1>
+      <h1 className="nav-container">{singleDeckCard[0].decks.name}</h1>
       {singleDeckCard.map((card) => {
         return (
           <div key={card.cards.id} onClick={handleCardFlip}>
