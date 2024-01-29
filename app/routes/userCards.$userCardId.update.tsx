@@ -14,7 +14,6 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   if (!params.userCardId || isNaN(Number(params.userCardId))) {
     throw new Response("No user card id provided", { status: 400 });
   }
-
   const userCardId = Number(params.userCardId);
 
   const userCard = await db
@@ -104,6 +103,10 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
   const nextDeckCardId = allCardIds[currentCardIndex + 1]?.deckCardID;
   const nextCardId = allCardIds[currentCardIndex + 1]?.cardID;
 
+  if (nextDeckCardId === null || nextDeckCardId === undefined) {
+    return redirect(`/decks/${deckId}`);
+  }
+
   if (nextDeckCardId) {
     const userCardExists = await drizzle
       .select()
@@ -125,9 +128,6 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
         .insert(userCards)
         .values({ userID: userId, cardID: nextCardId })
         .onConflictDoNothing();
-    }
-    if (nextDeckCardId === null) {
-      return redirect(`/decks/${deckId}`);
     }
   }
 

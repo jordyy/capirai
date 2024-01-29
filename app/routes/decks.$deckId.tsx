@@ -32,9 +32,6 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   if (!deck || deck.length === 0) {
     throw new Response("Not Found", { status: 404 });
   }
-  if (!allDeckCards || allDeckCards.length === 0) {
-    throw new Response("No cards in this deck");
-  }
 
   const name = deck[0]?.name;
 
