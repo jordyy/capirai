@@ -40,7 +40,7 @@ export default function CreateNewDeck() {
   const isSubmitting = navigation.formData?.get("intent") === "createNewdeck";
 
   return (
-    <Form method="post">
+    <Form method="post" className="create-form">
       <label>
         deckName: <input name="deckName" />
       </label>

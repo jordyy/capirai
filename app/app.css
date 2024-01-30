@@ -1,3 +1,60 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+  background-color: #2c3333;
+  margin: 0;
+  color: #afbae0;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+#root,
+#__next {
+  isolation: isolate;
+}
+
 .container {
   width: 100%;
   max-width: 1024px;
@@ -20,20 +77,6 @@ ul {
   padding: 0;
 }
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #2c3333;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
 .nav-container {
   display: flex;
   flex-direction: row;
@@ -41,16 +84,6 @@ code {
   justify-content: center;
   align-items: center;
   column-gap: 40px;
-}
-
-html,
-body {
-  height: 100%;
-  margin: 0;
-  line-height: 1.5;
-  color: #afbae0;
-  padding-left: 5%;
-  padding-right: 5%;
 }
 
 .understanding-container {
@@ -114,7 +147,6 @@ body {
 .profile-button {
   padding: 4px 8px;
   font-size: 1rem;
-  font-family: inherit;
   background-color: #374040;
   color: #afbae0;
   font-weight: 600;
@@ -139,7 +171,6 @@ input,
 button,
 .button {
   font-size: 1rem;
-  font-family: inherit;
   border: none;
   text-decoration: none;
   border-radius: 50px;
@@ -229,7 +260,6 @@ button:active,
 .deck-button {
   font-size: 1rem;
   text-align: center;
-  font-family: inherit;
   border: none;
   text-decoration: none;
   height: 50px;

@@ -161,11 +161,9 @@ export default function DeckIndex() {
           </Form>
         </>
       ) : (
-        <div>
-          <Link to="/decks/createNewDeck" className="button create-deck">
-            Create New Deck
-          </Link>
-        </div>
+        <Link to="/decks/createNewDeck" className="button create-deck">
+          Create New Deck
+        </Link>
       )}
       <div className="deck-container">
         {allDecks.map((deck) => {
