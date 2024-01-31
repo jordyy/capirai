@@ -14,8 +14,7 @@ body {
   background-color: #2c3333;
   margin: 0;
   color: #afbae0;
-  padding-left: 5%;
-  padding-right: 5%;
+  padding: 0 15px 0 15px;
 }
 
 body {
@@ -58,14 +57,13 @@ h6 {
 .container {
   width: 100%;
   max-width: 1024px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto 0 auto;
 }
 
 .error {
   color: red;
   font-size: 0.8em;
-  margin-top: 5px;
+  margin: 5px 0;
   display: block;
 }
 
@@ -90,8 +88,7 @@ ul {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-top: 5%;
-  margin-bottom: 1%;
+  margin: 15px 10px;
   column-gap: 5px;
 }
 
@@ -128,11 +125,9 @@ ul {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 1%;
-  margin-left: 25%;
-  margin-right: 25%;
+  margin: 2px 20px 0 20px;
   align-content: baseline;
-  padding: 0.15%;
+  padding: 5px;
   column-gap: 50px;
 }
 .button-container {
@@ -140,7 +135,6 @@ ul {
   flex-direction: row;
   justify-content: space-around;
   align-content: baseline;
-  /* padding: 5%; */
   column-gap: 10%;
 }
 
@@ -163,7 +157,7 @@ ul {
 }
 
 .edit-card-input-label {
-  margin-right: 2%;
+  margin: 0 5px 0 0;
 }
 
 textarea,
@@ -174,7 +168,7 @@ button,
   border: none;
   text-decoration: none;
   border-radius: 50px;
-  padding: 0.25rem 0.5rem;
+  padding: 4px 8px;
   box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.2), 0 1px 2px hsla(0, 0%, 0%, 0.2);
   background-color: #374040;
   color: #afbae0;
@@ -220,8 +214,7 @@ button:hover,
   flex-direction: row-reverse;
   justify-content: space-evenly;
   align-items: center;
-  margin-top: 5%;
-  margin-bottom: 1%;
+  margin: 5px 1px;
 }
 
 .delete-button {
@@ -237,8 +230,7 @@ button:hover,
 .create-deck {
   display: block;
   text-align: center;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto 0 auto;
   width: 20%;
 }
 
@@ -253,8 +245,7 @@ button:active,
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  margin-top: 1%;
-  margin-bottom: 1%;
+  margin: 15px 0 15px 0;
 }
 
 .deck-button {
@@ -277,7 +268,7 @@ button:active,
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-top: 1%;
+  margin: 15px 0;
   flex-wrap: wrap;
 }
 
@@ -309,17 +300,17 @@ button:active,
 }
 
 div > h4 {
-  margin-bottom: 0;
+  margin: 0 0;
 }
 
 div > p {
-  margin-top: 0;
+  margin: 0 0;
   text-align: center;
 }
 .single-card-contents {
   display: flex;
   flex-direction: column;
-  margin-left: 35px;
+  margin: 0 0 0 35px;
   justify-content: center;
 }
 
@@ -328,10 +319,8 @@ div > p {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding-left: 2%;
-  padding-right: 2%;
-  margin-top: 1%;
-  margin-bottom: 1%;
+  padding: 0 5px 0 5px;
+  margin: 10px 0 10px 0;
   flex-grow: 1;
   border-radius: 20px;
 }
@@ -357,7 +346,7 @@ div > p {
 
 .card-review-text {
   text-align: center;
-  margin-top: 7%;
+  margin: 10px 0 0 0;
   color: #2c3333;
   font-size: 50px;
 }
@@ -389,17 +378,16 @@ a {
 .subscribe-button {
   background-color: #3b60e4;
   color: #2c3333;
-  margin-bottom: 10px;
+  margin: 0 10px;
 }
 
 .unsubscribe-button {
   background-color: #ef767a;
   color: #2c3333;
-  margin-bottom: 10px;
+  margin: 0 10px;
 }
 
 outlet-container {
   height: 100%;
-  /* width: 100%; */
-  padding: 10%;
+  padding: 15px;
 }
