@@ -140,9 +140,6 @@ export default function DeckIndex() {
   const { allDecks, cardQuantity, userSubscriptions, isAuth } =
     useLoaderData<typeof loader>();
   const fetcher = useFetcher();
-  const cardsInDeck = cardQuantity?.length;
-
-  console.log({ isAuth });
 
   if (!allDecks) {
     return <div>Decks not found.</div>;
@@ -169,6 +166,9 @@ export default function DeckIndex() {
       )}
       <div className="deck-container">
         {allDecks.map((deck) => {
+          const cardsInDeck = cardQuantity?.filter(
+            (card) => card?.deckCards.deckID === deck.decks.id
+          ).length;
           const isSubscribed =
             Number(fetcher.formData?.get("deckId")) === deck.decks.id
               ? Boolean(fetcher.formData?.get("subscribe"))
