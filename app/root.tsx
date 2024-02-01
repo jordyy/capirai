@@ -35,8 +35,26 @@ export const links: LinksFunction = () => [
   { rel: "stylesheet", href: appStylesHref },
 ];
 
+export const action = async ({ request }: ActionFunctionArgs) => {
+  const formData = await request.formData();
+
+  const parsedInput = userSchema.safeParse(formData);
+
+  if (parsedInput.success) {
+    const user = await db.insert(users).values({
+      userName: parsedInput.data.userName,
+      email: parsedInput.data.email,
+    });
+    return redirect(`/users/${users.id}/edit`);
+  } else {
+    return json({ status: "error" });
+  }
+};
+
 export default function App() {
   const { userID } = useLoaderData<typeof loader>();
+
+  console.log({ userID });
 
   return (
     <html lang="en" className="container">
@@ -79,22 +97,6 @@ export default function App() {
     </html>
   );
 }
-
-export const action = async ({ request }: ActionFunctionArgs) => {
-  const formData = await request.formData();
-
-  const parsedInput = userSchema.safeParse(formData);
-
-  if (parsedInput.success) {
-    const user = await db.insert(users).values({
-      userName: parsedInput.data.userName,
-      email: parsedInput.data.email,
-    });
-    return redirect(`/users/${users.id}/edit`);
-  } else {
-    return json({ status: "error" });
-  }
-};
 
 const userSchema = z.object({
   userName: z.string(),

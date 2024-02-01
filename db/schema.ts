@@ -107,7 +107,9 @@ export const decksRelations = relations(decks, ({ many }) => ({
 export const userDeckSubscriptions = pgTable("userDeckSubcriptions", {
   id: serial("id").primaryKey(),
   userID: integer("user_ID").references(() => users.id),
-  deckID: integer("deck_ID").references(() => decks.id),
+  deckID: integer("deck_ID").references(() => decks.id, {
+    onDelete: "cascade",
+  }),
   completion: integer("completion_status").default(0),
   subscribed: boolean("subscribed_status").default(false),
 });
@@ -129,10 +131,10 @@ export const userDeckSubcriptionsRelations = relations(
 export const deckCards = pgTable("deckCards", {
   id: serial("id").primaryKey(),
   deckID: integer("deck_id")
-    .references(() => decks.id)
+    .references(() => decks.id, { onDelete: "cascade" })
     .notNull(),
   cardID: integer("card_id")
-    .references(() => cards.id)
+    .references(() => cards.id, { onDelete: "cascade" })
     .notNull(),
 });
 

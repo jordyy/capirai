@@ -19,11 +19,6 @@ import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const userId = await getAuthCookie(request);
-  // const deckId = z.coerce.number().parse(params.deckId);
-
-  // if (!deckId) {
-  //   throw new Response("Not Found", { status: 404 });
-  // }
 
   const myDecks = await drizzle
     .select()
@@ -71,8 +66,6 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
   const formData = await request.formData();
   const deckId = z.coerce.number().parse(formData.get("deckId"));
   const isSubscribeAction = formData.has("subscribe");
-
-  console.log({ deckId, isSubscribeAction });
 
   try {
     if (isSubscribeAction) {

@@ -148,6 +148,11 @@ export default function Deck({}) {
                       }
                     }}
                   >
+                    <input
+                      type="hidden"
+                      name="deckCardId"
+                      value="card.deckCards.id"
+                    />
                     <button className="deck-button" type="submit">
                       <DeleteRoundedIcon />
                     </button>

@@ -47,7 +47,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     return json({
       allDecks,
       userSubscriptions: null,
-      isAuth: false,
+      isAuth: userId ? true : false,
       cardQuantity: null,
     } as const);
   }
@@ -141,6 +141,8 @@ export default function DeckIndex() {
     useLoaderData<typeof loader>();
   const fetcher = useFetcher();
   const cardsInDeck = cardQuantity?.length;
+
+  console.log({ isAuth });
 
   if (!allDecks) {
     return <div>Decks not found.</div>;
