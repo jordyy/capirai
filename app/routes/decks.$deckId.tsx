@@ -23,7 +23,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     .innerJoin(decks, eq(deckCards.deckID, decks.id))
     .orderBy(deckCards.id);
 
-  const thisDeckCard = await drizzle
+  const deckCardArr = await drizzle
     .select()
     .from(cards)
     .innerJoin(deckCards, eq(cards.id, deckCards.cardID))
@@ -31,13 +31,27 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     .where(eq(deckCards.deckID, Number(params.deckId)))
     .orderBy(deckCards.id);
 
+  // do this in loader!
+
+  // console.log({ thisDeckCard });
+
+  // const userCardData = thisDeckCard.map((data) => data.userCards);
+  // const userReviewed = userCardData.map((data) => Boolean(data?.timesReviewed));
+
+  // let numReviewed = 0;
+  // for (let i = 0; i < userReviewed.length; i++) {
+  //   if (userReviewed[i] === true) {
+  //     numReviewed++;
+  //   }
+  // }
+
   if (!deck || deck.length === 0) {
     throw new Response("Not Found", { status: 404 });
   }
 
   const name = deck[0]?.name;
 
-  return json({ deck, allDeckCards, name, thisDeckCard });
+  return json({ deck, allDeckCards, name, deckCardArr });
 };
 
 export const action = async ({ params }: ActionFunctionArgs) => {
@@ -53,24 +67,14 @@ export const action = async ({ params }: ActionFunctionArgs) => {
 };
 
 export default function Deck({}) {
-  const { deck, thisDeckCard } = useLoaderData<typeof loader>();
+  const { deck, deckCardArr } = useLoaderData<typeof loader>();
   const deckData = deck[0];
   const fetcher = useFetcher();
-
-  const userCardData = thisDeckCard.map((data) => data.userCards);
-  const userReviewed = userCardData.map((data) => Boolean(data?.timesReviewed));
-
-  let numReviewed = 0;
-  for (let i = 0; i < userReviewed.length; i++) {
-    if (userReviewed[i] === true) {
-      numReviewed++;
-    }
-  }
 
   if (!deckData) {
     return <div>Deck not found.</div>;
   }
-  if (!thisDeckCard) {
+  if (!deckCardArr) {
     return <div>No cards in this deck.</div>;
   }
 
@@ -83,9 +87,9 @@ export default function Deck({}) {
           <BorderColorRoundedIcon />
         </Link>
       </h1>
-      <p>
+      {/* <p>
         {`This deck has ${thisDeckCard.length} cards. You have reviewed ${numReviewed}/${thisDeckCard.length} cards.`}
-      </p>
+      </p> */}
       <div className="deck-setting-section">
         <fetcher.Form
           method="post"
@@ -110,9 +114,9 @@ export default function Deck({}) {
           Add Card to Deck
         </Link>
 
-        {thisDeckCard.length > 0 && (
+        {deckCardArr.length > 0 && (
           <Link
-            to={`/deckcards/${deckData.id}/${thisDeckCard[0].deckCards.id}`}
+            to={`/deckcards/${deckData.id}/${deckCardArr[0].deckCards.id}`}
             className="button"
           >
             Study deck
@@ -120,10 +124,10 @@ export default function Deck({}) {
         )}
       </div>
       <div>
-        {thisDeckCard.length === 0 ? (
+        {deckCardArr.length === 0 ? (
           <div>This deck has no cards.</div>
         ) : (
-          thisDeckCard.map((card) => {
+          deckCardArr.map((card) => {
             return (
               <div key={card.cards.id} className="card-box">
                 <div className="single-card-contents">

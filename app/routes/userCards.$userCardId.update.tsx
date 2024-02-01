@@ -97,8 +97,6 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
     (card) => card.deckCardID === Number(deckCardId)
   );
 
-  console.log({ currentCardIndex });
-
   const nextCardIndex = currentCardIndex + 1;
 
   if (nextCardIndex >= allCardIds.length) {
@@ -107,8 +105,6 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
 
   const nextDeckCardId = allCardIds[nextCardIndex]?.deckCardID;
   const nextCardId = allCardIds[nextCardIndex]?.cardID;
-
-  console.log({ nextCardIndex, nextDeckCardId, nextCardId });
 
   if (nextDeckCardId === null || nextDeckCardId === undefined) {
     return redirect(`/decks/${deckId}`);

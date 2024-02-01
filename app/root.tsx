@@ -17,7 +17,6 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from "@remix-run/react";
-import React from "react";
 import { db } from "../db/index";
 import { z } from "zod";
 import { users } from "../db/schema";
@@ -53,8 +52,6 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
 export default function App() {
   const { userID } = useLoaderData<typeof loader>();
-
-  console.log({ userID });
 
   return (
     <html lang="en" className="container">

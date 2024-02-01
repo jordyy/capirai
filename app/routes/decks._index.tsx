@@ -99,20 +99,13 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
         )
         .limit(1);
 
-      const userCardExists = await drizzle
-        .select()
-        .from(userCards)
-        .where(
-          and(
-            eq(userCards.userID, userId),
-            eq(userCards.cardID, firstCard[0]?.cardID)
-          )
-        );
-
-      if (userCardExists.length === 0 && firstCard[0]?.cardID) {
+      if (firstCard[0]?.cardID) {
         await drizzle
           .insert(userCards)
-          .values({ userID: userId, cardID: firstCard[0]?.cardID });
+          .values({ userID: userId, cardID: firstCard[0]?.cardID })
+          .onConflictDoNothing({
+            target: [userCards.userID, userCards.cardID],
+          });
       }
 
       if (existingSubscription) {

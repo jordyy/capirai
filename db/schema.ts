@@ -7,6 +7,7 @@ import {
   integer,
   real,
   boolean,
+  uniqueIndex,
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
@@ -73,14 +74,25 @@ export const understandingEnum = pgEnum("understanding", [
   "🌤️",
   "☀️",
 ]);
-export const userCards = pgTable("userCards", {
-  id: serial("id").primaryKey(),
-  userID: integer("user_ID").references(() => users.id),
-  cardID: integer("card_ID").references(() => cards.id),
-  timesReviewed: integer("times_reviewed").default(0),
-  lastReviewed: timestamp("last_reviewed").defaultNow(),
-  understanding: understandingEnum("understanding").default("☁️"),
-});
+export const userCards = pgTable(
+  "userCards",
+  {
+    id: serial("id").primaryKey(),
+    userID: integer("user_ID").references(() => users.id),
+    cardID: integer("card_ID").references(() => cards.id),
+    timesReviewed: integer("times_reviewed").default(0),
+    lastReviewed: timestamp("last_reviewed").defaultNow(),
+    understanding: understandingEnum("understanding").default("☁️"),
+  },
+  (table) => {
+    return {
+      userIDCardIDIdx: uniqueIndex("user_id_card_id_idx").on(
+        table.userID,
+        table.cardID
+      ),
+    };
+  }
+);
 
 export const userCardsRelations = relations(userCards, ({ one }) => ({
   card: one(cards, {
