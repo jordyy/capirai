@@ -16,6 +16,7 @@ import { userDeckSubscriptions } from "../../../db/schema";
 import { getAuthCookie, requireAuthCookie } from "../../auth";
 import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
 import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
+import DoubleArrowRoundedIcon from "@mui/icons-material/DoubleArrowRounded";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const userId = await getAuthCookie(request);
@@ -61,49 +62,6 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   } as const);
 }
 
-export const action = async ({ request, params }: ActionFunctionArgs) => {
-  const userId = await requireAuthCookie(request);
-  const formData = await request.formData();
-  const deckId = z.coerce.number().parse(formData.get("deckId"));
-  const isSubscribeAction = formData.has("subscribe");
-
-  try {
-    if (isSubscribeAction) {
-      const subscribe = Boolean(
-        z.coerce.number().parse(formData.get("subscribe"))
-      );
-      const [existingSubscription] = await db
-        .select()
-        .from(userDeckSubscriptions)
-        .where(
-          and(
-            eq(userDeckSubscriptions.deckID, deckId),
-            eq(userDeckSubscriptions.userID, userId)
-          )
-        )
-        .limit(1);
-
-      if (existingSubscription) {
-        await db
-          .update(userDeckSubscriptions)
-          .set({ subscribed: subscribe })
-          .where(eq(userDeckSubscriptions.id, existingSubscription.id));
-      } else {
-        await db
-          .insert(userDeckSubscriptions)
-          .values({ userID: userId, deckID: deckId, subscribed: subscribe });
-      }
-      return null;
-    } else if (!isSubscribeAction) {
-      await db.delete(decks).where(eq(decks.id, deckId));
-      return redirect(`/decks`);
-    }
-  } catch (error) {
-    console.log({ deck_delete_error: params.error });
-    return null;
-  }
-};
-
 export default function myDecks() {
   const { myDecks, userSubscriptions, isAuth, myDeckCardIds } =
     useLoaderData<typeof loader>();
@@ -132,37 +90,23 @@ export default function myDecks() {
                     <div key={deck.decks.id} className="deck-box">
                       <Link
                         to={`/decks/${deck.decks.id}`}
-                        className="deck-text deck-header"
+                        className="deck-header"
                       >
                         {deck.decks.name}
                       </Link>{" "}
                       {deck.decks.id === myDeckCardIds[0].deckId ? (
                         <Link
                           to={`/deckcards/${deck.decks.id}/${myDeckCardIds[0].deckCardID}`}
-                          className="deck-text"
+                          className="study-deck"
                         >
-                          Study deck
+                          Study deck{" "}
+                          {<DoubleArrowRoundedIcon sx={{ fontSize: 30 }} />}
                         </Link>
                       ) : (
                         <div>This deck has no cards.</div>
                       )}
-                      <br />
-                      completion - {deck.userDeckSubcriptions.completion} <br />
-                      <fetcher.Form method="POST">
-                        <input
-                          type="hidden"
-                          name="deckId"
-                          value={deck.decks.id}
-                        />
-                        <button
-                          aria-label="Toggle Subscription"
-                          className="subscribe-button"
-                          name="subscribe"
-                          value={isSubscribed ? 0 : 1}
-                        >
-                          {isSubscribed ? "Unsubscribe" : "Subscribe"}
-                        </button>
-                      </fetcher.Form>
+                      {/* <br />
+                      completion - {deck.userDeckSubcriptions.completion} <br /> */}
                     </div>
                   ) : null}
                 </div>
