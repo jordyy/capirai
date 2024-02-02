@@ -275,13 +275,7 @@ button:active,
 }
 
 .deck-qty {
-  color: #2c3333;
-  background-color: #3b60e4;
-  border-radius: 50px;
-  margin: -30px auto 0 auto;
-  width: 150px;
-  height: 40px;
-  padding: 8px 0 0 0;
+  color: #afbae0;
   text-decoration: none;
   text-transform: uppercase;
 }
@@ -391,13 +385,11 @@ a {
 .subscribe-button {
   background-color: #3b60e4;
   color: #2c3333;
-  margin-bottom: 10px;
 }
 
 .unsubscribe-button {
   background-color: #ef767a;
   color: #2c3333;
-  margin-bottom: 10px;
 }
 
 outlet-container {
