@@ -232,7 +232,7 @@ button:hover,
 .create-deck {
   display: block;
   text-align: center;
-  margin: 0 auto;
+  margin: 0 auto 100px auto;
   width: 20%;
 }
 
@@ -274,17 +274,23 @@ button:active,
   flex-wrap: wrap;
 }
 
+.deck-qty {
+  color: #2c3333;
+  background-color: #3b60e4;
+  border-radius: 50px;
+  margin: -30px auto 0 auto;
+  width: 150px;
+  height: 40px;
+  padding: 8px 0 0 0;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
 .deck-header {
   font-weight: 500;
   font-size: 25px;
-}
-
-.deck-text {
-  margin: 5px;
   color: #afbae0;
-  padding: 15px;
-  text-decoration: none;
-  text-transform: uppercase;
+  border-radius: 50px;
 }
 
 .deck-box {
@@ -342,8 +348,8 @@ div > p {
   justify-content: center;
   row-gap: 100px;
   background-color: #ffffff;
-  outline: 10px solid #3b60e4;
-  outline-offset: -20px;
+  outline: 5px solid rgb(59, 96, 228);
+  /* outline-offset: -10px; */
   /* border: 4px solid #3b60e4; */
   border-radius: 100px;
   min-height: 400px;
