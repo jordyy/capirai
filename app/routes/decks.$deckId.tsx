@@ -45,6 +45,20 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
     .where(eq(deckCards.deckID, Number(params.deckId)))
     .orderBy(deckCards.id);
 
+  const userCardData = deckCardArr.map((data) => data.userCards);
+
+  console.log({ userCardData }); //we should only have 1 to start
+  console.log({ deckCardArr }); //null in loader, but not in the component
+  const userReviewed = userCardData.map((data) => Boolean(data?.timesReviewed));
+  console.log({ userReviewed });
+
+  let numReviewed = 0;
+  for (let i = 0; i < userReviewed.length; i++) {
+    if (userReviewed[i] === true) {
+      numReviewed++;
+    }
+  }
+
   if (!userId) {
     return json({
       deckId,
@@ -53,26 +67,13 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
       deckCardArr,
       isAuth: false,
       userSubscriptions: null,
+      numReviewed,
     } as const);
   }
   const userSubscriptions = await drizzle
     .select()
     .from(userDeckSubscriptions)
     .where(eq(userDeckSubscriptions.userID, userId));
-
-  // do this in loader!
-
-  // console.log({ thisDeckCard });
-
-  // const userCardData = thisDeckCard.map((data) => data.userCards);
-  // const userReviewed = userCardData.map((data) => Boolean(data?.timesReviewed));
-
-  // let numReviewed = 0;
-  // for (let i = 0; i < userReviewed.length; i++) {
-  //   if (userReviewed[i] === true) {
-  //     numReviewed++;
-  //   }
-  // }
 
   if (!deck || deck.length === 0) {
     throw new Response("Not Found", { status: 404 });
@@ -87,6 +88,7 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
     name,
     deckCardArr,
     userSubscriptions,
+    numReviewed,
   });
 };
 
@@ -150,7 +152,7 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
 };
 
 export default function Deck({}) {
-  const { deckId, deck, deckCardArr, userSubscriptions } =
+  const { deckId, deck, deckCardArr, userSubscriptions, numReviewed } =
     useLoaderData<typeof loader>();
   const deckData = deck[0];
   const fetcher = useFetcher();
@@ -178,9 +180,7 @@ export default function Deck({}) {
           <BorderColorRoundedIcon />
         </Link>
       </h1>
-      {/* <p>
-        {`This deck has ${thisDeckCard.length} cards. You have reviewed ${numReviewed}/${thisDeckCard.length} cards.`}
-      </p> */}
+      <p>{`You have reviewed ${numReviewed}/${deckCardArr.length} cards.`}</p>
 
       <div className="deck-setting-section">
         <fetcher.Form method="POST">

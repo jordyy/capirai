@@ -5,7 +5,7 @@ import { deckCards } from "../../db/schema";
 import { z } from "zod";
 import { drizzle } from "../utils/db.server";
 
-export async function loader({ params, request }: LoaderFunctionArgs) {
+export async function loader() {
   const allDeckCards = await drizzle.select().from(deckCards);
   return json([allDeckCards]);
 }
