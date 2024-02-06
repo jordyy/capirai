@@ -18,28 +18,23 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     .from(users)
     .where(eq(users.id, Number(params.userId)));
 
-  const userName = user[0]?.userName;
   const email = user[0]?.email;
 
   if (!user) {
     throw new Response("Not Found", { status: 404 });
   }
-  return json({ user, userName, email });
+  return json({ user, email });
 };
 
 const userSchema = z.object({
-  userName: z.string(),
   email: z.string(),
 });
 
 export const action = async ({ params, request }: ActionFunctionArgs) => {
   const formData = await request.formData();
-
-  const userName = formData.get("userName");
   const email = formData.get("email");
 
   const parsedInput = userSchema.safeParse({
-    userName: userName,
     email: email,
   });
 
@@ -51,7 +46,6 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
     await db
       .update(users)
       .set({
-        userName: parsedInput.data.userName,
         email: parsedInput.data.email,
       })
       .where(eq(users.id, Number(params.userId)));
@@ -63,7 +57,7 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
 };
 
 export default function EditUser({}) {
-  const { userName, email } = useLoaderData<typeof loader>();
+  const { email } = useLoaderData<typeof loader>();
   const navigation = useNavigation();
   const navigate = useNavigate();
   const isSaving = navigation.formAction === `/users/${users.id}/edit`;
@@ -71,14 +65,6 @@ export default function EditUser({}) {
   return (
     <Form id="contact-form" method="post">
       <p>
-        <span>username</span>
-        <input
-          defaultValue={`${userName}`}
-          aria-label="userName"
-          name="userName"
-          type="text"
-          placeholder="username"
-        />
         <input
           aria-label="email"
           defaultValue={`${email}`}

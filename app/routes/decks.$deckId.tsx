@@ -172,7 +172,7 @@ export default function Deck({}) {
       <Outlet />
       <h1 className="deck-name-edit">
         {deckData.name}{" "}
-        <Link to={`/decks/${deckData.id}/edit`} reloadDocument>
+        <Link to={`/decks/${deckData.id}/edit`}>
           <BorderColorRoundedIcon />
         </Link>
       </h1>

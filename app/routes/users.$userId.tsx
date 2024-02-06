@@ -46,22 +46,40 @@ export default function Users({}) {
   const userData = user[0];
 
   return (
-    <div id="Contact">
-      <h1>Hi, {userData.userName}</h1>
-      <h1>Email: {userData.email}</h1>
-      <Link to={`/users/${userData.id}/edit`}>Edit</Link>
+    <div className="account-settings">
+      <div className="user-container">
+        <div className="inner-user-container">
+          <h3>Username</h3>
+          <p>{userData.userName}</p>
+        </div>
+        <Link className="button" to={`/users/${userData.id}/editUser`}>
+          Edit
+        </Link>
+      </div>
+
+      <div className="email-container">
+        <div className="inner-email-container">
+          <h3>Email</h3>
+          <p>{userData.email}</p>
+        </div>
+        <Link className="button" to={`/users/${userData.id}/editEmail`}>
+          Edit
+        </Link>
+      </div>
       <Form
         method="post"
         onSubmit={(event) => {
           const response = confirm(
-            "Please confirm you want to delete this record."
+            "Please confirm you want to delete your account."
           );
           if (!response) {
             event.preventDefault();
           }
         }}
       >
-        <button type="submit">Delete</button>
+        <button className="delete-button delete-account-button" type="submit">
+          Delete My Account
+        </button>
       </Form>
     </div>
   );

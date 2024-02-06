@@ -60,6 +60,36 @@ h6 {
   margin: 0 auto;
 }
 
+.account-settings {
+  display: flex;
+  flex-direction: column;
+  row-gap: 32px;
+  border: solid 1px #afbae0;
+  padding: 32px;
+  border-radius: 20px;
+}
+
+.email-container,
+.user-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.inner-email-container,
+.inner-user-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}
+
+.delete-account-button {
+  margin-top: 40px;
+  align-self: center;
+}
+
 .error {
   color: red;
   font-size: 0.8em;
@@ -220,7 +250,7 @@ button:hover,
 }
 
 .delete-button {
-  background-color: #be3144;
+  background-color: #ff2c55;
   color: #2c3333;
 }
 
@@ -328,7 +358,6 @@ div > h4 {
 
 div > p {
   margin-top: 0;
-  text-align: center;
 }
 .single-card-contents {
   display: flex;
