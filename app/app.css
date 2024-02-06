@@ -298,7 +298,7 @@ button:active,
   background-color: #f49097;
   width: 200px;
   border-radius: 50px;
-  box-shadow: #f18188 2px 2px 5px;
+  box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.4), 0 1px 2px hsla(0, 0%, 0%, 0.2);
   text-align: center;
   padding: 5px;
   margin: 10px auto 0 auto;
@@ -312,7 +312,7 @@ svg {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  row-gap: 40px;
+  row-gap: 60px;
   background-color: #374040;
   border-radius: 50px;
   min-width: 330px;

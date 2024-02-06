@@ -143,10 +143,10 @@ export const userDeckSubcriptionsRelations = relations(
 export const deckCards = pgTable("deckCards", {
   id: serial("id").primaryKey(),
   deckID: integer("deck_id")
-    .references(() => decks.id, { onDelete: "cascade" })
+    .references(() => decks.id)
     .notNull(),
   cardID: integer("card_id")
-    .references(() => cards.id, { onDelete: "cascade" })
+    .references(() => cards.id)
     .notNull(),
 });
 

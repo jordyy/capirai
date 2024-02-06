@@ -9,6 +9,7 @@ import { decks, deckCards } from "../../../db/schema";
 import { db } from "../../../db/index";
 import { z } from "zod";
 import { eq, and } from "drizzle-orm";
+import React from "react";
 import { drizzle } from "../../utils/db.server";
 import { Link } from "@remix-run/react";
 import { useFetcher } from "@remix-run/react";

@@ -11,6 +11,7 @@ import {
   deckCards,
   userCards,
 } from "../../db/schema";
+import React from "react";
 import { z } from "zod";
 import { eq, and, asc } from "drizzle-orm";
 import { drizzle } from "../utils/db.server";

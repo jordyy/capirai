@@ -244,26 +244,19 @@ export default function Deck({}) {
                   >
                     <BorderColorRoundedIcon />
                   </Link>
-                  <Form
+                  <fetcher.Form
                     method="post"
-                    onSubmit={(event) => {
-                      const response = confirm(
-                        "Please confirm you want to delete this record."
-                      );
-                      if (!response) {
-                        event.preventDefault();
-                      }
-                    }}
+                    action={`/deckCards/${card.deckCards.deckID}/${card.deckCards.id}/remove`}
                   >
                     <input
                       type="hidden"
                       name="deckCardId"
-                      value="card.deckCards.id"
+                      value={card.deckCards.id}
                     />
                     <button className="deck-button" type="submit">
                       <DeleteRoundedIcon />
                     </button>
-                  </Form>
+                  </fetcher.Form>
                 </div>
               </div>
             );
