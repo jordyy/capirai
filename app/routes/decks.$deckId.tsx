@@ -46,11 +46,7 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
     .orderBy(deckCards.id);
 
   const userCardData = deckCardArr.map((data) => data.userCards);
-
-  console.log({ userCardData }); //we should only have 1 to start
-  console.log({ deckCardArr }); //null in loader, but not in the component
   const userReviewed = userCardData.map((data) => Boolean(data?.timesReviewed));
-  console.log({ userReviewed });
 
   let numReviewed = 0;
   for (let i = 0; i < userReviewed.length; i++) {
