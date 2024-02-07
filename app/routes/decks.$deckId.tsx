@@ -1,7 +1,13 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { eq, asc, and, orderBy } from "drizzle-orm";
-import { Form, useLoaderData, Link } from "@remix-run/react";
+import {
+  Form,
+  useLoaderData,
+  Link,
+  useNavigate,
+  useNavigation,
+} from "@remix-run/react";
 import React, { useState, useRef, useEffect } from "react";
 
 import { drizzle } from "../utils/db.server";
@@ -151,10 +157,14 @@ export default function Deck({}) {
   const { deckId, deck, deckCardArr, userSubscriptions, numReviewed } =
     useLoaderData<typeof loader>();
   const [isEditing, setIsEditing] = React.useState(false);
+  const [editDeckName, setEditDeckName] = useState(deck[0]?.name);
   const [addCardIsOpen, setAddCardIsOpen] = React.useState(true);
   const deckData = deck[0];
   const fetcher = useFetcher();
   const deckName = deckData.name;
+  const navigation = useNavigation();
+  const navigate = useNavigate();
+  const isSaving = navigation.formData?.get("intent") === "save";
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -178,25 +188,37 @@ export default function Deck({}) {
     <div id="deck">
       <Outlet />
       {isEditing ? (
-        <Form method="post" action={`/decks/${deckData.id}/edit`}>
-          <input
-            type="text"
-            defaultValue={deckName}
-            name="name"
-            aria-label="Deck Name"
-          />
-          <button type="submit">Save</button>
-          <button type="button" onClick={() => setIsEditing(false)}>
-            Cancel
-          </button>
-        </Form>
+        <div className="deck-name-edit">
+          <h1>
+            <Form method="post" action={`/decks/${deckId}/edit`}>
+              <input
+                type="text"
+                name="name"
+                value={editDeckName || ""}
+                aria-label="Deck Name"
+                onChange={(e) => setEditDeckName(e.target.value)}
+              />
+              <button type="submit" onClick={() => setIsEditing(false)}>
+                <input type="hidden" name="intent" value="save" />
+                {isSaving ? "Saving changes..." : "Save changes"}
+              </button>
+              <button onClick={() => navigate(-1)} type="button">
+                Cancel
+              </button>
+            </Form>
+          </h1>
+        </div>
       ) : (
-        <h1 className="deck-name-edit">
-          {deckData.name}{" "}
-          <button onClick={handleEditClick}>
+        <div className="deck-name-edit">
+          <h1>{editDeckName}</h1>
+          <Link
+            className="edit-button"
+            to={`/decks/${deckData.id}/edit`}
+            onClick={handleEditClick}
+          >
             <BorderColorRoundedIcon />
-          </button>
-        </h1>
+          </Link>
+        </div>
       )}
 
       <p>{`You have reviewed ${numReviewed}/${deckCardArr.length} cards.`}</p>

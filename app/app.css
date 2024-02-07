@@ -26,8 +26,7 @@ body {
 img,
 picture,
 video,
-canvas,
-svg {
+canvas {
   display: block;
   max-width: 100%;
 }
@@ -143,10 +142,16 @@ ul {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-content: baseline;
+  align-content: center;
   padding: 10px;
   column-gap: 5px;
   margin: 10px;
+}
+
+.edit-button {
+  margin-top: 4px;
+  color: #afbae0;
+  align-self: center;
 }
 
 .single-card-text {
@@ -332,10 +337,6 @@ button:active,
   text-align: center;
   padding: 5px;
   margin: 10px auto 0 auto;
-}
-
-svg {
-  margin-top: 3px;
 }
 
 .deck-box {

@@ -55,30 +55,3 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
     return json({ status: "error" });
   }
 };
-
-export default function EditDeck({}) {
-  const { name } = useLoaderData<typeof loader>();
-  const navigation = useNavigation();
-  const navigate = useNavigate();
-  const isSaving = navigation.formAction === `/decks/${decks.id}/edit`;
-
-  return (
-    <Form method="post">
-      <div className="edit-deck-input-label">Deck name:</div>
-      <input
-        defaultValue={`${name}`}
-        aria-label="Deck Name"
-        name="name"
-        type="text"
-        placeholder="Enter deck name"
-      />
-
-      <button type="submit">
-        {isSaving ? "Saving changes..." : "Save changes"}
-      </button>
-      <button onClick={() => navigate(-1)} type="button">
-        Cancel
-      </button>
-    </Form>
-  );
-}
