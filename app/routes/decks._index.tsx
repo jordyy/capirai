@@ -4,14 +4,19 @@ import {
   json,
   redirect,
 } from "@remix-run/node";
-import { useLoaderData, Outlet, useActionData } from "@remix-run/react";
+import {
+  useLoaderData,
+  Outlet,
+  useActionData,
+  useNavigation,
+} from "@remix-run/react";
 import {
   decks,
   userDeckSubscriptions,
   deckCards,
   userCards,
 } from "../../db/schema";
-import React from "react";
+import React, { useEffect } from "react";
 import { z } from "zod";
 import { eq, and, asc } from "drizzle-orm";
 import { drizzle } from "../utils/db.server";
@@ -134,6 +139,16 @@ export default function DeckIndex() {
   const { allDecks, cardQuantity, userSubscriptions, isAuth } =
     useLoaderData<typeof loader>();
   const fetcher = useFetcher();
+  const navigation = useNavigation();
+  const isSubmitting = navigation.formData?.get("intent") === "createNewdeck";
+  const [createDeckIsOpen, setCreateDeckIsOpen] = React.useState(false);
+  const createDeckFormRef = React.useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    if (!isSubmitting) {
+      createDeckFormRef.current?.reset();
+    }
+  }, [isSubmitting]);
 
   if (!allDecks) {
     return <div>Decks not found.</div>;
@@ -146,7 +161,7 @@ export default function DeckIndex() {
       </div>
       {!isAuth ? (
         <>
-          <Form method="post" action="/login">
+          <Form ref={createDeckFormRef} method="post" action="/login">
             <button>Login</button>
           </Form>
           <Form method="post" action="/signup">
@@ -154,9 +169,30 @@ export default function DeckIndex() {
           </Form>
         </>
       ) : (
-        <Link to="/decks/createNewDeck" className="button create-deck">
-          Create New Deck
-        </Link>
+        <>
+          {!createDeckIsOpen ? (
+            <button
+              onClick={() => setCreateDeckIsOpen(!createDeckIsOpen)}
+              className="button create-deck"
+            >
+              Create Deck
+            </button>
+          ) : (
+            <Form
+              className=" create-form"
+              method="post"
+              action={`/decks/createNewDeck`}
+            >
+              <label>
+                <input name="deckName" />
+              </label>
+              <button type="submit">
+                <input type="hidden" name="intent" value="createNewDeck" />
+                {isSubmitting ? "Saving new deck..." : "Save Deck"}
+              </button>
+            </Form>
+          )}
+        </>
       )}
       <div className="deck-container">
         {allDecks.map((deck) => {
