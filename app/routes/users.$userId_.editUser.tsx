@@ -46,7 +46,7 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
     await db
       .update(users)
       .set({
-        email: parsedInput.data.userName,
+        userName: parsedInput.data.userName,
       })
       .where(eq(users.id, Number(params.userId)));
     return redirect(`/users/${params.userId}`);

@@ -116,15 +116,26 @@ export const decksRelations = relations(decks, ({ many }) => ({
   users: many(users, { relationName: "users" }),
 }));
 
-export const userDeckSubscriptions = pgTable("userDeckSubcriptions", {
-  id: serial("id").primaryKey(),
-  userID: integer("user_ID").references(() => users.id),
-  deckID: integer("deck_ID").references(() => decks.id, {
-    onDelete: "cascade",
-  }),
-  completion: integer("completion_status").default(0),
-  subscribed: boolean("subscribed_status").default(false),
-});
+export const userDeckSubscriptions = pgTable(
+  "userDeckSubcriptions",
+  {
+    id: serial("id").primaryKey(),
+    userID: integer("user_ID").references(() => users.id),
+    deckID: integer("deck_ID").references(() => decks.id, {
+      onDelete: "cascade",
+    }),
+    completion: integer("completion_status").default(0),
+    subscribed: boolean("subscribed_status").default(false),
+  },
+  (table) => {
+    return {
+      userIDCardIDIdx: uniqueIndex("user_id_deck_id_idx").on(
+        table.userID,
+        table.deckID
+      ),
+    };
+  }
+);
 
 export const userDeckSubcriptionsRelations = relations(
   userDeckSubscriptions,
