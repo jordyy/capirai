@@ -49,7 +49,7 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
         name: parsedInput.data.name,
       })
       .where(eq(decks.id, Number(params.deckId)));
-    return redirect(`/decks`);
+    return redirect(`/decks/${params.deckId}`);
   } catch (error) {
     console.log({ deck_edit_error: error });
     return json({ status: "error" });

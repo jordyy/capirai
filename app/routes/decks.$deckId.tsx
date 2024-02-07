@@ -2,7 +2,7 @@ import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { eq, asc, and, orderBy } from "drizzle-orm";
 import { Form, useLoaderData, Link } from "@remix-run/react";
-import React from "react";
+import React, { useState } from "react";
 
 import { drizzle } from "../utils/db.server";
 import {
@@ -150,8 +150,14 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
 export default function Deck({}) {
   const { deckId, deck, deckCardArr, userSubscriptions, numReviewed } =
     useLoaderData<typeof loader>();
+  const [isEditing, setIsEditing] = React.useState(false);
   const deckData = deck[0];
   const fetcher = useFetcher();
+  const deckName = deckData.name;
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
 
   const isSubscribed =
     Number(fetcher.formData?.get("deckId")) === deckId
@@ -160,7 +166,7 @@ export default function Deck({}) {
           (subscription) => subscription.deckID === deckId
         )?.subscribed;
 
-  if (!deckData) {
+  if (!deckData || !deckCardArr || !deckCardArr.length || !deckName) {
     return <div>Deck not found.</div>;
   }
   if (!deckCardArr) {
@@ -170,12 +176,28 @@ export default function Deck({}) {
   return (
     <div id="deck">
       <Outlet />
-      <h1 className="deck-name-edit">
-        {deckData.name}{" "}
-        <Link to={`/decks/${deckData.id}/edit`}>
-          <BorderColorRoundedIcon />
-        </Link>
-      </h1>
+      {isEditing ? (
+        <Form method="post" action={`/decks/${deckData.id}/edit`}>
+          <input
+            type="text"
+            defaultValue={deckName}
+            name="name"
+            aria-label="Deck Name"
+          />
+          <button type="submit">Save</button>
+          <button type="button" onClick={() => setIsEditing(false)}>
+            Cancel
+          </button>
+        </Form>
+      ) : (
+        <h1 className="deck-name-edit">
+          {deckData.name}{" "}
+          <button onClick={handleEditClick}>
+            <BorderColorRoundedIcon />
+          </button>
+        </h1>
+      )}
+
       <p>{`You have reviewed ${numReviewed}/${deckCardArr.length} cards.`}</p>
 
       <div className="deck-setting-section">
