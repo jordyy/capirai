@@ -68,8 +68,6 @@ export default function myDecks() {
     useLoaderData<typeof loader>();
   const fetcher = useFetcher();
 
-  console.log({ myDecks });
-
   return (
     <>
       <div className="nav-container">
