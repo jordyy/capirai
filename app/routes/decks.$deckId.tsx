@@ -177,37 +177,35 @@ export default function Deck({}) {
           (subscription) => subscription.deckID === deckId
         )?.subscribed;
 
-  if (!deckData || !deckCardArr || !deckCardArr.length || !deckName) {
-    return <div>Deck not found.</div>;
-  }
-  if (!deckCardArr) {
-    return <div>No cards in this deck.</div>;
+  if (!deckData || !deckName) {
+    return <div>No Cards in this Deck.</div>;
   }
 
   return (
     <div id="deck">
       <Outlet />
       {isEditing ? (
-        <div className="deck-name-edit">
-          <h1>
-            <Form method="post" action={`/decks/${deckId}/edit`}>
-              <input
-                type="text"
-                name="name"
-                value={editDeckName || ""}
-                aria-label="Deck Name"
-                onChange={(e) => setEditDeckName(e.target.value)}
-              />
-              <button type="submit" onClick={() => setIsEditing(false)}>
-                <input type="hidden" name="intent" value="save" />
-                {isSaving ? "Saving changes..." : "Save changes"}
-              </button>
-              <button onClick={() => navigate(-1)} type="button">
-                Cancel
-              </button>
-            </Form>
-          </h1>
-        </div>
+        <h1>
+          <Form
+            className="deck-name-edit edit-toggle"
+            method="post"
+            action={`/decks/${deckId}/edit`}
+          >
+            <input
+              type="text"
+              name="name"
+              value={editDeckName || ""}
+              aria-label="Deck Name"
+              onChange={(e) => setEditDeckName(e.target.value)}
+            />
+
+            <button type="submit" onClick={() => setIsEditing(false)}>
+              <input type="hidden" name="intent" value="save" />
+              {isSaving ? "Saving changes..." : "Save changes"}
+            </button>
+            <button onClick={() => setIsEditing(false)}>Cancel</button>
+          </Form>
+        </h1>
       ) : (
         <div className="deck-name-edit">
           <h1>{editDeckName}</h1>
@@ -221,7 +219,7 @@ export default function Deck({}) {
         </div>
       )}
 
-      <p>{`You have reviewed ${numReviewed}/${deckCardArr.length} cards.`}</p>
+      <p className="card-review-data">{`You have reviewed ${numReviewed}/${deckCardArr.length} cards.`}</p>
 
       <div className="deck-setting-section">
         <fetcher.Form method="POST">
@@ -274,7 +272,7 @@ export default function Deck({}) {
       </div>
       <div>
         {deckCardArr.length === 0 ? (
-          <div>This deck has no cards.</div>
+          <div className="card-review-data">This deck has no cards.</div>
         ) : (
           deckCardArr.map((card) => {
             return (

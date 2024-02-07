@@ -1,6 +1,7 @@
 import { json, redirect } from "@remix-run/node";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { Form, useNavigation } from "@remix-run/react";
+import React from "react";
 import { db } from "../../db/index";
 import { z } from "zod";
 import { decks } from "../../db/schema";
@@ -28,7 +29,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
         name: parsedInput.data.name,
       })
       .returning();
-    return redirect(`/decks/${deck[0].id}`);
+    return redirect(`/decks`);
   } catch (error) {
     console.error(error);
     return json({ status: "error", message: "Failed to create deck" });

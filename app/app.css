@@ -110,7 +110,7 @@ ul {
   margin: 40px;
   justify-content: center;
   align-items: center;
-  column-gap: 40px;
+  column-gap: 70px;
 }
 
 .understanding-container {
@@ -145,7 +145,11 @@ ul {
   align-content: center;
   padding: 10px;
   column-gap: 5px;
-  margin: 10px;
+  margin-bottom: 30px;
+}
+
+.edit-toggle {
+  margin-top: 50px;
 }
 
 .edit-button {
@@ -190,7 +194,7 @@ ul {
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  column-gap: 40px;
+  column-gap: 70px;
 }
 
 .edit-card-input-label {
@@ -246,10 +250,16 @@ button:hover,
   text-decoration: none;
 }
 
+.card-review-data {
+  text-align: center;
+  margin-top: 10px;
+}
+
 .deck-setting-section {
   display: flex;
   flex-direction: row-reverse;
-  justify-content: space-evenly;
+  column-gap: 70px;
+  justify-content: center;
   align-items: center;
   margin: 30px 0 30px 0;
 }
