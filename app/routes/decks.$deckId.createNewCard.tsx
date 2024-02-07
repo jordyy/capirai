@@ -1,6 +1,7 @@
 import { json } from "@remix-run/node";
 import type { LoaderFunctionArgs, ActionFunctionArgs } from "@remix-run/node";
 import { Form, useActionData, useNavigation } from "@remix-run/react";
+import React, { useEffect, useRef } from "react";
 import { db } from "../../db/index";
 import { drizzle } from "../utils/db.server";
 import { z } from "zod";
@@ -59,9 +60,18 @@ export default function CreateNewCard() {
   const navigation = useNavigation();
   const isSubmitting = navigation.formData?.get("intent") === "createCard";
   const errorMessage = data?.status === "error" ? data.message : null;
+  const addCardFormRef = useRef<HTMLFormElement>(null);
+  const cardFrontRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!isSubmitting) {
+      addCardFormRef.current?.reset();
+      cardFrontRef.current?.focus();
+    }
+  }, [isSubmitting]);
 
   return (
-    <Form method="post" className="create-form">
+    <Form ref={addCardFormRef} method="post" className="create-form">
       {errorMessage ? errorMessage : null}
       <label>
         front: <input name="front" />

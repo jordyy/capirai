@@ -2,7 +2,7 @@ import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { eq, asc, and, orderBy } from "drizzle-orm";
 import { Form, useLoaderData, Link } from "@remix-run/react";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import { drizzle } from "../utils/db.server";
 import {
@@ -178,7 +178,7 @@ export default function Deck({}) {
     <div id="deck">
       <Outlet />
       {isEditing ? (
-        <fetcher.Form method="post" action={`/decks/${deckData.id}/edit`}>
+        <Form method="post" action={`/decks/${deckData.id}/edit`}>
           <input
             type="text"
             defaultValue={deckName}
@@ -189,7 +189,7 @@ export default function Deck({}) {
           <button type="button" onClick={() => setIsEditing(false)}>
             Cancel
           </button>
-        </fetcher.Form>
+        </Form>
       ) : (
         <h1 className="deck-name-edit">
           {deckData.name}{" "}
