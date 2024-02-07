@@ -151,6 +151,7 @@ export default function Deck({}) {
   const { deckId, deck, deckCardArr, userSubscriptions, numReviewed } =
     useLoaderData<typeof loader>();
   const [isEditing, setIsEditing] = React.useState(false);
+  const [addCardIsOpen, setAddCardIsOpen] = React.useState(true);
   const deckData = deck[0];
   const fetcher = useFetcher();
   const deckName = deckData.name;
@@ -177,7 +178,7 @@ export default function Deck({}) {
     <div id="deck">
       <Outlet />
       {isEditing ? (
-        <Form method="post" action={`/decks/${deckData.id}/edit`}>
+        <fetcher.Form method="post" action={`/decks/${deckData.id}/edit`}>
           <input
             type="text"
             defaultValue={deckName}
@@ -188,7 +189,7 @@ export default function Deck({}) {
           <button type="button" onClick={() => setIsEditing(false)}>
             Cancel
           </button>
-        </Form>
+        </fetcher.Form>
       ) : (
         <h1 className="deck-name-edit">
           {deckData.name}{" "}
@@ -229,8 +230,13 @@ export default function Deck({}) {
           </button>
         </fetcher.Form>
         <Link
-          to={`/decks/${deckData.id}/createNewCard`}
+          to={
+            addCardIsOpen
+              ? `/decks/${deckData.id}/createNewCard`
+              : `/decks/${deckData.id}`
+          }
           className="button add-button"
+          onClick={() => setAddCardIsOpen(!addCardIsOpen)}
         >
           Add Card to Deck
         </Link>
