@@ -20,8 +20,9 @@ import {
 import { db } from "../db/index";
 import { z } from "zod";
 import { users } from "../db/schema";
+import React from "react";
 
-import appStylesHref from "./app.css";
+import appStylesHref from "../app/app.css";
 import { authCookie } from "./auth";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
@@ -70,6 +71,9 @@ export default function App() {
             </Link>
             <Link className="button" to={`/decks`}>
               Library
+            </Link>
+            <Link className="button" to={`/story-generator`}>
+              Reading
             </Link>
             <div className="profile-logout-button-group">
               <Link className="profile-button" to={`/users/${userID}`}>

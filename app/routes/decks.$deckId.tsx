@@ -194,7 +194,7 @@ export default function Deck({}) {
             <input
               type="text"
               name="name"
-              value={editDeckName || ""}
+              value={editDeckName || deckName}
               aria-label="Deck Name"
               onChange={(e) => setEditDeckName(e.target.value)}
             />
