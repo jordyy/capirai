@@ -72,7 +72,7 @@ export default function App() {
             <Link className="button" to={`/decks`}>
               Library
             </Link>
-            <Link className="button" to={`/story-generator`}>
+            <Link className="button" to={`/storyGen`}>
               Reading
             </Link>
             <div className="profile-logout-button-group">
