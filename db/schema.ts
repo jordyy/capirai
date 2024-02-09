@@ -129,7 +129,7 @@ export const userDeckSubscriptions = pgTable(
   },
   (table) => {
     return {
-      userIDCardIDIdx: uniqueIndex("user_id_deck_id_idx").on(
+      userIDDeckIDIdx: uniqueIndex("user_id_deck_id_idx").on(
         table.userID,
         table.deckID
       ),
