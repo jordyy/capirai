@@ -166,8 +166,6 @@ export const deckCardsRelations = relations(deckCards, ({ many }) => ({
   decks: many(decks),
 }));
 
-export const storyLengthEnum = pgEnum("length", ["short", "medium", "long"]);
-
 export const storyGenreEnum = pgEnum("genre", [
   "Mystery",
   "Historical Fiction",
@@ -193,7 +191,7 @@ export const storyGenreEnum = pgEnum("genre", [
 export const stories = pgTable("stories", {
   id: serial("id").primaryKey(),
   story: text("story"),
-  length: storyLengthEnum("length"),
+  length: text("length"),
   genre: storyGenreEnum("genre"),
   CEFR_level: CEFRlevelEnum("CEFR_level"),
   type: text("type"),

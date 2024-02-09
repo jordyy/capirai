@@ -452,6 +452,18 @@ a {
   color: #2c3333;
 }
 
+.story-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 20px;
+  background-color: #374040;
+  box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.4), 0 1px 2px hsla(0, 0%, 0%, 0.2);
+}
+
 outlet-container {
   height: 100%;
   /* width: 100%; */

@@ -1,47 +1,29 @@
 import { LoaderFunctionArgs, ActionFunctionArgs } from "@remix-run/node";
 import { Outlet, useLoaderData, Form } from "@remix-run/react";
 import React from "react";
-import {
-  decks,
-  userDeckSubscriptions,
-  deckCards,
-  cards,
-} from "../../db/schema";
 import { eq } from "drizzle-orm";
 import { drizzle } from "../utils/db.server";
+import { stories } from "../../db/schema";
 import { json } from "@remix-run/node";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   try {
-    const userSubscribedDeckCards = await drizzle
-      .select({
-        cardContent: cards.front,
-        deckID: decks.id,
-        deckName: decks.name,
-      })
-      .from(cards)
-      .innerJoin(deckCards, eq(cards.id, deckCards.cardID))
-      .innerJoin(decks, eq(deckCards.deckID, decks.id))
-      .innerJoin(
-        userDeckSubscriptions,
-        eq(decks.id, userDeckSubscriptions.deckID)
-      );
-
-    return json({
-      userSubscribedDeckCards,
-    } as const);
+    const existingStories = await drizzle.select().from(stories);
+    return json(existingStories);
   } catch (error) {
-    console.error("Loader error:", error);
-    throw new Response("Error loading deck", { status: 500 });
+    console.log({ story_loader_error: error });
+    return json({ status: "error" });
   }
 }
 
 export default function StoryGenerator() {
-  // const userSubscribedDeckCards = useLoaderData<typeof loader>();
+  const existingStories = useLoaderData<typeof loader>();
+
+  console.log({ existingStories });
 
   return (
     <>
-      <h1>Storytime</h1>
+      <h1>Story Time!</h1>
       <Outlet />
       <Form method="post" className="create-form" action={"/storyGen/story"}>
         <label htmlFor="storyLength">Story Length</label>
@@ -55,27 +37,25 @@ export default function StoryGenerator() {
         <label htmlFor="genre">Genre</label>
         <select name="genre">
           <option value="">Genre</option>
-          <option value="mystery">Mystery</option>
-          <option value="historical fiction">Historical Fiction</option>
-          <option value="romance">Romance</option>
-          <option value="humor">Humor</option>
-          <option value="true crime">True Crime</option>
-          <option value="adventure">Adventure</option>
-          <option value="fantasy">Fantasy</option>
-          <option value="folklore">Folklore</option>
-          <option value="fable">Fable</option>
-          <option value="fairy tale">Fairy Tale</option>
-          <option value="drama">Drama</option>
-          <option value="western">Western</option>
-          <option value="dystopian fiction">Dystopian Fiction</option>
-          <option value="legend">Legend</option>
-          <option value="realistic fiction">Realistic Fition</option>
-          <option value="tall tale">Tall Tale</option>
-          <option value="biographical about an Italian cultural figure">
-            Biographical
-          </option>
-          <option value="coming-of-age">Coming-of-age</option>
-          <option value="science fiction">Science Fiction</option>
+          <option value="Mystery">Mystery</option>
+          <option value="Historical Fiction">Historical Fiction</option>
+          <option value="Romance">Romance</option>
+          <option value="Humor">Humor</option>
+          <option value="True Crime">True Crime</option>
+          <option value="Adventure">Adventure</option>
+          <option value="Fantasy">Fantasy</option>
+          <option value="Folklore">Folklore</option>
+          <option value="Fable">Fable</option>
+          <option value="Fairy Tale">Fairy Tale</option>
+          <option value="Drama">Drama</option>
+          <option value="Western">Western</option>
+          <option value="Dystopian Fiction">Dystopian Fiction</option>
+          <option value="Legend">Legend</option>
+          <option value="Realistic Fiction">Realistic Fition</option>
+          <option value="Tall Tale">Tall Tale</option>
+          <option value="Biographical">Biographical</option>
+          <option value="Coming-of-age">Coming-of-age</option>
+          <option value="Science Fiction">Science Fiction</option>
         </select>
 
         <label htmlFor="cefrLevel">Level</label>
