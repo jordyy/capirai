@@ -58,7 +58,7 @@ export default function StoryGenerator() {
           <option value="mystery">Mystery</option>
           <option value="historical fiction">Historical Fiction</option>
           <option value="romance">Romance</option>
-          <option value="humor">Humore</option>
+          <option value="humor">Humor</option>
           <option value="true crime">True Crime</option>
           <option value="adventure">Adventure</option>
           <option value="fantasy">Fantasy</option>

@@ -165,3 +165,64 @@ export const deckCardsRelations = relations(deckCards, ({ many }) => ({
   cards: many(cards),
   decks: many(decks),
 }));
+
+export const storyLengthEnum = pgEnum("length", ["short", "medium", "long"]);
+
+export const storyGenreEnum = pgEnum("genre", [
+  "Mystery",
+  "Historical Fiction",
+  "Romance",
+  "Humor",
+  "True Crime",
+  "Adventure",
+  "Fantasy",
+  "Folklore",
+  "Fable",
+  "Fairy Tale",
+  "Drama",
+  "Western",
+  "Dystopian Fiction",
+  "Legend",
+  "Realistic Fiction",
+  "Tall Tale",
+  "Biographical",
+  "Coming-of-age",
+  "Science Fiction",
+]);
+
+export const stories = pgTable("stories", {
+  id: serial("id").primaryKey(),
+  story: text("story"),
+  length: storyLengthEnum("length"),
+  genre: storyGenreEnum("genre"),
+  CEFR_level: CEFRlevelEnum("CEFR_level"),
+  type: text("type"),
+});
+
+export const userStories = pgTable(
+  "userStories",
+  {
+    id: serial("id").primaryKey(),
+    userID: integer("user_ID").references(() => users.id),
+    storiesID: integer("stories_ID").references(() => stories.id),
+  },
+  (table) => {
+    return {
+      userIDStoriesIDIdx: uniqueIndex("user_id_stories_id_idx").on(
+        table.userID,
+        table.storiesID
+      ),
+    };
+  }
+);
+
+export const userStoriesRelations = relations(userStories, ({ one }) => ({
+  card: one(stories, {
+    fields: [userStories.storiesID],
+    references: [stories.id],
+  }),
+  user: one(users, {
+    fields: [userStories.storiesID],
+    references: [users.id],
+  }),
+}));

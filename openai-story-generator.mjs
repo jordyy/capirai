@@ -15,7 +15,7 @@ export async function GenerateStory({ storyLength, genre, cefrLevel }) {
         },
         {
           role: "user",
-          content: `Tell me a ${storyLength}, ${genre} story at a ${cefrLevel} level of Italian using as much colloquial italian as is natural within the story.`,
+          content: `In the following format -- Story: Tell me a ${storyLength}, ${genre} story at a ${cefrLevel} level of Italian using as much colloquial italian as is natural within the story. Explanation: In addition to the story itself, include a brief explanation of any colloquial phrases used and their meanings. Include all of the values that were passed into the story request in the response like this: storyLength: storyLength, genre: genre, cefrLevel: cefrLevel.`,
         },
       ],
       model: "gpt-3.5-turbo-1106",
