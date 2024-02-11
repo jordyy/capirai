@@ -48,6 +48,16 @@ h6 {
   overflow-wrap: break-word;
 }
 
+form > label {
+  display: block;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 50px;
+  color: #afbae0;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
 #root,
 #__next {
   isolation: isolate;
@@ -221,20 +231,36 @@ button,
 .create-form {
   display: flex;
   flex-direction: column;
-  row-gap: 10px;
-  column-gap: 10px;
+  row-gap: 30px;
   color: #afbae0;
   font-weight: 500;
   min-width: 25%;
-  padding: 10px 5px;
+  padding: 10px 15px;
   align-items: center;
   align-content: center;
   border-radius: 20px;
   background-color: #374040;
+  appearance: none;
 }
 
-/* .create-form-label {
-} */
+.create-form-section {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  align-items: center;
+  align-content: center;
+  padding: 10px 5px;
+  border-radius: 20px;
+  background-color: #374040;
+}
+
+.create-story-label {
+  font-weight: 500;
+  color: #acbc21;
+  font-size: 15px;
+  text-transform: uppercase;
+}
+
 input {
   align-items: center;
 }
@@ -462,6 +488,12 @@ a {
   border-radius: 20px;
   background-color: #374040;
   box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.4), 0 1px 2px hsla(0, 0%, 0%, 0.2);
+}
+
+.generate-button {
+  background-color: #acbc21;
+  margin: 16px;
+  color: #2c3333;
 }
 
 outlet-container {
