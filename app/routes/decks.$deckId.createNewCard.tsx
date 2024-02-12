@@ -73,13 +73,15 @@ export default function CreateNewCard() {
   return (
     <Form ref={addCardFormRef} method="post" className="create-form">
       {errorMessage ? errorMessage : null}
-      <label>
-        front: <input name="front" />
-      </label>
-      <label>
-        back: <input name="back" />
-      </label>
-      <button type="submit">
+      <div className="create-card-section">
+        <label>front</label>
+        <input name="front" />
+      </div>
+      <div className="create-card-section">
+        <label>back</label>
+        <input name="back" />
+      </div>
+      <button type="submit" className="add-button">
         <input type="hidden" name="intent" value="createCard" />
         {isSubmitting ? "Saving new card..." : "Add card"}
       </button>

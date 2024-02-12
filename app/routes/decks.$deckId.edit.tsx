@@ -38,6 +38,8 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
     name: name,
   });
 
+  console.log({ parsedInput });
+
   if (!parsedInput.success) {
     return json({ error: parsedInput.error }, { status: 400 });
   }

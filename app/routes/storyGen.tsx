@@ -1,12 +1,18 @@
-import { Outlet, Form } from "@remix-run/react";
+import { Outlet, Form, useNavigation } from "@remix-run/react";
 import React from "react";
 
 export default function StoryGenerator() {
+  const navigation = useNavigation();
+  const isLoading = navigation.formData?.get("intent") === "generateStory";
   return (
     <>
       <h1 className="nav-container">Story Time!</h1>
       <Outlet />
-      <Form method="post" className="create-form" action={"/storyGen/story"}>
+      <Form
+        method="post"
+        className="create-form story-form-box"
+        action={"/storyGen/story"}
+      >
         <div className="create-form-section">
           <label htmlFor="storyLength" className="create-story-label">
             Story Length
@@ -63,7 +69,8 @@ export default function StoryGenerator() {
         </div>
 
         <button className="button generate-button" type="submit">
-          Generate Story
+          <input type="hidden" name="intent" value="generateStory" />
+          {!isLoading ? "Generate Story" : "Generating..."}
         </button>
       </Form>
     </>

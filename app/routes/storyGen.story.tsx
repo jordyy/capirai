@@ -15,7 +15,7 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
 
   if (!storyLength || !genre || !cefrLevel) {
     return json(
-      { error: "Invalid form data, each criteria must be selected" },
+      { error: "Invalid form data, each criterion must be selected" },
       { status: 400 }
     );
   }
@@ -104,10 +104,10 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
             CEFR_level: storyResponse.cefrLevel,
           })
           .returning();
-        response = { story: storyResponse, error: null };
+        response = { data: storyResponse, error: null };
       }
     } else {
-      response = { story: searchStories, error: null };
+      response = { data: searchStories, error: null };
     }
     return json(response);
   } catch (error) {
@@ -119,15 +119,28 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
 };
 
 export default function Story() {
-  const { story, error } = useActionData<typeof action>() || {};
+  const { data, error } = useActionData<typeof action>() || {};
 
-  console.log({ story });
+  const mappedStories =
+    data.length > 1 ? data?.map((story) => story.story) : null;
 
   return (
     <>
-      {story?.story && <p className="story-box">{story?.story}</p>}
-
-      {error && <p>Failed to generate story</p>}
+      {!error ? (
+        <div>
+          {data && data.length > 1 ? (
+            mappedStories.map((story) => (
+              <div key={story} className="story-box">
+                {story}
+              </div>
+            ))
+          ) : (
+            <div className="story-box">{data?.story}</div>
+          )}
+        </div>
+      ) : (
+        <div>Failed to generate story</div>
+      )}
     </>
   );
 }

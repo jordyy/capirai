@@ -228,19 +228,39 @@ button,
   font-weight: 600;
 }
 
+.create-card-section {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.create-card-section > input {
+  background-color: #495656;
+}
+
 .create-form {
   display: flex;
   flex-direction: column;
   row-gap: 30px;
   color: #afbae0;
   font-weight: 500;
-  min-width: 25%;
-  padding: 10px 15px;
+  padding: 15px 20px;
+  margin: auto;
+  width: 300px;
   align-items: center;
   align-content: center;
   border-radius: 20px;
   background-color: #374040;
   appearance: none;
+}
+
+.story-form-box {
+  min-width: fit-content;
+  max-width: 500px;
+  margin: auto;
+  padding: 25px 50px;
 }
 
 .create-form-section {
@@ -263,6 +283,7 @@ button,
 
 input {
   align-items: center;
+  padding: 10px;
 }
 
 form > button {
