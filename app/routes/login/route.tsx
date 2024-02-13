@@ -117,10 +117,17 @@ export default function LoginForm() {
 
   return (
     <>
-      <Form method="post">
+      <Form method="post" className="login-form">
         {errorMessage ? <div className="error">{errorMessage}</div> : null}
-        <label>
-          email:{" "}
+        <div className="login-group">
+          <label>
+            email{" "}
+            {emailError && (
+              <span role="alert" className="error">
+                {emailError}
+              </span>
+            )}
+          </label>
           <input
             name="email"
             type="email"
@@ -128,21 +135,18 @@ export default function LoginForm() {
             autoComplete="email"
             required
           />
-          {emailError && (
-            <span role="alert" className="error">
-              {emailError}
-            </span>
-          )}
-        </label>
-        <label>
-          password:{" "}
+        </div>
+        <div className="login-group">
+          <label>
+            password{" "}
+            {passwordError && (
+              <span role="alert" className="error">
+                {passwordError}
+              </span>
+            )}
+          </label>
           <input name="password" type="password" id="password" required />
-          {passwordError && (
-            <span role="alert" className="error">
-              {passwordError}
-            </span>
-          )}
-        </label>
+        </div>
         <button type="submit">login</button>
       </Form>
     </>

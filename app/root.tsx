@@ -85,7 +85,9 @@ export default function App() {
             </div>
           </div>
         ) : (
-          <Link to="/signup"></Link>
+          <div className="nav-container">
+            <Link to="/signup"></Link>
+          </div>
         )}
         <div className="outlet-container">
           <Outlet />

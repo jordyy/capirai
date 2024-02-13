@@ -161,12 +161,14 @@ export default function DeckIndex() {
       </div>
       {!isAuth ? (
         <>
-          <Form ref={createDeckFormRef} method="post" action="/login">
-            <button>Login</button>
-          </Form>
-          <Form method="post" action="/signup">
-            <button>Signup</button>
-          </Form>
+          <div className="nav-container">
+            <Form ref={createDeckFormRef} method="post" action="/login">
+              <button>Login</button>
+            </Form>
+            <Form method="post" action="/signup">
+              <button>Signup</button>
+            </Form>
+          </div>
         </>
       ) : (
         <>

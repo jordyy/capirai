@@ -150,25 +150,25 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
   }
 };
 
-// export default function UpdateUserCard({}) {
-//   const { understanding, userCardId, userCard } =
-//     useLoaderData<typeof loader>();
+export default function UpdateUserCard({}) {
+  const { understanding, userCardId, userCard } =
+    useLoaderData<typeof loader>();
 
-//   console.log({ understanding });
+  console.log({ understanding });
 
-//   return (
-//     <Form method="post">
-//       <p>
-//         <div className="edit-userCard-input-label">Understanding:</div>
-//         <input
-//           defaultValue={`${understanding}`}
-//           aria-label="understanding"
-//           name="understanding"
-//           type="submit"
-//           placeholder="understanding"
-//           id="understanding"
-//         />
-//       </p>
-//     </Form>
-//   );
-// }
+  return (
+    <Form method="post">
+      <p>
+        <div className="edit-userCard-input-label">Understanding:</div>
+        <input
+          defaultValue={`${understanding}`}
+          aria-label="understanding"
+          name="understanding"
+          type="submit"
+          placeholder="understanding"
+          id="understanding"
+        />
+      </p>
+    </Form>
+  );
+}
