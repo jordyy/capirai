@@ -103,6 +103,7 @@ form > label {
 .user-container {
   display: flex;
   flex-direction: row;
+  color: #fff;
   justify-content: space-between;
   align-items: center;
   column-gap: 10px;
@@ -122,6 +123,7 @@ form > label {
 
 .error {
   color: red;
+  background-color: #333333;
   font-size: 0.8em;
   margin-top: 5px;
   display: block;
@@ -139,6 +141,7 @@ ul {
   display: flex;
   flex-direction: row;
   margin: 40px;
+  color: #fff;
   justify-content: center;
   align-items: center;
   column-gap: 70px;
