@@ -71,7 +71,7 @@ export default function myDecks() {
   return (
     <>
       <div className="nav-container">
-        <h1>{isAuth ? "My Decks" : "Library"}</h1>
+        <h1>{isAuth ? "Decks" : "Library"}</h1>
       </div>
       {!isAuth ? (
         redirect("/decks")

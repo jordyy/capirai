@@ -26,12 +26,20 @@ import { getAuthCookie, requireAuthCookie } from "../auth";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const userId = await getAuthCookie(request);
+
+  if (userId === null || !userId) {
+    throw redirect("/login");
+  }
+
   const allDecks = await drizzle
     .select()
     .from(decks)
     .leftJoin(
       userDeckSubscriptions,
-      eq(decks.id, userDeckSubscriptions.deckID)
+      and(
+        eq(decks.id, userDeckSubscriptions.deckID),
+        eq(userDeckSubscriptions.userID, userId)
+      )
     );
 
   if (!userId) {

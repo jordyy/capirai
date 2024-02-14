@@ -119,35 +119,51 @@ export default function LoginForm() {
     <>
       <Form method="post" className="login-form">
         {errorMessage ? <div className="error">{errorMessage}</div> : null}
+
+        {emailError && (
+          <span role="alert" className="error">
+            {emailError}
+          </span>
+        )}
+
+        <h1 className="top-of-login">Login</h1>
+
+        <input
+          name="email"
+          placeholder="you@email.com"
+          type="email"
+          id="email"
+          aria-label="Email"
+          autoComplete="email"
+          required
+        />
+
+        {passwordError && (
+          <span role="alert" className="error">
+            {passwordError}
+          </span>
+        )}
+
+        <input
+          placeholder="password"
+          aria-label="password"
+          name="password"
+          type="password"
+          id="password"
+          className="login-input"
+          required
+        />
+
         <div className="login-group">
-          <label>
-            email{" "}
-            {emailError && (
-              <span role="alert" className="error">
-                {emailError}
-              </span>
-            )}
-          </label>
-          <input
-            name="email"
-            type="email"
-            id="email"
-            autoComplete="email"
-            required
-          />
+          <button className="login-button" type="submit">
+            Login
+          </button>
+          <button className="signup-button">
+            <a href="/signup" className="signup-button">
+              Create an Account
+            </a>
+          </button>
         </div>
-        <div className="login-group">
-          <label>
-            password{" "}
-            {passwordError && (
-              <span role="alert" className="error">
-                {passwordError}
-              </span>
-            )}
-          </label>
-          <input name="password" type="password" id="password" required />
-        </div>
-        <button type="submit">login</button>
       </Form>
     </>
   );
