@@ -52,7 +52,7 @@ form > label {
   display: block;
   font-weight: 600;
   padding: 4px 8px;
-  border-radius: 50px;
+  border-radius: 20px;
   color: #fff;
   text-transform: uppercase;
   margin-bottom: 5px;
@@ -70,17 +70,9 @@ form > label {
 }
 
 .top-of-login {
-  border-top-right-radius: 50px;
-  border-top-left-radius: 50px;
-  width: 550px;
-  text-align: center;
-  /* text-transform: uppercase; */
-  color: #1f1f1f;
-  height: 150px;
-  padding: 50px;
-  margin-top: -20px;
-  margin-bottom: 25px;
-  background: linear-gradient(#B4E4DA, #369681);  box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.4), 0 1px 2px hsla(0, 0%, 0%, 0.2);
+color: #5c5c5c;
+align-self: flex-start;
+
 }
 
 .login-form {
@@ -90,10 +82,10 @@ form > label {
   align-items: center;
   row-gap: 48px;
   min-width: 550px;
-  min-height: 575px;
+  min-height: 450px;
   padding: 20px 75px 0px 75px;
   margin: auto;
-  border-radius: 50px;
+  border-radius: 20px;
   box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.4), 0 1px 2px hsla(0, 0%, 0%, 0.2);
   width: 400px;
 }
@@ -105,10 +97,10 @@ form > label {
   align-items: center;
   row-gap: 48px;
   min-width: 550px;
-  min-height: 700px;
+  min-height: 600px;
   padding: 20px 75px 0px 75px;
   margin: auto;
-  border-radius: 50px;
+  border-radius: 20px;
   box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.4), 0 1px 2px hsla(0, 0%, 0%, 0.2);
   width: 400px;
 }
@@ -128,7 +120,7 @@ form > label {
   width: 200px;
   font-size: 18px;
   border: 1px solid #3696816a;
-  border-radius: 50px;
+  border-radius: 10px;
   color: #fff;
 
 }
@@ -136,6 +128,7 @@ form > label {
   background-color: #369681;
   padding: 5px 50px;
   width: 200px;
+  border-radius: 10px;
   font-size: 18px;
   color: #fff;
 }
@@ -146,7 +139,7 @@ form > label {
   width: 200px;
   font-size: 18px;
   border: 1px solid #3696816a;
-  border-radius: 50px;
+  border-radius: 10px;
   color: #fff;
 
 }
@@ -154,6 +147,7 @@ form > label {
   background-color: #369681;
   padding: 5px;
   width: 200px;
+  border-radius: 10px;
   font-size: 18px;
   color: #fff;
 }
@@ -293,7 +287,7 @@ ul {
   background-color: #333333;
   color: #fff;
   font-weight: 600;
-  border-radius: 100px;
+  border-radius: 10px;
   text-decoration: none;
 }
 
@@ -316,7 +310,7 @@ button,
   font-size: 1rem;
   border: none;
   text-decoration: none;
-  border-radius: 50px;
+  border-radius: 10px;
   padding: 4px 8px;
   box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.2), 0 1px 2px hsla(0, 0%, 0%, 0.2);
   background-color: #333333;
@@ -447,7 +441,7 @@ button:active,
   text-decoration: none;
   height: 50px;
   min-width: 50px;
-  border-radius: 100px;
+  border-radius: 10px;
   padding: 15px;
   margin: 15px;
   background-color: transparent;
@@ -474,7 +468,7 @@ button:active,
   font-weight: 500;
   font-size: 25px;
   color: #fff;
-  border-radius: 50px;
+  border-radius: 20px;
 }
 
 .study-deck {
@@ -487,7 +481,7 @@ button:active,
   color: #333333;
   background-color: #f1ab86;
   width: 200px;
-  border-radius: 50px;
+  border-radius: 20px;
   box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.4), 0 1px 2px hsla(0, 0%, 0%, 0.2);
   text-align: center;
   padding: 5px;
@@ -500,7 +494,7 @@ button:active,
   justify-content: center;
   row-gap: 60px;
   background-color: #333333;
-  border-radius: 50px;
+  border-radius: 20px;
   min-width: 330px;
   margin: 15px;
   text-align: center;
@@ -550,7 +544,7 @@ div > p {
   outline: 5px solid rgb(59, 96, 228);
   /* outline-offset: -10px; */
   /* border: 4px solid #3b60e4; */
-  border-radius: 100px;
+  border-radius: 20px;
   min-height: 400px;
   min-width: 500px;
   justify-self: center;
