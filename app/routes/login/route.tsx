@@ -155,13 +155,12 @@ export default function LoginForm() {
         />
 
         <div className="login-group">
-          <button className="login-button" type="submit">
+          <a href="/signup" className="login-secondary-button">
+            Create an Account
+          </a>
+
+          <button className="login-active-button" type="submit">
             Login
-          </button>
-          <button className="signup-button">
-            <a href="/signup" className="signup-button">
-              Create an Account
-            </a>
           </button>
         </div>
       </Form>

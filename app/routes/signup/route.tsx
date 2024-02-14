@@ -37,7 +37,10 @@ export async function action({ request }: ActionFunctionArgs) {
     errors.userName = "You must create a username";
   }
   if (Object.keys(errors).length) {
-    return json({ status: "error", errors });
+    return json({
+      status: "error",
+      errorMessage: { userName, email, password },
+    });
   }
 
   // parse userName formData to ensure type safety
@@ -45,8 +48,7 @@ export async function action({ request }: ActionFunctionArgs) {
   if (!parsedInput.success) {
     return json({
       status: "error",
-      error: parsedInput.error,
-      message: parsedInput.error.message,
+      message: "Invalid username or email",
     });
   }
   const newUser = await db
@@ -75,22 +77,38 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export default function SignupForm() {
-  const actionData = useActionData<typeof action>();
+  const actionData = useActionData<{
+    status: string;
+    errorMessage?: {
+      userName: string;
+      email: string;
+      password: string;
+    };
+    message?: string;
+  }>();
   const navigation = useNavigation();
   const isSubmitting = navigation.formAction === "/users/createUserAccount";
-  const userNameError = actionData?.errors?.userName;
-  const emailError = actionData?.errors?.email;
-  const passwordError = actionData?.errors?.password;
+  const userNameError = actionData?.errorMessage?.userName;
+  const emailError = actionData?.errorMessage?.email;
+  const passwordError = actionData?.errorMessage?.password;
 
   const errorMessage =
-    actionData?.status === "error" ? actionData.message : null;
+    actionData?.status === "error" ? actionData?.message : null;
 
   return (
     <>
-      <Form method="post">
-        {errorMessage ? errorMessage : null}
+      <Form method="post" className="signup-form">
+        <h1 className="top-of-login">Create an account</h1>
+        {errorMessage ? <div className="error">{errorMessage}</div> : null}
         <label>
-          username: <input name="userName" type="text" id="userName" required />
+          <input
+            aria-label="username"
+            placeholder="username"
+            name="userName"
+            type="text"
+            id="userName"
+            required
+          />
           {userNameError && (
             <span role="alert" className="error">
               {userNameError}
@@ -98,11 +116,12 @@ export default function SignupForm() {
           )}
         </label>
         <label>
-          email:{" "}
           <input
             name="email"
             type="email"
             id="email"
+            aria-label="email"
+            placeholder="email@domain.com"
             autoComplete="email"
             required
           />
@@ -113,17 +132,28 @@ export default function SignupForm() {
           )}
         </label>
         <label>
-          password:{" "}
-          <input name="password" type="password" id="password" required />
+          <input
+            name="password"
+            aria-label="password"
+            placeholder="password"
+            type="password"
+            id="password"
+            required
+          />
           {passwordError && (
             <span role="alert" className="error">
               {passwordError}
             </span>
           )}
         </label>
-        <button type="submit">
-          {isSubmitting ? "Creating new account..." : "Create Account"}
-        </button>
+        <div className="login-group">
+          <a href="/login" className="login-secondary-button">
+            Login
+          </a>
+          <button type="submit" className="signup-active-button">
+            {isSubmitting ? "Creating new account..." : "Create Account"}
+          </button>
+        </div>
       </Form>
     </>
   );

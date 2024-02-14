@@ -70,17 +70,17 @@ form > label {
 }
 
 .top-of-login {
-  background-color: #63c7b18d;
   border-top-right-radius: 50px;
   border-top-left-radius: 50px;
-  width: 700px;
+  width: 550px;
   text-align: center;
-  text-transform: uppercase;
-  color: #292929;
+  /* text-transform: uppercase; */
+  color: #1f1f1f;
   height: 150px;
   padding: 50px;
-  margin-top: -30px;
-  margin-bottom: 50px;
+  margin-top: -20px;
+  margin-bottom: 25px;
+  background: linear-gradient(#B4E4DA, #369681);  box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.4), 0 1px 2px hsla(0, 0%, 0%, 0.2);
 }
 
 .login-form {
@@ -89,9 +89,24 @@ form > label {
   flex-direction: column;
   align-items: center;
   row-gap: 48px;
-  min-width: 700px;
-  min-height: 600px;
-  padding: 30px;
+  min-width: 550px;
+  min-height: 575px;
+  padding: 20px 75px 0px 75px;
+  margin: auto;
+  border-radius: 50px;
+  box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.4), 0 1px 2px hsla(0, 0%, 0%, 0.2);
+  width: 400px;
+}
+
+.signup-form {
+  background-color: #292929;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 48px;
+  min-width: 550px;
+  min-height: 700px;
+  padding: 20px 75px 0px 75px;
   margin: auto;
   border-radius: 50px;
   box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.4), 0 1px 2px hsla(0, 0%, 0%, 0.2);
@@ -107,24 +122,44 @@ form > label {
   color: #fff;
 }
 
-.login-button {
-  padding: 15px;
+.login-secondary-button {
+  padding: 5px;
+  text-align: center;
+  width: 200px;
   font-size: 18px;
-  background-color: #3d3d3d;
+  border: 1px solid #3696816a;
+  border-radius: 50px;
   color: #fff;
 
 }
-.signup-button {
-  background-color: #63C7B2;
-  padding: 15px;
+.login-active-button {
+  background-color: #369681;
+  padding: 5px 50px;
+  width: 200px;
   font-size: 18px;
   color: #fff;
-  background-color: ;
 }
 
-#email, #password {
+.signup-secondary-button {
+  padding: 5px 50px;
+  text-align: center;
+  width: 200px;
+  font-size: 18px;
+  border: 1px solid #3696816a;
+  border-radius: 50px;
+  color: #fff;
+
+}
+.signup-active-button {
+  background-color: #369681;
+  padding: 5px;
+  width: 200px;
+  font-size: 18px;
+  color: #fff;
+}
+
+#email, #password, #userName {
   background-color: #333333;
-  margin-left: 20px;
   padding: 20px;
   min-width: 500px;
 }
