@@ -5,7 +5,12 @@ import {
   redirect,
 } from "@remix-run/node";
 import { useLoaderData, useActionData, useNavigation } from "@remix-run/react";
-import { decks, deckCards } from "../../../db/schema";
+import {
+  decks,
+  deckCards,
+  userDeckSubcriptionsRelations,
+  users,
+} from "../../../db/schema";
 import { db } from "../../../db/index";
 import { z } from "zod";
 import { eq, and } from "drizzle-orm";
@@ -21,14 +26,6 @@ import DoubleArrowRoundedIcon from "@mui/icons-material/DoubleArrowRounded";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const userId = await getAuthCookie(request);
-
-  const myDecks = await drizzle
-    .select()
-    .from(decks)
-    .innerJoin(
-      userDeckSubscriptions,
-      eq(decks.id, userDeckSubscriptions.deckID)
-    );
 
   const myDeckCardIds = await drizzle
     .select({ deckCardID: deckCards.id, deckId: deckCards.deckID })
@@ -54,7 +51,8 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const userSubscriptions = await drizzle
     .select()
     .from(userDeckSubscriptions)
-    .where(eq(userDeckSubscriptions.userID, userId));
+    .where(eq(userDeckSubscriptions.userID, userId))
+    .innerJoin(decks, eq(decks.id, userDeckSubscriptions.deckID));
   return json({
     myDecks,
     isAuth: true,
@@ -64,7 +62,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 }
 
 export default function myDecks() {
-  const { myDecks, userSubscriptions, isAuth, myDeckCardIds } =
+  const { userSubscriptions, isAuth, myDeckCardIds } =
     useLoaderData<typeof loader>();
   const fetcher = useFetcher();
 
@@ -78,13 +76,13 @@ export default function myDecks() {
       ) : (
         <div>
           <div className="deck-container">
-            {myDecks.map((deck) => {
-              const isSubscribed =
-                Number(fetcher.formData?.get("deckId")) === deck.decks.id
-                  ? Boolean(fetcher.formData?.get("subscribe"))
-                  : userSubscriptions?.find(
-                      (subscription) => subscription.deckID === deck.decks.id
-                    )?.subscribed;
+            {userSubscriptions.map((deck) => {
+              const isSubscribed = userSubscriptions
+                ? userSubscriptions.map(
+                    (userSubscription) =>
+                      userSubscription.userDeckSubcriptions.subscribed
+                  )
+                : null;
               return (
                 <div key={deck.decks.id}>
                   {isSubscribed ? (
