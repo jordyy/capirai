@@ -98,8 +98,8 @@ export default function SignupForm() {
   return (
     <>
       <Form method="post" className="signup-form">
-        <h1 className="top-of-login">Create an account</h1>
         {errorMessage ? <div className="error">{errorMessage}</div> : null}
+        <div className="top-of-login">Create Account</div>
         <label>
           <input
             aria-label="username"

@@ -66,16 +66,17 @@ export default function myDecks() {
     useLoaderData<typeof loader>();
   const fetcher = useFetcher();
 
+  console.log({ userSubscriptions, isAuth, myDeckCardIds });
+
   return (
     <>
-      <div className="nav-container">
-        <h1>{isAuth ? "Decks" : "Library"}</h1>
-      </div>
+      {/* <div className="nav-container"></div> */}
+      <h1 className="page-heading">{isAuth ? "My Decks" : "Library"}</h1>
       {!isAuth ? (
         redirect("/decks")
       ) : (
         <div>
-          <div className="deck-container">
+          <div>
             {userSubscriptions.map((deck) => {
               const isSubscribed = userSubscriptions
                 ? userSubscriptions.map(
@@ -84,7 +85,7 @@ export default function myDecks() {
                   )
                 : null;
               return (
-                <div key={deck.decks.id}>
+                <div key={deck.decks.id} className="deck-container">
                   {isSubscribed ? (
                     <div key={deck.decks.id} className="deck-box">
                       <Link
@@ -99,7 +100,7 @@ export default function myDecks() {
                           className="study-deck"
                         >
                           Study deck{" "}
-                          {<DoubleArrowRoundedIcon sx={{ fontSize: 30 }} />}
+                          {<DoubleArrowRoundedIcon sx={{ fontSize: 16 }} />}
                         </Link>
                       ) : (
                         <div>This deck has no cards.</div>

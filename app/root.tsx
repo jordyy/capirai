@@ -21,6 +21,10 @@ import { db } from "../db/index";
 import { z } from "zod";
 import { users } from "../db/schema";
 import React from "react";
+import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
+import ImportRoundedIcon from "@mui/icons-material/ImportContactsRounded";
+import PermIdentityRoundedIcon from "@mui/icons-material/PermIdentityRounded";
+import LibraryBooksRoundedIcon from "@mui/icons-material/LibraryBooksRounded";
 
 import appStylesHref from "../app/app.css";
 import { authCookie } from "./auth";
@@ -66,22 +70,22 @@ export default function App() {
       <body>
         {userID ? (
           <div className="nav-container">
-            <Link to={`/home`}>
-              <button type="submit">My Decks</button>
+            <Link className="nav-button" to={`/home`}>
+              <HomeRoundedIcon />
             </Link>
-            <Link className="button" to={`/decks`}>
-              Library
+            <Link className="nav-button" to={`/decks`}>
+              <LibraryBooksRoundedIcon />
             </Link>
-            <Link className="button" to={`/storyGen`}>
-              Reading
+            <Link className="nav-button" to={`/storyGen`}>
+              <ImportRoundedIcon />
             </Link>
             <div className="profile-logout-button-group">
-              <Link className="profile-button" to={`/users/${userID}`}>
-                Profile
+              <Link className="nav-button" to={`/users/${userID}`}>
+                <PermIdentityRoundedIcon />
               </Link>
-              <Form method="post" action="/logout">
+              {/* <Form method="post" action="/logout">
                 <button>Logout</button>
-              </Form>
+              </Form> */}
             </div>
           </div>
         ) : (
