@@ -697,10 +697,11 @@ button,
 .create-form {
   display: flex;
   flex-direction: column;
-  row-gap: 32px;
+  row-gap: 24px;
+  padding: 4px;
   color: #fff;
   font-weight: 500;
-  padding: 16px 24px;
+  /* padding: 16px 24px; */
   margin: auto;
   width: 256px;
   align-items: center;
@@ -711,27 +712,24 @@ button,
 }
 
 .story-form-box {
-  min-width: fit-content;
-  max-width: 512px;
-  margin: auto;
-  padding: 24px 48px;
+  max-width: 256px;
 }
 
 .create-form-section {
   display: flex;
   flex-direction: column;
-  row-gap: 12px;
+  justify-content: center;
+  row-gap: 8px;
+  width: 100px;
+
   align-items: center;
-  align-content: center;
-  padding: 12px 4px;
   border-radius: 20px;
-  background-color: #333333;
 }
 
 .create-story-label {
   font-weight: 500;
-  color: #e0ff4f;
-  font-size: 16px;
+  color: #5c5c5c;
+  font-size: 12px;
   text-transform: uppercase;
 }
 

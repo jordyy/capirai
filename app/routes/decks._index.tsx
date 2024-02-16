@@ -164,9 +164,6 @@ export default function DeckIndex() {
 
   return (
     <div>
-      <div className="nav-container">
-        <h1>Deck Library</h1>
-      </div>
       {!isAuth ? (
         <>
           <div className="nav-container">
