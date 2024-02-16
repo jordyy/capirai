@@ -83,9 +83,6 @@ export default function App() {
               <Link className="nav-button" to={`/users/${userID}`}>
                 <PermIdentityRoundedIcon />
               </Link>
-              {/* <Form method="post" action="/logout">
-                <button>Logout</button>
-              </Form> */}
             </div>
           </div>
         ) : (

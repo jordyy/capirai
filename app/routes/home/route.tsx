@@ -23,6 +23,7 @@ import { getAuthCookie, requireAuthCookie } from "../../auth";
 import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
 import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 import DoubleArrowRoundedIcon from "@mui/icons-material/DoubleArrowRounded";
+import AddCircleOutlineRounded from "@mui/icons-material/AddCircleOutlineRounded";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const userId = await getAuthCookie(request);
@@ -70,8 +71,12 @@ export default function myDecks() {
 
   return (
     <>
-      {/* <div className="nav-container"></div> */}
-      <h1 className="page-heading">{isAuth ? "My Decks" : "Library"}</h1>
+      <div className="page-top">
+        <h1 className="page-heading">{isAuth ? "My Decks" : "Library"}</h1>
+        <Link to="/decks/new" className="add-deck">
+          <AddCircleOutlineRounded />
+        </Link>
+      </div>
       {!isAuth ? (
         redirect("/decks")
       ) : (
