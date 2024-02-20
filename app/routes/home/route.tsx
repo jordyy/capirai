@@ -67,8 +67,6 @@ export default function myDecks() {
     useLoaderData<typeof loader>();
   const fetcher = useFetcher();
 
-  console.log({ userSubscriptions, isAuth, myDeckCardIds });
-
   return (
     <>
       <div className="page-top">

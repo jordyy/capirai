@@ -23,6 +23,7 @@ import { drizzle } from "../utils/db.server";
 import { Link, Form } from "@remix-run/react";
 import { useFetcher } from "@remix-run/react";
 import { getAuthCookie, requireAuthCookie } from "../auth";
+import AddCircleOutlineRounded from "@mui/icons-material/AddCircleOutlineRounded";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const userId = await getAuthCookie(request);
@@ -177,6 +178,12 @@ export default function DeckIndex() {
         </>
       ) : (
         <>
+          <div className="page-top">
+            <h1 className="page-heading">Deck Library</h1>
+            <Link to="/decks/createNewDeck" className="add-deck">
+              <AddCircleOutlineRounded />
+            </Link>
+          </div>
           {!createDeckIsOpen ? (
             <button
               onClick={() => setCreateDeckIsOpen(!createDeckIsOpen)}
@@ -191,7 +198,7 @@ export default function DeckIndex() {
               action={`/decks/createNewDeck`}
             >
               <label>
-                <input name="deckName" />
+                <input className="deckname-input" name="deckName" />
               </label>
               <button type="submit">
                 <input type="hidden" name="intent" value="createNewDeck" />
