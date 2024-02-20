@@ -73,7 +73,7 @@ export default function myDecks() {
     <>
       <div className="page-top">
         <h1 className="page-heading">{isAuth ? "My Decks" : "Library"}</h1>
-        <Link to="/decks/new" className="add-deck">
+        <Link to="/decks/createNewDeck" className="add-deck">
           <AddCircleOutlineRounded />
         </Link>
       </div>

@@ -791,8 +791,8 @@ button:hover,
 .create-deck {
   display: block;
   text-align: center;
-  margin: 0 auto 96px auto;
-  width: 256px;
+  margin: 64px auto 48px auto;
+  width: 192px;
 }
 
 .deck-button:hover,
@@ -875,7 +875,7 @@ button:active,
   padding: 12px;
   background-color: #333333;
   border-radius: 20px;
-  width: 80%;
+  width: 192px;
   margin-top: 24px;
   text-align: center;
   /* height: 250px; */
