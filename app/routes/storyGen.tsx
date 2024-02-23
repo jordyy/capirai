@@ -7,6 +7,9 @@ export default function StoryGenerator() {
   return (
     <>
       <Outlet />
+      <div className="story-page-top">
+        <h1 className="page-heading">Story Time</h1>
+      </div>
       <Form method="post" className="create-form" action={"/storyGen/story"}>
         <div className="create-form-section">
           <label htmlFor="storyLength" className="create-story-label">

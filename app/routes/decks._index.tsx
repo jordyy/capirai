@@ -179,7 +179,7 @@ export default function DeckIndex() {
         </>
       ) : (
         <>
-          <div className="page-top">
+          <div className="library-page-top">
             <h1 className="page-heading">Deck Library</h1>
             {!createDeckIsOpen ? (
               <button

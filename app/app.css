@@ -763,15 +763,37 @@ button:hover,
 .button:hover {
   text-decoration: none;
 }
-
-.page-top {
+.mydecks-page-top {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  column-gap: 25%;
+  align-content: center;
+  column-gap: 20%;
   padding: 8px;
   margin-bottom: 24px;
-  background-color: ;
+  background-color: #1f1f1f;
+  box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.2), 0 1px 2px hsla(0, 0%, 0%, 0.2);
+}
+
+.library-page-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-content: center;
+  column-gap: 20%;
+  padding: 8px;
+  margin-bottom: 24px;
+  background-color: #1f1f1f;
+  box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.2), 0 1px 2px hsla(0, 0%, 0%, 0.2);
+}
+
+.story-page-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 8px;
+  margin-bottom: 24px;
+  background-color: #1f1f1f;
   box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.2), 0 1px 2px hsla(0, 0%, 0%, 0.2);
 }
 
@@ -796,6 +818,8 @@ button:hover,
 
 .add-deck {
   background: none;
+  border-style: none;
+  box-shadow: ;
 }
 
 .delete-button {
