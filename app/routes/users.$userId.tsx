@@ -47,6 +47,9 @@ export default function Users({}) {
 
   return (
     <>
+      <div className="story-page-top">
+        <h1 className="page-heading">Profile</h1>
+      </div>
       <div className="account-settings">
         <div className="user-container">
           <div className="inner-user-container">
@@ -67,6 +70,9 @@ export default function Users({}) {
             Edit
           </Link>
         </div>
+        <Form method="post" action="/logout">
+          <button className="logout-button">Logout</button>
+        </Form>
         <Form
           method="post"
           onSubmit={(event) => {
@@ -83,9 +89,6 @@ export default function Users({}) {
           </button>
         </Form>
       </div>
-      <Form method="post" action="/logout">
-        <button>Logout</button>
-      </Form>
     </>
   );
 }

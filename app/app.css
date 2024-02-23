@@ -521,7 +521,8 @@ form > label {
   display: flex;
   flex-direction: column;
   row-gap: 32px;
-  border: solid 1px #fff;
+  margin: auto;
+  width: 256px;
   padding: 32px;
   border-radius: 16px;
 }
@@ -544,7 +545,13 @@ form > label {
 }
 
 .delete-account-button {
-  margin-top: 32px;
+  width: 192px;
+  align-self: center;
+}
+
+.logout-button {
+  margin-top: 192px;
+  width: 192px;
   align-self: center;
 }
 
@@ -705,7 +712,6 @@ button,
   padding: 4px;
   color: #fff;
   font-weight: 500;
-  /* padding: 16px 24px; */
   margin: auto;
   width: 192px;
   align-items: center;
@@ -713,6 +719,30 @@ button,
   border-radius: 20px;
   background-color: #333333;
   appearance: none;
+}
+
+.create-story-form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  padding: 4px;
+  padding-left: 8px;
+  color: #fff;
+  font-size: 12px;
+  margin: auto;
+  width: 160px;
+  align-items: center;
+  align-content: center;
+  border-radius: 20px;
+  background-color: #333333;
+  appearance: none;
+}
+
+.create-story-label {
+  font-weight: 500;
+  color: #ffffff8a;
+  font-size: 12px;
+  text-transform: uppercase;
 }
 
 .deckname-input {
@@ -730,6 +760,16 @@ button,
   max-width: 256px;
 }
 
+.create-story-form-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 8px;
+
+  align-items: center;
+  border-radius: 20px;
+}
+
 .create-form-section {
   display: flex;
   flex-direction: column;
@@ -739,13 +779,6 @@ button,
 
   align-items: center;
   border-radius: 20px;
-}
-
-.create-story-label {
-  font-weight: 500;
-  color: #5c5c5c;
-  font-size: 12px;
-  text-transform: uppercase;
 }
 
 input {
@@ -1032,6 +1065,7 @@ a {
 .generate-button {
   background-color: #acbc21;
   margin: 16px;
+  font-size: 12px;
   color: #2c3333;
 }
 

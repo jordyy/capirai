@@ -11,11 +11,11 @@ export default function StoryGenerator() {
         <h1 className="page-heading">Story Time</h1>
       </div>
       <Form method="post" className="create-form" action={"/storyGen/story"}>
-        <div className="create-form-section">
+        <div className="create-story-form-section">
           <label htmlFor="storyLength" className="create-story-label">
             Story Length
           </label>
-          <select name="storyLength" className="create-form">
+          <select name="storyLength" className="create-story-form">
             <option value="">Story Length</option>
             <option value="short">Short Read</option>
             <option value="medium">Medium Read</option>
@@ -23,11 +23,11 @@ export default function StoryGenerator() {
           </select>
         </div>
 
-        <div className="create-form-section">
+        <div className="create-story-form-section">
           <label htmlFor="genre" className="create-story-label">
             Genre
           </label>
-          <select name="genre" className="create-form">
+          <select name="genre" className="create-story-form">
             <option value="">Genre</option>
             <option value="Mystery">Mystery</option>
             <option value="Historical Fiction">Historical Fiction</option>
@@ -51,11 +51,11 @@ export default function StoryGenerator() {
           </select>
         </div>
 
-        <div className="create-form-section">
+        <div className="create-story-form-section">
           <label htmlFor="cefrLevel" className="create-story-label">
             Level
           </label>
-          <select name="cefrLevel" className="create-form">
+          <select name="cefrLevel" className="create-story-form">
             <option value="">CEFR Level</option>
             <option value="A1">A1</option>
             <option value="A2">A2</option>
