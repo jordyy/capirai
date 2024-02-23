@@ -694,6 +694,10 @@ button,
   background-color: #3d3d3d;
 }
 
+.create-deck-form {
+  margin-top: 12px;
+}
+
 .create-form {
   display: flex;
   flex-direction: column;
@@ -766,6 +770,7 @@ button:hover,
   justify-content: flex-end;
   column-gap: 25%;
   padding: 8px;
+  margin-bottom: 24px;
   background-color: ;
   box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.2), 0 1px 2px hsla(0, 0%, 0%, 0.2);
 }
@@ -787,6 +792,10 @@ button:hover,
   justify-content: center;
   align-items: center;
   margin: 32px 0 32px 0;
+}
+
+.add-deck {
+  background: none;
 }
 
 .delete-button {

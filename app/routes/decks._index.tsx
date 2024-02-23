@@ -24,6 +24,7 @@ import { Link, Form } from "@remix-run/react";
 import { useFetcher } from "@remix-run/react";
 import { getAuthCookie, requireAuthCookie } from "../auth";
 import AddCircleOutlineRounded from "@mui/icons-material/AddCircleOutlineRounded";
+import HighlightOffRoundedIcon from "@mui/icons-material/HighlightOffRounded";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const userId = await getAuthCookie(request);
@@ -180,32 +181,40 @@ export default function DeckIndex() {
         <>
           <div className="page-top">
             <h1 className="page-heading">Deck Library</h1>
-            <Link to="/decks/createNewDeck" className="add-deck">
-              <AddCircleOutlineRounded />
-            </Link>
-          </div>
-          {!createDeckIsOpen ? (
-            <button
-              onClick={() => setCreateDeckIsOpen(!createDeckIsOpen)}
-              className="button create-deck"
-            >
-              Create Deck
-            </button>
-          ) : (
-            <Form
-              className=" create-form"
-              method="post"
-              action={`/decks/createNewDeck`}
-            >
-              <label>
-                <input className="deckname-input" name="deckName" />
-              </label>
-              <button type="submit">
-                <input type="hidden" name="intent" value="createNewDeck" />
-                {isSubmitting ? "Saving new deck..." : "Save Deck"}
+            {!createDeckIsOpen ? (
+              <button
+                className="add-deck"
+                onClick={() => setCreateDeckIsOpen(!createDeckIsOpen)}
+              >
+                <AddCircleOutlineRounded />
               </button>
-            </Form>
-          )}
+            ) : (
+              <button
+                className="add-deck"
+                onClick={() => setCreateDeckIsOpen(!createDeckIsOpen)}
+              >
+                <HighlightOffRoundedIcon />
+              </button>
+            )}
+          </div>
+          {createDeckIsOpen ? (
+            <>
+              <Form
+                className="create-form create-deck-form"
+                method="post"
+                action={`/decks/createNewDeck`}
+              >
+                <div>Deck Name</div>
+                <label>
+                  <input className="deckname-input" name="deckName" />
+                </label>
+                <button type="submit">
+                  <input type="hidden" name="intent" value="createNewDeck" />
+                  {isSubmitting ? "Saving new deck..." : "Save Deck"}
+                </button>
+              </Form>
+            </>
+          ) : null}
         </>
       )}
       <div className="deck-container">
