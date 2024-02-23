@@ -117,6 +117,9 @@ export default function LoginForm() {
 
   return (
     <>
+      <div className="story-page-top">
+        <h1 className="page-heading">Login</h1>
+      </div>
       <Form method="post" className="login-form">
         {errorMessage ? <div className="error">{errorMessage}</div> : null}
 

@@ -97,6 +97,9 @@ export default function SignupForm() {
 
   return (
     <>
+      <div className="story-page-top">
+        <h1 className="page-heading">Create An Account</h1>
+      </div>
       <Form method="post" className="signup-form">
         {errorMessage ? <div className="error">{errorMessage}</div> : null}
         <div className="top-of-login">Create Account</div>
