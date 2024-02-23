@@ -15,8 +15,9 @@ import { deckCards, decks, cards, userCards } from "../../db/schema";
 import { z } from "zod";
 import { getAuthCookie, requireAuthCookie } from "../auth";
 
-export async function loader({ params }: LoaderFunctionArgs) {
+export async function loader({ params, request }: LoaderFunctionArgs) {
   const parsedDeckCardId = z.coerce.number().parse(params.deckCardId);
+  const userId = await requireAuthCookie(request);
 
   try {
     const singleDeckCard = await drizzle
@@ -25,7 +26,9 @@ export async function loader({ params }: LoaderFunctionArgs) {
       .innerJoin(decks, eq(deckCards.deckID, decks.id))
       .innerJoin(cards, eq(deckCards.cardID, cards.id))
       .leftJoin(userCards, eq(userCards.cardID, deckCards.cardID))
-      .where(eq(deckCards.id, parsedDeckCardId))
+      .where(
+        and(eq(userCards.userID, userId), eq(deckCards.id, parsedDeckCardId))
+      )
       .orderBy(deckCards.cardID);
 
     const understandingValues = userCards.understanding.enumValues;

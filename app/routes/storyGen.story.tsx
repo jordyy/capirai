@@ -127,7 +127,7 @@ export default function Story() {
   return (
     <>
       {!error ? (
-        <div>
+        <>
           {data && data.length > 1 ? (
             mappedStories.map((story) => (
               <div key={story} className="story-box">
@@ -137,7 +137,7 @@ export default function Story() {
           ) : (
             <div className="story-box">{data?.story}</div>
           )}
-        </div>
+        </>
       ) : (
         <div>Failed to generate story</div>
       )}

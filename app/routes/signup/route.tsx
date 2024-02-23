@@ -150,12 +150,12 @@ export default function SignupForm() {
           )}
         </label>
         <div className="login-group">
-          <a href="/login" className="login-secondary-button">
-            Login
-          </a>
           <button type="submit" className="signup-active-button">
             {isSubmitting ? "Creating new account..." : "Create Account"}
           </button>
+          <a href="/login" className="login-secondary-button">
+            Login
+          </a>
         </div>
       </Form>
     </>
