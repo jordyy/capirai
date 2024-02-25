@@ -125,67 +125,74 @@ export default function SingleDeckCard() {
     setIsViewingBack((prevState) => !prevState);
   };
 
-  return (
-    <div id="deck">
-      <h1 className="nav-container">{singleDeckCard[0].decks.name}</h1>
-      {singleDeckCard.map((card) => {
-        return (
-          <div key={card.cards.id} onClick={handleCardFlip}>
-            <div>
-              <div className="card-review-container">
-                {isViewingBack ? (
-                  <h2 className="card-review-text card-back">
-                    {card.cards.back}
-                  </h2>
-                ) : (
-                  <h2 className="card-review-text card-front">
-                    {card.cards.front}
-                  </h2>
-                )}
+  console.log({ deckName: singleDeckCard[0].decks.name });
 
-                <ul className="understanding-container">
-                  {isViewingBack &&
-                    understandingValues.map((value) => (
-                      <div key={value}>
-                        <Form
-                          method="post"
-                          action={`/userCards/${card?.userCards?.id}/update`}
-                        >
-                          <input
-                            type="hidden"
-                            name="deckCardId"
-                            value={card.deckCards.id}
-                          />
-                          <input
-                            type="hidden"
-                            name="deckId"
-                            value={card.deckCards.deckID}
-                          />
-                          <input
-                            type="hidden"
-                            name="understanding"
-                            value={value}
-                          />
-                          <button
-                            name="understanding"
-                            className={
-                              value === card?.userCards?.understanding
-                                ? "understanding-buttons current-understanding-button"
-                                : "understanding-buttons"
-                            }
-                            type="submit"
+  return (
+    <>
+      <div className="story-page-top">
+        <h1 className="page-heading">{singleDeckCard[0].decks.name}</h1>
+      </div>
+      <div id="deck">
+        <h1 className="nav-container">{singleDeckCard[0].decks.name}</h1>
+        {singleDeckCard.map((card) => {
+          return (
+            <div key={card.cards.id} onClick={handleCardFlip}>
+              <div>
+                <div className="card-review-container">
+                  {isViewingBack ? (
+                    <h2 className="card-review-text card-back">
+                      {card.cards.front}
+                    </h2>
+                  ) : (
+                    <h2 className="card-review-text card-front">
+                      {card.cards.back}
+                    </h2>
+                  )}
+
+                  <div className="understanding-container">
+                    {isViewingBack &&
+                      understandingValues.map((value) => (
+                        <div key={value}>
+                          <Form
+                            method="post"
+                            action={`/userCards/${card?.userCards?.id}/update`}
                           >
-                            {value}
-                          </button>
-                        </Form>
-                      </div>
-                    ))}
-                </ul>
+                            <input
+                              type="hidden"
+                              name="deckCardId"
+                              value={card.deckCards.id}
+                            />
+                            <input
+                              type="hidden"
+                              name="deckId"
+                              value={card.deckCards.deckID}
+                            />
+                            <input
+                              type="hidden"
+                              name="understanding"
+                              value={value}
+                            />
+                            <button
+                              name="understanding"
+                              className={
+                                value === card?.userCards?.understanding
+                                  ? "understanding-buttons current-understanding-button"
+                                  : "understanding-buttons"
+                              }
+                              type="submit"
+                            >
+                              {value}
+                            </button>
+                          </Form>
+                        </div>
+                      ))}
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        );
-      })}
-    </div>
+          );
+        })}
+      </div>
+    </>
   );
 }
