@@ -4,15 +4,8 @@ import {
   json,
   redirect,
 } from "@remix-run/node";
-import { useLoaderData, useActionData, useNavigation } from "@remix-run/react";
-import {
-  decks,
-  deckCards,
-  userDeckSubcriptionsRelations,
-  users,
-} from "../../../db/schema";
-import { db } from "../../../db/index";
-import { z } from "zod";
+import { useLoaderData, useNavigation, Form } from "@remix-run/react";
+import { decks, deckCards } from "../../../db/schema";
 import { eq, and } from "drizzle-orm";
 import React from "react";
 import { drizzle } from "../../utils/db.server";
@@ -20,10 +13,9 @@ import { Link } from "@remix-run/react";
 import { useFetcher } from "@remix-run/react";
 import { userDeckSubscriptions } from "../../../db/schema";
 import { getAuthCookie, requireAuthCookie } from "../../auth";
-import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
-import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 import DoubleArrowRoundedIcon from "@mui/icons-material/DoubleArrowRounded";
 import AddCircleOutlineRounded from "@mui/icons-material/AddCircleOutlineRounded";
+import HighlightOffRoundedIcon from "@mui/icons-material/HighlightOffRounded";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const userId = await getAuthCookie(request);
@@ -66,17 +58,50 @@ export default function myDecks() {
   const { userSubscriptions, isAuth, myDeckCardIds } =
     useLoaderData<typeof loader>();
   const fetcher = useFetcher();
+  const navigation = useNavigation();
+  const isSubmitting = navigation.formData?.get("intent") === "createNewdeck";
+  const [createDeckIsOpen, setCreateDeckIsOpen] = React.useState(false);
+  const createDeckFormRef = React.useRef<HTMLFormElement>(null);
 
   return (
     <>
-      <div className="mydecks-page-top">
-        <h1 className="page-heading page-top">
-          {isAuth ? "My Decks" : "Library"}
-        </h1>
-        <Link to="/decks/createNewDeck" className="add-deck">
-          <AddCircleOutlineRounded />
-        </Link>
+      <div className="library-page-top">
+        <h1 className="page-heading">My Decks</h1>
+        {!createDeckIsOpen ? (
+          <button
+            className="add-deck"
+            onClick={() => setCreateDeckIsOpen(!createDeckIsOpen)}
+          >
+            <AddCircleOutlineRounded />
+          </button>
+        ) : (
+          <button
+            className="add-deck"
+            onClick={() => setCreateDeckIsOpen(!createDeckIsOpen)}
+          >
+            <HighlightOffRoundedIcon />
+          </button>
+        )}
       </div>
+      {createDeckIsOpen && (
+        <>
+          <Form
+            className="create-form create-deck-form"
+            method="post"
+            action={`/decks/createNewDeck`}
+          >
+            <div>Deck Name</div>
+            <label>
+              <input className="deckname-input" name="deckName" />
+            </label>
+            <button type="submit">
+              <input type="hidden" name="intent" value="createNewDeck" />
+              {isSubmitting ? "Saving new deck..." : "Save Deck"}
+            </button>
+          </Form>
+        </>
+      )}
+
       {!isAuth ? (
         redirect("/decks")
       ) : (
@@ -110,8 +135,6 @@ export default function myDecks() {
                       ) : (
                         <div>This deck has no cards.</div>
                       )}
-                      {/* <br />
-                      completion - {deck.userDeckSubcriptions.completion} <br /> */}
                     </div>
                   ) : null}
                 </div>

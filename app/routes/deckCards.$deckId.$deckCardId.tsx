@@ -125,19 +125,16 @@ export default function SingleDeckCard() {
     setIsViewingBack((prevState) => !prevState);
   };
 
-  console.log({ deckName: singleDeckCard[0].decks.name });
-
   return (
     <>
       <div className="story-page-top">
         <h1 className="page-heading">{singleDeckCard[0].decks.name}</h1>
       </div>
       <div id="deck">
-        <h1 className="nav-container">{singleDeckCard[0].decks.name}</h1>
         {singleDeckCard.map((card) => {
           return (
             <div key={card.cards.id} onClick={handleCardFlip}>
-              <div>
+              <div className="review-body">
                 <div className="card-review-container">
                   {isViewingBack ? (
                     <h2 className="card-review-text card-back">
