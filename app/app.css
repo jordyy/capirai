@@ -834,10 +834,13 @@ button:hover,
   margin-top: 12px;
 }
 
+.deck-page {
+  width: 100%;
+}
+
 .deck-setting-section {
   display: flex;
   flex-direction: row-reverse;
-  column-gap: 64px;
   justify-content: center;
   align-items: center;
   margin: 32px 0 32px 0;
@@ -849,10 +852,10 @@ button:hover,
   box-shadow: none;
 }
 
-.delete-button {
+/* .delete-button {
   background-color: #ff2c55;
   color: #333333;
-}
+} */
 
 .add-button {
   background-color: #63c7b2;

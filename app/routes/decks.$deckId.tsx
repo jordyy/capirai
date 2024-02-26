@@ -183,132 +183,117 @@ export default function Deck({}) {
 
   return (
     <>
-      <div className="library-page-top">
-        <h1 className="page-heading">{editDeckName}</h1>
-        {isEditing ? (
-          <Form
-            className="deck-name-edit edit-toggle"
-            method="post"
-            action={`/decks/${deckId}/edit`}
-          >
-            <input
-              type="text"
-              name="name"
-              value={editDeckName || deckName}
-              aria-label="Deck Name"
-              onChange={(e) => setEditDeckName(e.target.value)}
-            />
-
-            <button type="submit" onClick={() => setIsEditing(false)}>
-              <input type="hidden" name="intent" value="save" />
-              {isSaving ? "Saving changes..." : "Save changes"}
-            </button>
-            <button onClick={() => setIsEditing(false)}>Cancel</button>
-          </Form>
-        ) : (
-          <div className="deck-name-edit">
-            <Link
-              className="edit-button"
-              to={`/decks/${deckData.id}/edit`}
-              onClick={handleEditClick}
+      <div className="deck-page">
+        <div className="library-page-top">
+          <h1 className="page-heading">{editDeckName}</h1>
+          {isEditing ? (
+            <Form
+              className="deck-name-edit edit-toggle"
+              method="post"
+              action={`/decks/${deckId}/edit`}
             >
-              <BorderColorRoundedIcon />
-            </Link>
-          </div>
-        )}
-      </div>
-      <div id="deck">
-        <Outlet />
+              <input
+                type="text"
+                name="name"
+                value={editDeckName || deckName}
+                aria-label="Deck Name"
+                onChange={(e) => setEditDeckName(e.target.value)}
+              />
 
-        <p className="card-review-data">{`You have reviewed ${numReviewed}/${deckCardArr.length} cards.`}</p>
-
-        <div className="deck-setting-section">
-          <fetcher.Form method="POST">
-            <button
-              aria-label="Toggle Subscription"
-              className={
-                isSubscribed ? "unsubscribe-button" : "subscribe-button"
-              }
-              name="subscribe"
-              value={isSubscribed ? 0 : 1}
-            >
-              {isSubscribed ? "Unsubscribe" : "Subscribe"}
-            </button>
-          </fetcher.Form>
-
-          <fetcher.Form
-            method="post"
-            action={`/decks/${deckData.id}/delete`}
-            onSubmit={(event) => {
-              const response = confirm(
-                "Please confirm you want to delete this deck."
-              );
-              if (!response) {
-                event.preventDefault();
-              }
-            }}
-          >
-            <button type="submit" className="delete-button">
-              Delete Deck
-            </button>
-          </fetcher.Form>
-          <Link
-            to={
-              addCardIsOpen
-                ? `/decks/${deckData.id}/createNewCard`
-                : `/decks/${deckData.id}`
-            }
-            className="button add-button"
-            onClick={() => setAddCardIsOpen(!addCardIsOpen)}
-          >
-            Add Card to Deck
-          </Link>
-
-          {deckCardArr.length > 0 && (
-            <Link
-              to={`/deckcards/${deckData.id}/${deckCardArr[0].deckCards.id}`}
-              className="button"
-            >
-              Study deck
-            </Link>
+              <button type="submit" onClick={() => setIsEditing(false)}>
+                <input type="hidden" name="intent" value="save" />
+                {isSaving ? "Saving changes..." : "Save changes"}
+              </button>
+              <button onClick={() => setIsEditing(false)}>Cancel</button>
+            </Form>
+          ) : (
+            <div className="deck-name-edit">
+              <Link
+                className="edit-button"
+                to={`/decks/${deckData.id}/edit`}
+                onClick={handleEditClick}
+              >
+                <BorderColorRoundedIcon />
+              </Link>
+            </div>
           )}
         </div>
-        <div>
-          {deckCardArr.length === 0 ? (
-            <div className="card-review-data">This deck has no cards.</div>
-          ) : (
-            deckCardArr.map((card) => {
-              return (
-                <div key={card.cards.id} className="card-box">
-                  <div className="single-card-contents">
-                    <h4>{card.cards.front}</h4>
-                    <p className="card-back-text">{card.cards.back}</p>
+        <div id="deck">
+          <Outlet />
+
+          <p className="card-review-data">{`You have reviewed ${numReviewed}/${deckCardArr.length} cards.`}</p>
+
+          <div className="deck-setting-section">
+            <fetcher.Form method="POST">
+              <button
+                aria-label="Toggle Subscription"
+                className={
+                  isSubscribed ? "unsubscribe-button" : "subscribe-button"
+                }
+                name="subscribe"
+                value={isSubscribed ? 0 : 1}
+              >
+                {isSubscribed ? "Unsubscribe" : "Subscribe"}
+              </button>
+            </fetcher.Form>
+            <Link
+              to={
+                addCardIsOpen
+                  ? `/decks/${deckData.id}/createNewCard`
+                  : `/decks/${deckData.id}`
+              }
+              className="button add-button"
+              onClick={() => setAddCardIsOpen(!addCardIsOpen)}
+            >
+              Add Card to Deck
+            </Link>
+
+            {deckCardArr.length > 0 && (
+              <Link
+                to={`/deckcards/${deckData.id}/${deckCardArr[0].deckCards.id}`}
+                className="button"
+              >
+                Study deck
+              </Link>
+            )}
+          </div>
+          <div>
+            {deckCardArr.length === 0 ? (
+              <div className="card-review-data">This deck has no cards.</div>
+            ) : (
+              deckCardArr.map((card) => {
+                return (
+                  <div key={card.cards.id} className="card-box">
+                    <div className="single-card-contents">
+                      <h4>{card.cards.front}</h4>
+                      <p className="card-back-text">{card.cards.back}</p>
+                    </div>
+                    <div className="deck-button-container">
+                      <Link
+                        className="deck-button"
+                        to={`/cards/${card?.cards.id}/edit`}
+                      >
+                        <BorderColorRoundedIcon />
+                      </Link>
+                      <fetcher.Form
+                        method="post"
+                        action={`/deckCards/${card.deckCards.deckID}/${card.deckCards.id}/remove`}
+                      >
+                        <input
+                          type="hidden"
+                          name="deckCardId"
+                          value={card.deckCards.id}
+                        />
+                        <button className="deck-button" type="submit">
+                          <DeleteRoundedIcon />
+                        </button>
+                      </fetcher.Form>
+                    </div>
                   </div>
-                  <div className="deck-button-container">
-                    <Link
-                      className="deck-button"
-                      to={`/cards/${card?.cards.id}/edit`}
-                    >
-                      <BorderColorRoundedIcon />
-                    </Link>
-                    <fetcher.Form
-                      method="post"
-                      action={`/deckCards/${card.deckCards.deckID}/${card.deckCards.id}/remove`}
-                    >
-                      <input
-                        type="hidden"
-                        name="deckCardId"
-                        value={card.deckCards.id}
-                      />
-                      <button className="deck-button" type="submit">
-                        <DeleteRoundedIcon />
-                      </button>
-                    </fetcher.Form>
-                  </div>
-                </div>
-              );
-            })
-          )}
+                );
+              })
+            )}
+          </div>
         </div>
       </div>
     </>
