@@ -296,23 +296,16 @@ export default function Deck({}) {
             ) : (
               deckCardArr.map((card) => {
                 return (
-                  <div key={card.cards.id} className="card-box">
-                    <div className="single-card-contents">
-                      <h4>{card.cards.front}</h4>
-                      <p className="card-back-text">{card.cards.back}</p>
+                  <Link
+                    to={`/deckcards/${card.deckCards.deckID}/${card.deckCards.id}`}
+                  >
+                    <div key={card.cards.id} className="card-box">
+                      <div className="single-card-contents">
+                        <h4>{card.cards.front}</h4>
+                        <p className="card-back-text">{card.cards.back}</p>
+                      </div>
                     </div>
-
-                    <fetcher.Form
-                      method="post"
-                      action={`/deckCards/${card.deckCards.deckID}/${card.deckCards.id}/remove`}
-                    >
-                      <input
-                        type="hidden"
-                        name="deckCardId"
-                        value={card.deckCards.id}
-                      />
-                    </fetcher.Form>
-                  </div>
+                  </Link>
                 );
               })
             )}
