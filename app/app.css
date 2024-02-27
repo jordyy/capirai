@@ -1137,9 +1137,11 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: clip;
   align-items: center;
+  padding-top: 256px;
   padding: 12px;
-  margin: 12px;
+  margin: 24px;
   border-radius: 20px;
   color: white;
   background-color: #374040;

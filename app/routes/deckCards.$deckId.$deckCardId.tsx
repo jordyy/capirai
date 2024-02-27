@@ -128,7 +128,9 @@ export default function SingleDeckCard() {
   return (
     <>
       <div className="story-page-top">
-        <h1 className="page-heading">{singleDeckCard[0].decks.name}</h1>
+        <Link to={`/decks/${singleDeckCard[0].decks.id}`}>
+          <h1 className="page-heading">{singleDeckCard[0].decks.name}</h1>
+        </Link>
       </div>
       <div id="deck">
         {singleDeckCard.map((card) => {

@@ -1,6 +1,6 @@
 import { json } from "@remix-run/node";
 import type { LoaderFunctionArgs, ActionFunctionArgs } from "@remix-run/node";
-import { useLoaderData, useActionData } from "@remix-run/react";
+import { useLoaderData, useActionData, Outlet } from "@remix-run/react";
 import React from "react";
 import { GenerateStory } from "../../openai-story-generator.mjs";
 import { stories } from "../../db/schema";
@@ -122,10 +122,11 @@ export default function Story() {
   const { data, error } = useActionData<typeof action>() || {};
 
   const mappedStories =
-    data.length > 1 ? data?.map((story) => story.story) : null;
+    data?.length > 1 ? data?.map((story) => story.story) : null;
 
   return (
     <>
+      <Outlet />
       {!error ? (
         <>
           {data && data.length > 1 ? (

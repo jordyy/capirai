@@ -1,4 +1,4 @@
-import { Outlet, Form, useNavigation } from "@remix-run/react";
+import { Outlet, Form, useNavigation, Link } from "@remix-run/react";
 import React from "react";
 
 export default function StoryGenerator() {
@@ -6,7 +6,6 @@ export default function StoryGenerator() {
   const isLoading = navigation.formData?.get("intent") === "generateStory";
   return (
     <>
-      <Outlet />
       <div className="story-page-top">
         <h1 className="page-heading">Story Time</h1>
       </div>
