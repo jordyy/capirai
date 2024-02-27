@@ -74,12 +74,12 @@ export default function CreateNewCard() {
     <Form ref={addCardFormRef} method="post" className="create-form">
       {errorMessage ? errorMessage : null}
       <div className="create-card-section">
-        <label>front</label>
-        <input name="front" />
+        <label className="form-header">card front</label>
+        <input className="deckname-input" name="front" />
       </div>
       <div className="create-card-section">
-        <label>back</label>
-        <input name="back" />
+        <label className="form-header">card back</label>
+        <input className="deckname-input" name="back" />
       </div>
       <button type="submit" className="add-button">
         <input type="hidden" name="intent" value="createCard" />

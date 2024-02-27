@@ -165,103 +165,116 @@ export default function DeckIndex() {
   }
 
   return (
-    <div>
-      {!isAuth ? (
-        <>
-          <div className="nav-container">
-            <Form ref={createDeckFormRef} method="post" action="/login">
-              <button>Login</button>
-            </Form>
-            <Form method="post" action="/signup">
-              <button>Signup</button>
-            </Form>
-          </div>
-        </>
-      ) : (
-        <>
-          <div className="library-page-top">
-            <h1 className="page-heading">Deck Library</h1>
-            {!createDeckIsOpen ? (
-              <button
-                className="add-deck"
-                onClick={() => setCreateDeckIsOpen(!createDeckIsOpen)}
-              >
-                <AddCircleOutlineRounded />
-              </button>
-            ) : (
-              <button
-                className="add-deck"
-                onClick={() => setCreateDeckIsOpen(!createDeckIsOpen)}
-              >
-                <HighlightOffRoundedIcon />
-              </button>
-            )}
-          </div>
-          {createDeckIsOpen ? (
-            <>
-              <Form
-                className="create-form create-deck-form"
-                method="post"
-                action={`/decks/createNewDeck`}
-              >
-                <div>Deck Name</div>
-                <label>
-                  <input className="deckname-input" name="deckName" />
-                </label>
-                <button type="submit">
-                  <input type="hidden" name="intent" value="createNewDeck" />
-                  {isSubmitting ? "Saving new deck..." : "Save Deck"}
-                </button>
+    <>
+      <div className="deck-page">
+        {!isAuth ? (
+          <>
+            <div className="nav-container">
+              <Form ref={createDeckFormRef} method="post" action="/login">
+                <button>Login</button>
               </Form>
-            </>
-          ) : null}
-        </>
-      )}
-      <div className="deck-container">
-        {allDecks.map((deck) => {
-          const cardsInDeck = cardQuantity?.filter(
-            (card) => card?.deckCards.deckID === deck.decks.id
-          ).length;
-          const isSubscribed =
-            Number(fetcher.formData?.get("deckId")) === deck.decks.id
-              ? Boolean(fetcher.formData?.get("subscribe"))
-              : userSubscriptions?.find(
-                  (subscription) => subscription.deckID === deck.decks.id
-                )?.subscribed;
-          return (
-            <div className="deck-box" key={deck.decks.id}>
-              <Link
-                to={`/decks/${deck.decks.id}`}
-                className="deck-text deck-header"
-              >
-                {deck.decks.name}
-              </Link>
-              <div className="deck-qty">
-                {cardsInDeck
-                  ? `${cardsInDeck} cards`
-                  : "No cards in this deck."}
-              </div>
-              <div className="button-container">
-                {isAuth ? (
-                  <fetcher.Form method="POST">
-                    <input type="hidden" name="deckId" value={deck.decks.id} />
-                    <button
-                      aria-label="Toggle Subscription"
-                      className={
-                        isSubscribed ? "unsubscribe-button" : "subscribe-button"
-                      }
-                      name="subscribe"
-                      value={isSubscribed ? 0 : 1}
-                    >
-                      {isSubscribed ? "Unsubscribe" : "Subscribe"}
-                    </button>
-                  </fetcher.Form>
-                ) : null}
-              </div>
+              <Form method="post" action="/signup">
+                <button>Signup</button>
+              </Form>
             </div>
-          );
-        })}
+          </>
+        ) : (
+          <>
+            <div className="library-page-top">
+              <h1 className="page-heading">Deck Library</h1>
+              {!createDeckIsOpen ? (
+                <button
+                  className="add-deck"
+                  onClick={() => setCreateDeckIsOpen(!createDeckIsOpen)}
+                >
+                  <AddCircleOutlineRounded />
+                </button>
+              ) : (
+                <button
+                  className="add-deck"
+                  onClick={() => setCreateDeckIsOpen(!createDeckIsOpen)}
+                >
+                  <HighlightOffRoundedIcon />
+                </button>
+              )}
+            </div>
+            {createDeckIsOpen ? (
+              <>
+                <Form
+                  className="create-form create-deck-form"
+                  method="post"
+                  action={`/decks/createNewDeck`}
+                >
+                  <div className="form-header">Deck Name</div>
+                  <label>
+                    <input className="deckname-input" name="deckName" />
+                  </label>
+                  <button type="submit" className="save-button">
+                    <input
+                      type="hidden"
+                      className="deckname-input"
+                      name="intent"
+                      value="createNewDeck"
+                    />
+                    {isSubmitting ? "Saving new deck..." : "Save Deck"}
+                  </button>
+                </Form>
+              </>
+            ) : null}
+          </>
+        )}
+        <div className="deck-container">
+          {allDecks.map((deck) => {
+            const cardsInDeck = cardQuantity?.filter(
+              (card) => card?.deckCards.deckID === deck.decks.id
+            ).length;
+            const isSubscribed =
+              Number(fetcher.formData?.get("deckId")) === deck.decks.id
+                ? Boolean(fetcher.formData?.get("subscribe"))
+                : userSubscriptions?.find(
+                    (subscription) => subscription.deckID === deck.decks.id
+                  )?.subscribed;
+            return (
+              <div className="deck-box" key={deck.decks.id}>
+                <Link
+                  to={`/decks/${deck.decks.id}`}
+                  className="deck-text deck-header"
+                >
+                  {deck.decks.name}
+                </Link>
+                <div className="deck-qty">
+                  {cardsInDeck
+                    ? `${cardsInDeck} cards`
+                    : "No cards in this deck."}
+                </div>
+                <div className="button-container">
+                  {isAuth ? (
+                    <fetcher.Form method="POST">
+                      <input
+                        type="hidden"
+                        name="deckId"
+                        value={deck.decks.id}
+                      />
+                      <button
+                        aria-label="Toggle Subscription"
+                        className={
+                          isSubscribed
+                            ? "unsubscribe-button"
+                            : "subscribe-button"
+                        }
+                        name="subscribe"
+                        value={isSubscribed ? 0 : 1}
+                      >
+                        {isSubscribed ? "Unsubscribe" : "Subscribe"}
+                      </button>
+                    </fetcher.Form>
+                  ) : null}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

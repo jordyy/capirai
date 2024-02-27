@@ -90,7 +90,7 @@ export default function myDecks() {
             method="post"
             action={`/decks/createNewDeck`}
           >
-            <div>Deck Name</div>
+            <div className="form-header">Deck Name</div>
             <label>
               <input className="deckname-input" name="deckName" />
             </label>

@@ -23,6 +23,7 @@ import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import { useFetcher, Outlet } from "@remix-run/react";
 import { getAuthCookie, requireAuthCookie } from "../auth";
+import HighlightOffRoundedIcon from "@mui/icons-material/HighlightOffRounded";
 
 export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   const deckId = z.coerce.number().parse(params.deckId);
@@ -163,6 +164,7 @@ export default function Deck({}) {
     useLoaderData<typeof loader>();
   const [isEditing, setIsEditing] = React.useState(false);
   const [editDeckName, setEditDeckName] = useState(deck[0]?.name);
+  const [editDeckIsOpen, setEditDeckIsOpen] = React.useState(false);
   const [addCardIsOpen, setAddCardIsOpen] = React.useState(true);
   const deckData = deck[0];
   const fetcher = useFetcher();
@@ -173,6 +175,7 @@ export default function Deck({}) {
 
   const handleEditClick = () => {
     setIsEditing(true);
+    setEditDeckIsOpen(!editDeckIsOpen);
   };
 
   const isSubscribed =
@@ -191,38 +194,61 @@ export default function Deck({}) {
       <div className="deck-page">
         <div className="library-page-top">
           <h1 className="page-heading">{editDeckName}</h1>
-          {isEditing ? (
-            <Form
-              className="deck-name-edit edit-toggle"
-              method="post"
-              action={`/decks/${deckId}/edit`}
-            >
-              <input
-                type="text"
-                name="name"
-                value={editDeckName || deckName}
-                aria-label="Deck Name"
-                onChange={(e) => setEditDeckName(e.target.value)}
-              />
-
-              <button type="submit" onClick={() => setIsEditing(false)}>
-                <input type="hidden" name="intent" value="save" />
-                {isSaving ? "Saving changes..." : "Save changes"}
-              </button>
-              <button onClick={() => setIsEditing(false)}>Cancel</button>
-            </Form>
-          ) : (
-            <div className="deck-name-edit">
+          <div>
+            {!editDeckIsOpen ? (
               <Link
-                className="edit-button"
+                className="edit-button edit-toggle"
                 to={`/decks/${deckData.id}/edit`}
                 onClick={handleEditClick}
               >
                 <BorderColorRoundedIcon />
               </Link>
-            </div>
-          )}
+            ) : (
+              <button
+                className="edit-toggle"
+                onClick={() => setEditDeckIsOpen(!editDeckIsOpen)}
+              >
+                <HighlightOffRoundedIcon />
+              </button>
+            )}
+          </div>
         </div>
+        {isEditing && editDeckIsOpen ? (
+          <>
+            <Form
+              className="deck-name-edit add-card-form"
+              method="post"
+              action={`/decks/${deckId}/edit`}
+            >
+              <div className="form-header">Edit Deck Name</div>
+              <input
+                type="text"
+                className="deckname-input"
+                name="name"
+                value={editDeckName || deckName}
+                aria-label="Deck Name"
+                onChange={(e) => setEditDeckName(e.target.value)}
+              />
+              <div className="save-cancel-button-container">
+                <button
+                  type="submit"
+                  onClick={() => setIsEditing(false)}
+                  className="save-button"
+                >
+                  <input type="hidden" name="intent" value="save" />
+                  {isSaving ? "Saving..." : "Save"}
+                </button>
+                <button
+                  onClick={() => setIsEditing(false)}
+                  className="cancel-button"
+                >
+                  Cancel
+                </button>
+              </div>
+            </Form>
+          </>
+        ) : null}
+
         <div id="deck">
           <Outlet />
 
