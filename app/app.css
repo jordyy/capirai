@@ -857,9 +857,16 @@ button:hover,
   color: #333333;
 } */
 
+.study-button {
+  background-color: #f1ab86;
+  color: #1f1f1f;
+  font-size: 12px;
+}
+
 .add-button {
   background-color: #63c7b2;
   color: #1f1f1f;
+  font-size: 12px;
 }
 
 .create-deck {
@@ -977,7 +984,7 @@ div > p {
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 0 5px;
-  margin: 10px 0;
+  margin: 12px 12px;
   flex-grow: 1;
   border-radius: 20px;
 }
@@ -1040,6 +1047,17 @@ a {
   align-items: center;
 }
 
+#deck {
+  width: 100%;
+}
+
+.deck-button-container {
+  display: flex;
+  flex-direction: row;
+  column-gap: 8px;
+  align-items: center;
+}
+
 .subscribe-button {
   background-color: #3b60e4;
   color: #2c3333;
@@ -1048,6 +1066,7 @@ a {
 .unsubscribe-button {
   background-color: #ef767a;
   color: #2c3333;
+  font-size: 12px;
 }
 
 .story-box {

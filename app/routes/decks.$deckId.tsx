@@ -48,7 +48,12 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
     .from(cards)
     .innerJoin(deckCards, eq(cards.id, deckCards.cardID))
     .leftJoin(userCards, eq(cards.id, userCards.cardID))
-    .where(eq(deckCards.deckID, Number(params.deckId)))
+    .where(
+      and(
+        eq(userCards.userID, Number(userId)),
+        eq(deckCards.deckID, Number(params.deckId))
+      )
+    )
     .orderBy(deckCards.id);
 
   const userCardData = deckCardArr.map((data) => data.userCards);
@@ -224,38 +229,40 @@ export default function Deck({}) {
           <p className="card-review-data">{`You have reviewed ${numReviewed}/${deckCardArr.length} cards.`}</p>
 
           <div className="deck-setting-section">
-            <fetcher.Form method="POST">
-              <button
-                aria-label="Toggle Subscription"
-                className={
-                  isSubscribed ? "unsubscribe-button" : "subscribe-button"
-                }
-                name="subscribe"
-                value={isSubscribed ? 0 : 1}
-              >
-                {isSubscribed ? "Unsubscribe" : "Subscribe"}
-              </button>
-            </fetcher.Form>
-            <Link
-              to={
-                addCardIsOpen
-                  ? `/decks/${deckData.id}/createNewCard`
-                  : `/decks/${deckData.id}`
-              }
-              className="button add-button"
-              onClick={() => setAddCardIsOpen(!addCardIsOpen)}
-            >
-              Add Card to Deck
-            </Link>
-
-            {deckCardArr.length > 0 && (
+            <div className="deck-button-container">
+              <fetcher.Form method="POST">
+                <button
+                  aria-label="Toggle Subscription"
+                  className={
+                    isSubscribed ? "unsubscribe-button" : "subscribe-button"
+                  }
+                  name="subscribe"
+                  value={isSubscribed ? 0 : 1}
+                >
+                  {isSubscribed ? "Unsubscribe" : "Subscribe"}
+                </button>
+              </fetcher.Form>
               <Link
-                to={`/deckcards/${deckData.id}/${deckCardArr[0].deckCards.id}`}
-                className="button"
+                to={
+                  addCardIsOpen
+                    ? `/decks/${deckData.id}/createNewCard`
+                    : `/decks/${deckData.id}`
+                }
+                className="button add-button"
+                onClick={() => setAddCardIsOpen(!addCardIsOpen)}
               >
-                Study deck
+                Add Card
               </Link>
-            )}
+
+              {deckCardArr.length > 0 && (
+                <Link
+                  to={`/deckcards/${deckData.id}/${deckCardArr[0].deckCards.id}`}
+                  className="button study-button"
+                >
+                  Study deck
+                </Link>
+              )}
+            </div>
           </div>
           <div>
             {deckCardArr.length === 0 ? (
@@ -268,27 +275,17 @@ export default function Deck({}) {
                       <h4>{card.cards.front}</h4>
                       <p className="card-back-text">{card.cards.back}</p>
                     </div>
-                    <div className="deck-button-container">
-                      <Link
-                        className="deck-button"
-                        to={`/cards/${card?.cards.id}/edit`}
-                      >
-                        <BorderColorRoundedIcon />
-                      </Link>
-                      <fetcher.Form
-                        method="post"
-                        action={`/deckCards/${card.deckCards.deckID}/${card.deckCards.id}/remove`}
-                      >
-                        <input
-                          type="hidden"
-                          name="deckCardId"
-                          value={card.deckCards.id}
-                        />
-                        <button className="deck-button" type="submit">
-                          <DeleteRoundedIcon />
-                        </button>
-                      </fetcher.Form>
-                    </div>
+
+                    <fetcher.Form
+                      method="post"
+                      action={`/deckCards/${card.deckCards.deckID}/${card.deckCards.id}/remove`}
+                    >
+                      <input
+                        type="hidden"
+                        name="deckCardId"
+                        value={card.deckCards.id}
+                      />
+                    </fetcher.Form>
                   </div>
                 );
               })
