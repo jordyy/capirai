@@ -1137,7 +1137,7 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  overflow: clip;
+  overflow: scroll;
   align-items: center;
   padding-top: 256px;
   padding: 12px;

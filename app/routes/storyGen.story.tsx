@@ -126,7 +126,6 @@ export default function Story() {
 
   return (
     <>
-      <Outlet />
       {!error ? (
         <>
           {data && data.length > 1 ? (
