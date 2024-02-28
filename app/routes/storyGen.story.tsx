@@ -84,6 +84,7 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
       );
 
     let response;
+    response = { data: searchStories, error: null };
 
     if (searchStories.length === 0 || stories.story === null) {
       const storyResponseString = await GenerateStory({
@@ -122,11 +123,14 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
 export default function Story() {
   const { data, error } = useActionData<typeof action>() || {};
 
+  console.log({ data, dataLength: data.length });
+
   const mappedStories =
-    data?.length > 1 ? data?.map((story) => story.story) : data?.story;
+    data?.length > 0 ? data?.map((story) => story.story) : data?.story;
 
   console.log({
-    story: data?.length > 1 ? data?.map((story) => story.story) : data?.story,
+    story:
+      data?.length > 1 ? data?.map((story) => story.story) : data[0]?.story,
   });
 
   return (
@@ -140,7 +144,7 @@ export default function Story() {
               </div>
             ))
           ) : (
-            <div className="story-box">{data?.story}</div>
+            <div className="story-box">{data[0]?.story}</div>
           )}
         </>
       ) : (
