@@ -117,6 +117,7 @@ export default function SignupForm() {
         <label>
           <input
             aria-label="username"
+            className="login-input"
             placeholder="username"
             name="userName"
             type="text"
@@ -132,6 +133,7 @@ export default function SignupForm() {
         <label>
           <input
             name="email"
+            className="login-input"
             type="email"
             id="email"
             aria-label="email"
@@ -148,6 +150,7 @@ export default function SignupForm() {
         <label>
           <input
             name="password"
+            className="login-input"
             aria-label="password"
             placeholder="password"
             type="password"

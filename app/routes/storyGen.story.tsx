@@ -83,7 +83,7 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
         )
       );
 
-    let response;
+    let response: any;
     response = { data: searchStories, error: null };
 
     if (searchStories.length === 0 || stories.story === null) {
@@ -123,28 +123,21 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
 export default function Story() {
   const { data, error } = useActionData<typeof action>() || {};
 
-  console.log({ data, dataLength: data.length });
-
   const mappedStories =
     data?.length > 0 ? data?.map((story) => story.story) : data?.story;
-
-  console.log({
-    story:
-      data?.length > 1 ? data?.map((story) => story.story) : data[0]?.story,
-  });
 
   return (
     <>
       {!error ? (
         <>
-          {data && data.length > 1 ? (
-            mappedStories.map((story) => (
-              <div key={story} className="story-box">
+          {data && data.length > 0 ? (
+            mappedStories.map((story: React.ReactNode, index: number) => (
+              <div key={index} className="story-box">
                 {story}
               </div>
             ))
           ) : (
-            <div className="story-box">{data[0]?.story}</div>
+            <div className="story-box">{data?.story}</div>
           )}
         </>
       ) : (

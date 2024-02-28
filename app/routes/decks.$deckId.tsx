@@ -301,7 +301,7 @@ export default function Deck({}) {
                   >
                     <div key={card.cards.id} className="card-box">
                       <div className="single-card-contents">
-                        <h4>{card.cards.front}</h4>
+                        <h4 className="card-front-text">{card.cards.front}</h4>
                         <p className="card-back-text">{card.cards.back}</p>
                       </div>
                     </div>

@@ -71,17 +71,17 @@ export default function App() {
         {userID ? (
           <div className="nav-container">
             <Link className="nav-button" to={`/home`}>
-              <HomeRoundedIcon />
+              <HomeRoundedIcon fontSize="large" />
             </Link>
             <Link className="nav-button" to={`/decks`}>
-              <LibraryBooksRoundedIcon />
+              <LibraryBooksRoundedIcon fontSize="large" />
             </Link>
             <Link className="nav-button" to={`/storyGen`}>
-              <ImportRoundedIcon />
+              <ImportRoundedIcon fontSize="large" />
             </Link>
             <div className="profile-logout-button-group">
               <Link className="nav-button" to={`/users/${userID}`}>
-                <PermIdentityRoundedIcon />
+                <PermIdentityRoundedIcon fontSize="large" />
               </Link>
             </div>
           </div>

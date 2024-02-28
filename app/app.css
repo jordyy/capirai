@@ -128,14 +128,15 @@ form > label {
   width: 192px;
 }
 
-@media (min-width: 280px) {
+@media (min-width: 360px) {
   .top-of-login {
     color: #5c5c5c;
     font-size: 18px;
-    width: 192px;
+    width: 256px;
     text-align: left;
   }
 }
+
 @media (min-width: 480px) {
   .top-of-login {
     color: #5c5c5c;
@@ -160,33 +161,18 @@ form > label {
   align-items: center;
   row-gap: 24px;
   padding: 16px 32px 0px 32px;
-  margin: auto;
+  margin: auto 24px;
   border-radius: 20px;
   box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.4), 0 1px 2px hsla(0, 0%, 0%, 0.2);
 }
 
-@media (min-width: 280px) {
+@media (min-width: 360px) {
   .login-form {
-    background-color: #292929;
-    display: flex;
-    flex-direction: column;
-    row-gap: 24px;
-    max-width: 256px;
-    margin: auto;
-    border-radius: 20px;
-    box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.4), 0 1px 2px hsla(0, 0%, 0%, 0.2);
-  }
-}
-
-@media (min-width: 480px) {
-  .login-form {
-    background-color: #292929;
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 384px;
     row-gap: 32px;
-    margin: auto;
+    margin: auto 32px;
     border-radius: 20px;
     box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.4), 0 1px 2px hsla(0, 0%, 0%, 0.2);
   }
@@ -198,7 +184,7 @@ form > label {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 384px;
+    max-width: 512px;
     row-gap: 32px;
     margin: auto;
     border-radius: 20px;
@@ -253,9 +239,8 @@ form > label {
     flex-direction: column;
     align-items: center;
     row-gap: 24px;
-    padding: 24px 64px 0px 64px;
-    margin: auto;
-    width: 256px;
+    padding: 24px 24px 0px 24px;
+    margin: auto 24px;
     border-radius: 20px;
     box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.4), 0 1px 2px hsla(0, 0%, 0%, 0.2);
   }
@@ -480,27 +465,29 @@ form > label {
   }
 }
 
+.login-input {
+  width: 100%;
+}
+
 #email,
 #password,
 #userName {
   background-color: #333333;
   padding: 16px;
-  min-width: 192px;
-  max-width: 256px;
+  /* min-width: 192px; */
   height: 8px;
   font-size: 10px;
 }
 
-@media (min-width: 280) {
+@media (min-width: 360) {
   #email,
   #password,
   #userName {
     background-color: #333333;
     padding: 18px;
     min-width: 192px;
-    max-width: 384px;
-    height: 12px;
-    font-size: 16px;
+    height: 18px;
+    font-size: 18px;
   }
 }
 
@@ -522,9 +509,26 @@ form > label {
   flex-direction: column;
   row-gap: 32px;
   margin: auto;
-  width: 256px;
+  width: 100%;
   padding: 32px;
   border-radius: 16px;
+}
+
+@media (min-width: 390px) {
+  .account-settings {
+    display: flex;
+    flex-direction: column;
+    row-gap: 32px;
+    padding: 48px;
+    border-radius: 16px;
+  }
+}
+
+.profile-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 24px;
 }
 
 .email-container,
@@ -549,10 +553,28 @@ form > label {
   align-self: center;
 }
 
+@media (min-width: 360px) {
+  .delete-account-button {
+    width: 256px;
+    font-size: 18px;
+    align-self: center;
+  }
+}
+
 .logout-button {
   margin-top: 192px;
   width: 192px;
+  font-size: 16px;
   align-self: center;
+}
+
+@media (min-width: 360px) {
+  .logout-button {
+    margin-top: 192px;
+    width: 256px;
+    font-size: 18px;
+    align-self: center;
+  }
 }
 
 .error {
@@ -582,9 +604,15 @@ ul {
   width: 100%;
   justify-content: space-evenly;
   align-items: center;
-  height: 50px;
+  height: 64px;
   flex-direction: row;
   color: #fff;
+}
+
+@media (min-width: 480px) {
+  .nav-container {
+    height: 100px;
+  }
 }
 
 .profile-logout-button-group {
@@ -863,6 +891,10 @@ button:hover,
   box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.2), 0 1px 2px hsla(0, 0%, 0%, 0.2);
 }
 
+.story-page-container {
+  width: 100%;
+}
+
 .story-page-top {
   display: flex;
   flex-direction: row;
@@ -878,9 +910,10 @@ button:hover,
   color: #fff;
 }
 
-.card-review-data {
-  text-align: center;
-  margin-top: 12px;
+@media (min-width: 360px) {
+  .page-heading {
+    font-size: 24px;
+  }
 }
 
 .deck-page {
@@ -903,8 +936,16 @@ button:hover,
 
 .delete-button {
   background-color: #ff2c55;
-  font-size: 12px;
+  font-size: 16px;
   color: #333333;
+}
+
+@media (min-width: 360px) {
+  .delete-button {
+    background-color: #ff2c55;
+    font-size: 18px;
+    color: #333333;
+  }
 }
 
 .save-cancel-button-container {
@@ -938,6 +979,43 @@ button:hover,
   background-color: #63c7b2;
   color: #1f1f1f;
   font-size: 12px;
+}
+
+.subscribe-button {
+  background-color: #3b60e4;
+  color: #2c3333;
+  font-size: 12px;
+}
+
+.unsubscribe-button {
+  background-color: #ef767a;
+  color: #2c3333;
+  font-size: 12px;
+}
+
+@media (min-width: 390px) {
+  .save-button {
+    font-size: 18px;
+  }
+  .cancel-button {
+    font-size: 18px;
+  }
+  .study-button {
+    font-size: 18px;
+  }
+  .add-button {
+    font-size: 18px;
+  }
+  .unsubscribe-button {
+    font-size: 18px;
+  }
+  .subscribe-button {
+    font-size: 18px;
+  }
+  .card-front-text,
+  .card-back-text {
+    font-size: 18px;
+  }
 }
 
 .create-deck {
@@ -1088,6 +1166,12 @@ div > p {
   font-size: 32px;
 }
 
+.card-review-data {
+  text-align: center;
+  font-size: 24px;
+  color: #494848;
+}
+
 a {
   text-decoration: none;
   color: #fff;
@@ -1124,18 +1208,6 @@ a {
   align-items: center;
 }
 
-.subscribe-button {
-  background-color: #3b60e4;
-  color: #2c3333;
-  font-size: 12px;
-}
-
-.unsubscribe-button {
-  background-color: #ef767a;
-  color: #2c3333;
-  font-size: 12px;
-}
-
 .story-box {
   display: flex;
   flex-direction: column;
@@ -1159,9 +1231,8 @@ a {
   color: #2c3333;
 }
 
-outlet-container {
-  height: 100%;
-  /* width: 100%; */
-  padding-bottom: 50px;
-  margin-bottom: 24px;
+.outlet-container {
+  /* height: 100%; */
+  width: 100%;
+  padding-bottom: 64px;
 }

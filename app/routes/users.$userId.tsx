@@ -70,24 +70,29 @@ export default function Users({}) {
             Edit
           </Link>
         </div>
-        <Form method="post" action="/logout">
-          <button className="logout-button">Logout</button>
-        </Form>
-        <Form
-          method="post"
-          onSubmit={(event) => {
-            const response = confirm(
-              "Please confirm you want to delete your account."
-            );
-            if (!response) {
-              event.preventDefault();
-            }
-          }}
-        >
-          <button className="delete-button delete-account-button" type="submit">
-            Delete My Account
-          </button>
-        </Form>
+        <div className="profile-button-container">
+          <Form method="post" action="/logout">
+            <button className="logout-button">Logout</button>
+          </Form>
+          <Form
+            method="post"
+            onSubmit={(event) => {
+              const response = confirm(
+                "Please confirm you want to delete your account."
+              );
+              if (!response) {
+                event.preventDefault();
+              }
+            }}
+          >
+            <button
+              className="delete-button delete-account-button"
+              type="submit"
+            >
+              Delete My Account
+            </button>
+          </Form>
+        </div>
       </div>
     </>
   );

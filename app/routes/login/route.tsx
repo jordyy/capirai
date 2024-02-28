@@ -116,7 +116,7 @@ export default function LoginForm() {
     actionData?.status === "error" ? actionData.message : null;
 
   return (
-    <>
+    <div className="story-page-container">
       <div className="story-page-top">
         <h1 className="page-heading">Login</h1>
       </div>
@@ -133,6 +133,7 @@ export default function LoginForm() {
 
         <input
           name="email"
+          className="login-input"
           placeholder="you@email.com"
           type="email"
           id="email"
@@ -166,6 +167,6 @@ export default function LoginForm() {
           </a>
         </div>
       </Form>
-    </>
+    </div>
   );
 }
