@@ -39,7 +39,11 @@ export async function action({ request }: ActionFunctionArgs) {
   if (Object.keys(errors).length) {
     return json({
       status: "error",
-      errorMessage: { userName, email, password },
+      errorMessage: {
+        email: errors?.email,
+        password: errors?.password,
+        userName: errors?.userName,
+      },
     });
   }
 
@@ -94,6 +98,13 @@ export default function SignupForm() {
 
   const errorMessage =
     actionData?.status === "error" ? actionData?.message : null;
+
+  console.log({
+    // errorMessage,
+    userNameError,
+    emailError,
+    passwordError,
+  });
 
   return (
     <>

@@ -85,7 +85,7 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
 
     let response;
 
-    if (searchStories.length === 0) {
+    if (searchStories.length === 0 || stories.story === null) {
       const storyResponseString = await GenerateStory({
         storyLength: storyLength,
         genre: genre,
@@ -94,16 +94,17 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
 
       if (storyResponseString) {
         const storyResponse = JSON.parse(storyResponseString) as StoryResponse;
-
-        const [story] = await drizzle
-          .insert(stories)
-          .values({
-            story: storyResponse.story,
-            length: storyResponse.storyLength,
-            genre: storyResponse.genre,
-            CEFR_level: storyResponse.cefrLevel,
-          })
-          .returning();
+        if (storyResponseString !== null && storyResponseString !== undefined) {
+          const [story] = await drizzle
+            .insert(stories)
+            .values({
+              story: storyResponse.story,
+              length: storyResponse.storyLength,
+              genre: storyResponse.genre,
+              CEFR_level: storyResponse.cefrLevel,
+            })
+            .returning();
+        }
         response = { data: storyResponse, error: null };
       }
     } else {
@@ -122,7 +123,11 @@ export default function Story() {
   const { data, error } = useActionData<typeof action>() || {};
 
   const mappedStories =
-    data?.length > 1 ? data?.map((story) => story.story) : null;
+    data?.length > 1 ? data?.map((story) => story.story) : data?.story;
+
+  console.log({
+    story: data?.length > 1 ? data?.map((story) => story.story) : data?.story,
+  });
 
   return (
     <>
