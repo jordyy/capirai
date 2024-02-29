@@ -882,10 +882,10 @@ button:hover,
 .library-page-top {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-content: center;
-  column-gap: 20%;
   padding: 8px;
+  padding-left: 24px;
   margin-bottom: 24px;
   background-color: #1f1f1f;
   box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.2), 0 1px 2px hsla(0, 0%, 0%, 0.2);
@@ -898,15 +898,16 @@ button:hover,
 .story-page-top {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: left;
   padding: 8px;
+  padding-left: 24px;
   margin-bottom: 24px;
   background-color: #1f1f1f;
   box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.2), 0 1px 2px hsla(0, 0%, 0%, 0.2);
 }
 
 .page-heading {
-  font-size: 16px;
+  font-size: 18px;
   color: #fff;
 }
 
@@ -1168,8 +1169,14 @@ div > p {
 
 .card-review-data {
   text-align: center;
-  font-size: 24px;
+  font-size: 18px;
   color: #494848;
+}
+
+@media (min-width: 390px) {
+  .card-review-data {
+    font-size: 24px;
+  }
 }
 
 a {
