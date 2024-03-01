@@ -17,4 +17,4 @@ CSS <br />
 
 ## Deployment
 
-[capirai.vercel.app](capirai.vercel.app)
+[capirai.vercel.app](https://capirai.vercel.app/login)
