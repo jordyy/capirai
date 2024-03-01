@@ -2,6 +2,9 @@ import { json, redirect } from "@remix-run/node";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { Form, useActionData, useNavigation } from "@remix-run/react";
 import { db } from "../../../db/index";
+
+import { drizzle } from "../../utils/db.server";
+import { eq } from "drizzle-orm";
 import React from "react";
 import { z } from "zod";
 import { users, userPasswords } from "../../../db/schema";
@@ -21,6 +24,23 @@ export async function action({ request }: ActionFunctionArgs) {
   const password = formData.get("password") as string;
 
   const errors: ErrorRecord = {};
+
+  const userNameExists = await drizzle
+    .select()
+    .from(users)
+    .where(eq(users.userName, userName));
+
+  const emailExists = await drizzle
+    .select()
+    .from(users)
+    .where(eq(users.email, email));
+
+  if (userNameExists.length) {
+    errors.userName = "Username already exists";
+  }
+  if (emailExists.length) {
+    errors.email = "Email already exists";
+  }
 
   // form validation
   if (typeof email !== "string" || !email) {
