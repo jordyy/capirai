@@ -106,7 +106,7 @@ export default function myDecks() {
         redirect("/decks")
       ) : (
         <div>
-          <div>
+          <div className="deck-container">
             {userSubscriptions.map((deck) => {
               const isSubscribed = userSubscriptions
                 ? userSubscriptions.map(
